@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         //Log
         Log.v(TAG,"Hello world");
-        Log.w(TAG,"Probando un warning");
+        //Log.w(TAG,"Probando un warning");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
