@@ -7,6 +7,7 @@
     <string name="login_error">Hubo un error al iniciar sesion</string>
     <string name="logout">Cerrar Sesión</string>
     <string name="login">Iniciar Sesión</string>
+    <string name="main_menu_title">Menú principal</string>
 
     <!--Main Strings -->
     <string name="welcome">Bienvenido a llevame</string>
