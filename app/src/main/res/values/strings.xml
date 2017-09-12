@@ -11,4 +11,7 @@
 
     <!--Main Strings -->
     <string name="welcome">Bienvenido a llevame</string>
+
+    <!--Errors-->
+    <string name="response_error">Error en la respuesta</string>
 </resources>

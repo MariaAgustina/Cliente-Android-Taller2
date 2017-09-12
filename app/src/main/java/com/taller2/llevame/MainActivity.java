@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.util.Log;
 
+import com.taller2.llevame.serviceLayerModel.HTTPRequest;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        HTTPRequest request = new HTTPRequest();
+        request.sendHTTPRequest();
     }
 
     public void goToLoginActivity(View view){
