@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToLoginActivity(View view){
-        HTTPRequest request = new HTTPRequest();
-        request.sendHTTPRequest();
-
         Intent intent = new Intent(this,LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
