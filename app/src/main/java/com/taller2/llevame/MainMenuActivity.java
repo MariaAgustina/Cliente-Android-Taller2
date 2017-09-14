@@ -2,28 +2,29 @@ package com.taller2.llevame;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
-import android.util.Log;
 
-import com.taller2.llevame.serviceLayerModel.HTTPRequest;
+import com.facebook.login.LoginManager;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
+public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Log
-        Log.v(TAG,"Hello world");
-        //Log.w(TAG,"Probando un warning");
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_menu);
     }
 
-    public void goToLoginActivity(View view){
-        Intent intent = new Intent(this,LoginActivity.class);
+    public void logout(View view){
+
+        //cierro sesion en facebook
+        LoginManager.getInstance().logOut();
+        goToMainActivity();
+    }
+
+    private void goToMainActivity(){
+        Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
