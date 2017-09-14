@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Llevame</string>
+    <string name="facebook_app_id">1659562204063254</string>
+
+    <!--Login Strings-->
+    <string name="cancel_login">El login ha sido cancelado</string>
+    <string name="login_error">Hubo un error al iniciar sesion</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="main_menu_title">Menú principal</string>
+
+    <!--Main Strings -->
+    <string name="welcome">Bienvenido a llevame</string>
+
+    <!--Errors-->
+    <string name="response_error">Error en la respuesta</string>
 </resources>
