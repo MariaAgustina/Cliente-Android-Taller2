@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.facebook.login.LoginManager;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                showMainMenuActivity();
+                showProfileActivity();
             }
 
             @Override
@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
-    private void showMainMenuActivity(){
-        Intent intent = new Intent(this,MainMenuActivity.class);
+    private void showProfileActivity(){
+        Intent intent = new Intent(this,ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

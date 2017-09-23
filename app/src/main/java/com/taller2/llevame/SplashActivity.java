@@ -34,7 +34,7 @@ public class SplashActivity extends Activity {
 
     private Intent getIntentToShow(){
         boolean isLoggedIn = (AccessToken.getCurrentAccessToken() != null);
-        Intent intent = (isLoggedIn) ? new Intent(this,MainMenuActivity.class) : new Intent(this,MainActivity.class);
+        Intent intent = (isLoggedIn) ? new Intent(this,ProfileActivity.class) : new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
     }
