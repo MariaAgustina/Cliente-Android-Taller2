@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.AccessToken;
 
 public class SplashActivity extends Activity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private static final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle icicle) {
+        Log.v(TAG,"calling splash");
         super.onCreate(icicle);
         setContentView(R.layout.activity_splash);
 

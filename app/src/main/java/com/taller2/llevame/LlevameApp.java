@@ -17,12 +17,14 @@ import java.security.*;
 
 public class LlevameApp extends Application{
 
+    private static final String TAG = "LlevameApp";
+
     @Override
     public void onCreate() {
 
         super.onCreate();
         AppEventsLogger.activateApp(this);
-        showSplashActivity();
+        Log.v(TAG,"onCreate called");
         //logHashKey();
     }
 
@@ -48,9 +50,4 @@ public class LlevameApp extends Application{
 
     }
 
-    private void showSplashActivity(){
-        Intent intent = new Intent(this,SplashActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 }
