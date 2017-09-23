@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.facebook.AccessToken;
+
 public class SplashActivity extends Activity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
@@ -20,11 +22,18 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
+                Intent mainIntent = getIntentToShow();
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+    }
+
+    private Intent getIntentToShow(){
+        boolean isLoggedIn = (AccessToken.getCurrentAccessToken() != null);
+        Intent intent = (isLoggedIn) ? new Intent(this,MainMenuActivity.class) : new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
 }

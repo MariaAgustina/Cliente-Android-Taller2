@@ -23,8 +23,6 @@ public class LlevameApp extends Application{
         super.onCreate();
         AppEventsLogger.activateApp(this);
         showSplashActivity();
-//        goToLoginIfShould();
-
         //logHashKey();
     }
 
@@ -50,30 +48,8 @@ public class LlevameApp extends Application{
 
     }
 
-    private void goToLoginIfShould(){
-        boolean isLoggedIn = (AccessToken.getCurrentAccessToken() != null);
-        if(!isLoggedIn){
-            goToMainActivity();
-            return;
-        }
-
-        goToMainMenuActivity();
-    }
-
     private void showSplashActivity(){
         Intent intent = new Intent(this,SplashActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void goToMainActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void goToMainMenuActivity(){
-        Intent intent = new Intent(this,MainMenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
