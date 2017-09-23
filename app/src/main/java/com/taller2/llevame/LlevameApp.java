@@ -16,12 +16,14 @@ import java.security.*;
  */
 
 public class LlevameApp extends Application{
+
     @Override
     public void onCreate() {
 
         super.onCreate();
         AppEventsLogger.activateApp(this);
-        goToLoginIfShould();
+        showSplashActivity();
+//        goToLoginIfShould();
 
         //logHashKey();
     }
@@ -56,6 +58,12 @@ public class LlevameApp extends Application{
         }
 
         goToMainMenuActivity();
+    }
+
+    private void showSplashActivity(){
+        Intent intent = new Intent(this,SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void goToMainActivity(){
