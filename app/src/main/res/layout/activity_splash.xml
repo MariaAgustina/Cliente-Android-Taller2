@@ -5,14 +5,23 @@
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="com.taller2.llevame.SplashActivity">
-    <!--<ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:src="@drawable/splash"
-        android:layout_gravity="center"/>-->
 
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Llevame"/>
+    <ImageView
+        android:id="@+id/splashscreen"
+        android:layout_width="384dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
+
 
 </android.support.constraint.ConstraintLayout>
