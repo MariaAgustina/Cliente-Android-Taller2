@@ -1,25 +1,28 @@
 package com.taller2.llevame.Models;
 
+import com.google.gson.Gson;
+
 /**
  * Created by MaríaAgustina on 23/9/2017.
  */
 
 public class Client {
 
-    public String birthday;
-    public String clientId;
+    public String birthdate;
+    public String client_id;
     public String country;
     public String email;
-    public String fbUserId;
-    public String fbAuthToke;
-    public String firstName;
-    public String lastName;
-    public String typeClient;
-    public String userName;
+    public String fb_user_id;
+    public String fb_auth_token;
+    public String first_name;
+    public String last_name;
+    public String type_client;
+    public String username;
 
     public boolean isDriver;
 
-    public Client client(){
+    public Client client(String dictionary){
+
 
         return this;
     }
