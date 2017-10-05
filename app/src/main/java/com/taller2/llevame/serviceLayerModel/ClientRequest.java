@@ -1,5 +1,5 @@
 package com.taller2.llevame.serviceLayerModel;
-import android.app.Activity;
+
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -8,32 +8,23 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import static com.facebook.FacebookSdk.getApplicationContext;
-import com.android.volley.DefaultRetryPolicy;
 
 /**
- * Created by MaríaAgustina on 11/9/2017.
+ * Created by MaríaAgustina on 23/9/2017.
  */
 
-public class HTTPRequest {
+public class ClientRequest extends  HTTPRequest {
 
-    private static final String TAG = "HTTPRequest";
+    private static final String TAG = "ClientRequest";
 
-    private  String baseUrl;
-    public String endponintUrl;
-    public String url;
-
-    public HTTPRequest (){
-        this.baseUrl = "http://taller2-application-server.herokuapp.com";
-        this.endponintUrl = "";
-        this.url = "";
+    public ClientRequest(){
+        this.endponintUrl = "/api/v1/driver/1";
+        this.configureUrl();
     }
 
-    public void configureUrl(){
-        this.url = baseUrl+endponintUrl;
-    }
-
-    public void sendHTTPRequest(){
+    public void getClient(){
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -46,15 +37,14 @@ public class HTTPRequest {
                         Log.v(TAG,"Response is: "+ response);
                     }
                 }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("error en la resupuesta", error.toString());
-                         }
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error en la resupuesta", error.toString());
+            }
         });
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
     }
-
 }
