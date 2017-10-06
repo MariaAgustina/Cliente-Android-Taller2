@@ -30,9 +30,8 @@
 
         <activity
             android:name=".ModifyProfileActivity"
-            android:label="@string/title_activity_modify_profile"
             android:parentActivityName=".ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        >
         </activity>
     </application>
 

@@ -8,9 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.serviceLayerModel.ClientRequest;
 
 public class ModifyProfileActivity extends BaseAtivity {
 
@@ -26,6 +29,7 @@ public class ModifyProfileActivity extends BaseAtivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_profile);
+        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
         this.setUpInitials();
         this.setUpClientInformation();
     }
@@ -48,8 +52,60 @@ public class ModifyProfileActivity extends BaseAtivity {
     }
 
     public void saveChangesButtonPressed(View view){
+
         String name = this.editNameInput.getText().toString();
-        Log.v(TAG,name);
+        if(name.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.name_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String surname = this.editSurnameInput.getText().toString();
+        if(surname.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.surname_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String country = this.countryInput.getText().toString();
+        if(country.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.country_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String email = this.emailInput.getText().toString();
+        if(email.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.email_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String birthdate = this.birthdateInput.getText().toString();
+        if(birthdate.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.birthdate_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        this.client.first_name = name;
+        this.client.last_name = surname;
+        this.client.birthdate = birthdate;
+        this.client.email = email;
+        this.client.country = country;
+
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+
+        Log.v(TAG,client.last_name);
+
+        ClientRequest clientRequest = new ClientRequest();
+        clientRequest.modifyProfile(this,client);
+    }
+
+
+    public void onServiceDidFailed(VolleyError error) {
+        super.onServiceDidFailed(error);
+        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
+    }
+
+    public void onModifyClientSuccess(){
+        findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
+        //TODO
     }
 
 }

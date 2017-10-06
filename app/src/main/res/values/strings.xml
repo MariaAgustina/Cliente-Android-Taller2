@@ -20,8 +20,14 @@
     <string name="country">País:</string>
     <string name="email">Dirección de correo electrónico:</string>
     <string name="birthdate">Fecha de nacimiento (DD/MM/AAAA):</string>
+    <string name="name_should_not_empty">Por favor, ingrese su nombre</string>
+    <string name="surname_should_not_empty">Por favor, ingrese su apellido</string>
+    <string name="email_should_not_empty">Por favor, ingrese su email</string>
+    <string name="birthdate_should_not_empty">Por favor, ingrese su fecha de nacimiento</string>
+    <string name="country_should_not_empty">Por favor, ingrese su país</string>
 
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>
     <string name="title_activity_modify_profile">ModifyProfileActivity</string>
+    <string name="server_failed">Lo sentimos, hubo un error</string>
 </resources>

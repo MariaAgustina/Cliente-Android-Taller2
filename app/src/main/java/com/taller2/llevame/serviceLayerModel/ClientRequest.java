@@ -65,6 +65,7 @@ public class ClientRequest extends  HTTPRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("error en la resupuesta", error.toString());
+                delegate.onServiceDidFailed(error);
             }
         });
 
@@ -95,13 +96,13 @@ public class ClientRequest extends  HTTPRequest {
                     public void onResponse(JSONObject response) {
                         Log.v(TAG,"Response is: "+ response);
 
- //                       delegate.onGetClientSuccess(client);
+                        delegate.onModifyClientSuccess();
                     }
                 }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("error en la resupuesta", error.toString());
+                delegate.onServiceDidFailed(error);
             }
         });
 
