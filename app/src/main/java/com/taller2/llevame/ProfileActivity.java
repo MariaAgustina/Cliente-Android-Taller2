@@ -42,5 +42,8 @@ public class ProfileActivity extends BaseAtivity {
     @Override
     public void onGetClientSuccess(Client client){
         Log.v(TAG,client.last_name);
+   //     client.last_name = "Ortega";
+   //     ClientRequest clientRequest = new ClientRequest();
+   //     clientRequest.modifyProfile(this,client);
     }
 }
