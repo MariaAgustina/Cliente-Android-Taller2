@@ -15,7 +15,7 @@ import com.taller2.llevame.serviceLayerModel.ClientRequest;
 public class ProfileActivity extends BaseAtivity {
 
     private static final String TAG = "ProfileActivity";
-
+    private Client client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +35,18 @@ public class ProfileActivity extends BaseAtivity {
 
     public void modifyProfile(View view){
         FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToProfileActivity(this);
+        factoryActivities.goToProfileActivity(this,this.client);
     }
 
     private void goToMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     @Override
     public void onGetClientSuccess(Client client){
+        this.client = client;
         Log.v(TAG,client.last_name);
    //     client.last_name = "Ortega";
    //     ClientRequest clientRequest = new ClientRequest();

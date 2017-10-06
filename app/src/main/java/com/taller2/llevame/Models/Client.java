@@ -2,11 +2,13 @@ package com.taller2.llevame.Models;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
+
 /**
  * Created by MaríaAgustina on 23/9/2017.
  */
 
-public class Client {
+public class Client implements Serializable{
 
     public String birthdate;
     public String client_id;

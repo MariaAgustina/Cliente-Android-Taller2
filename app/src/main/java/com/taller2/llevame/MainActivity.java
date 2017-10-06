@@ -14,10 +14,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Log
-        Log.v(TAG,"Hello world");
-        //Log.w(TAG,"Probando un warning");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
