@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.facebook.login.LoginManager;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
 
@@ -27,10 +28,14 @@ public class ProfileActivity extends BaseAtivity {
     }
 
     public void logout(View view){
-
         //cierro sesion en facebook
         LoginManager.getInstance().logOut();
         goToMainActivity();
+    }
+
+    public void modifyProfile(View view){
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToProfileActivity(this);
     }
 
     private void goToMainActivity(){

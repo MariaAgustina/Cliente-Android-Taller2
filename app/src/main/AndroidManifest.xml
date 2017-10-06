@@ -25,7 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BaseAtivity"></activity>
+        <activity android:name=".BaseAtivity" />
+        <activity
+            android:name=".ModifyProfileActivity"
+            android:label="@string/title_activity_modify_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

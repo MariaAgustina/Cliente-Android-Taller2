@@ -11,7 +11,17 @@
 
     <!--Main Strings -->
     <string name="welcome">Bienvenido a llevame</string>
+    <string name="modify_your_profile">Modifica tu perfil</string>
+
+    <!--Modify your profile-->
+    <string name="save_changes">Guardar cambios</string>
+    <string name="name">Nombre:</string>
+    <string name="surname">Apellido:</string>
+    <string name="country">País:</string>
+    <string name="email">Dirección de correo electrónico:</string>
+    <string name="birthdate">Fecha de nacimiento (DD/MM/AAAA):</string>
 
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>
+    <string name="title_activity_modify_profile">ModifyProfileActivity</string>
 </resources>
