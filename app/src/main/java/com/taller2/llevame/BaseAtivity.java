@@ -25,9 +25,14 @@ public class BaseAtivity extends AppCompatActivity {
     //Esto esta asi para que los servicios se puedan llamar desde cualquier Activity
     //to override
     public void onGetClientSuccess(Client client){
+
     }
 
+    public void onLoginSuccess(){
+
+    }
     //to override
     public void onModifyClientSuccess(){
+
     }
 }
