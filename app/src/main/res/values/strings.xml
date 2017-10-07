@@ -9,7 +9,9 @@
     <string name="login">Iniciar Sesión</string>
     <string name="main_menu_title">Menú principal</string>
     <string name="username">Nombre de usuario:</string>
-    <string name="password">Password:</string>
+    <string name="password">Contraseña:</string>
+    <string name="server_login_failed">Nombre de usuario y contraseña inválidos</string>
+
 
     <!--Main Strings -->
     <string name="welcome">Bienvenido a llevame</string>

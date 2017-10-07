@@ -10,20 +10,24 @@ import android.view.View;
 import com.facebook.login.LoginManager;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
 
 public class ProfileActivity extends BaseAtivity {
 
     private static final String TAG = "ProfileActivity";
     private Client client;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v(TAG,"onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        this.session = (Session) getIntent().getSerializableExtra("session");
 
         ClientRequest clientRequest = new ClientRequest();
+        clientRequest.setClientEndPoint(this.session.client_id,this.session.type_client);
         clientRequest.getClient(this);
     }
 
@@ -35,7 +39,7 @@ public class ProfileActivity extends BaseAtivity {
 
     public void modifyProfile(View view){
         FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToProfileActivity(this,this.client);
+        factoryActivities.goToModifyProfileActivity(this,this.client);
     }
 
     private void goToMainActivity(){

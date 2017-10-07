@@ -8,12 +8,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Session;
+import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.LoginRequest;
 
 public class LoginActivity extends BaseAtivity {
@@ -24,6 +28,7 @@ public class LoginActivity extends BaseAtivity {
     private CallbackManager callbackManager;
     private TextView userNameInput;
     private TextView passwordInput;
+    private LoadingView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class LoginActivity extends BaseAtivity {
     private void setUpInitials (){
         this.userNameInput = (TextView) findViewById(R.id.userNameInput);
         this.passwordInput = (TextView) findViewById(R.id.passwordInput);
+        this.loadingView = new LoadingView();
+        this.loadingView.setLoadingViewInvisible(this);
     }
 
     protected void setupCustomLoginComponents(){
@@ -68,6 +75,7 @@ public class LoginActivity extends BaseAtivity {
     }
 
     public void loginLlevameButtonPressed(View view){
+        this.loadingView.setLoadingViewVisible(this);
         String userName = this.userNameInput.getText().toString();
         String password = this.passwordInput.getText().toString();
         LoginRequest loginRequest = new LoginRequest(userName,password);
@@ -75,7 +83,22 @@ public class LoginActivity extends BaseAtivity {
     }
 
     public void onLoginSuccess(){
+        this.loadingView.setLoadingViewInvisible(this);
 
+        //TODO: por ahora esto esta hardcodeado, porque me lo tienene que devolver del server
+        Session session = new Session();
+        session.client_id = "1";
+        session.type_client = "client";
+
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToProfileActivity(this,session);
+        //this.showProfileActivity();
+    }
+
+    public void onServiceDidFailed(VolleyError error) {
+        Log.e("error en la resupuesta", error.toString());
+        this.loadingView.setLoadingViewInvisible(this);
+        Toast.makeText(getApplicationContext(),R.string.server_login_failed,Toast.LENGTH_SHORT).show();
     }
 
     //TODO: ponerlo en el factory

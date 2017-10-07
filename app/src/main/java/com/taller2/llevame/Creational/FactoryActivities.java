@@ -12,7 +12,9 @@ import android.view.View;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.LoginActivity;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.ModifyProfileActivity;
+import com.taller2.llevame.ProfileActivity;
 
 /**
  * Created by MaríaAgustina on 5/10/2017.
@@ -27,7 +29,7 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
-    public void goToProfileActivity(BaseAtivity activity, Client client){
+    public void goToModifyProfileActivity(BaseAtivity activity, Client client){
         Log.v(TAG,"go to profile activity");
         ModifyProfileActivity  modifyProfileActivity= new ModifyProfileActivity();
         Intent intent = new Intent(activity,ModifyProfileActivity.class);
@@ -39,6 +41,16 @@ public class FactoryActivities {
         Log.v(TAG,"go to login activity");
         this.goToActivity(activity,LoginActivity.class);
     }
+
+    public void goToProfileActivity(BaseAtivity activity,Session session){
+        Log.v(TAG,"go to login activity");
+        ProfileActivity profileActivity = new ProfileActivity();
+        Intent intent = new Intent(activity,ProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("session",session);
+        activity.startActivity(intent);
+    }
+
     public void goToRegisterActivity(){
         Log.v(TAG,"go to register activity");
     }

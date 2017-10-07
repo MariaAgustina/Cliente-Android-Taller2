@@ -33,14 +33,14 @@ public class ClientRequest extends  HTTPRequest {
     private static final String TAG = "ClientRequest";
 
     private String registerEnpoint;
-    private String modifyProfileEndpoint;
     private String getClientEndpoint;
-
 
     public ClientRequest(){
         this.registerEnpoint = "/api/v1/driver";
-        this.modifyProfileEndpoint = "/api/v1/driver/1";
-        this.getClientEndpoint = "/api/v1/driver/1";
+    }
+
+    public void setClientEndPoint(String clientId,String clientType){
+        this.getClientEndpoint = "/api/v1/" + clientType + "/" + clientId;
     }
 
     public void getClient(final BaseAtivity delegate){
@@ -77,7 +77,7 @@ public class ClientRequest extends  HTTPRequest {
     //TODO: arreglar este put porque cuando le apunto al server no hace nada, confirmar que este implementado del lado del server
     public void modifyProfile(final BaseAtivity delegate,Client newClient){
 
-        this.endponintUrl = this.modifyProfileEndpoint;
+        this.endponintUrl = this.getClientEndpoint;
         this.configureUrl();
 
         // Instantiate the RequestQueue.
