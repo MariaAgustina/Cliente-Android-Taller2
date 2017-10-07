@@ -48,9 +48,5 @@ public class ProfileActivity extends BaseAtivity {
     public void onGetClientSuccess(Client client){
         this.client = client;
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-        Log.v(TAG,client.last_name);
-   //     client.last_name = "Ortega";
-   //     ClientRequest clientRequest = new ClientRequest();
-   //     clientRequest.modifyProfile(this,client);
     }
 }

@@ -11,7 +11,9 @@
 
     <!--Main Strings -->
     <string name="welcome">Bienvenido a llevame</string>
+    <string name="welcome_description">Comienza a viajar de la forma más facil</string>
     <string name="modify_your_profile">Modifica tu perfil</string>
+    <string name="register">Registrarse</string>
 
     <!--Modify your profile-->
     <string name="save_changes">Guardar cambios</string>
