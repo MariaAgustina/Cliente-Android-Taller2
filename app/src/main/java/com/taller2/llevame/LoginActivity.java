@@ -18,6 +18,7 @@ import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.Views.LoadingView;
+import com.taller2.llevame.serviceLayerModel.LoginFacebookRequest;
 import com.taller2.llevame.serviceLayerModel.LoginRequest;
 
 public class LoginActivity extends BaseAtivity {
@@ -52,7 +53,10 @@ public class LoginActivity extends BaseAtivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                showProfileActivity();
+                Log.v(TAG,loginResult.getAccessToken().getToken());
+                //showProfileActivity();
+                String facebookAccessToken = loginResult.getAccessToken().getToken();
+                doLoginWithFacebook(facebookAccessToken);
             }
 
             @Override
@@ -74,6 +78,11 @@ public class LoginActivity extends BaseAtivity {
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
+    public void doLoginWithFacebook(String accessToken){
+        LoginFacebookRequest loginFacebookRequest = new LoginFacebookRequest(accessToken);
+        loginFacebookRequest.login(this);
+    }
+
     public void loginLlevameButtonPressed(View view){
         this.loadingView.setLoadingViewVisible(this);
         String userName = this.userNameInput.getText().toString();
@@ -81,6 +90,7 @@ public class LoginActivity extends BaseAtivity {
         LoginRequest loginRequest = new LoginRequest(userName,password);
         loginRequest.login(this);
     }
+
 
     public void onLoginSuccess(Client client){
         this.loadingView.setLoadingViewInvisible(this);
