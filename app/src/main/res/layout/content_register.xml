@@ -8,17 +8,5 @@
     tools:context="com.taller2.llevame.RegisterActivity"
     tools:showIn="@layout/activity_register">
 
-    <TextView
-        android:id="@+id/welcomeDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_description"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="384dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.508" />
 
 </android.support.constraint.ConstraintLayout>

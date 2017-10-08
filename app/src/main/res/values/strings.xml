@@ -19,6 +19,10 @@
     <string name="modify_your_profile">Modifica tu perfil</string>
     <string name="register">Registrarse</string>
 
+    <!--Register -->
+    <string name="confirm_password">Confirmar contraseña:</string>
+    <string name="send">Enviar</string>
+
     <!--Profile -->
     <string name="select_driver">Selecciona un conductor</string>
     <string name="driver_available">Disponible</string>
