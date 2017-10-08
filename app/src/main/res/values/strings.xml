@@ -19,6 +19,11 @@
     <string name="modify_your_profile">Modifica tu perfil</string>
     <string name="register">Registrarse</string>
 
+    <!--Profile -->
+    <string name="select_driver">Selecciona un conductor</string>
+    <string name="driver_available">Disponible</string>
+    <string name="driver_on_trip">En viaje</string>
+
     <!--Modify your profile-->
     <string name="save_changes">Guardar cambios</string>
     <string name="name">Nombre:</string>

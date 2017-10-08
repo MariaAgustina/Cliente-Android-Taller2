@@ -33,6 +33,10 @@
             android:parentActivityName=".ProfileActivity"
         >
         </activity>
+
+        <activity android:name=".PassengerProfileActivity" />
+        <activity android:name=".DriverProfileActivity" />
+
     </application>
 
 </manifest>

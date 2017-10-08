@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.DriverProfileActivity;
 import com.taller2.llevame.LoginActivity;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.ModifyProfileActivity;
+import com.taller2.llevame.PassengerProfileActivity;
 import com.taller2.llevame.ProfileActivity;
 
 /**
@@ -43,8 +45,24 @@ public class FactoryActivities {
     }
 
     public void goToProfileActivity(BaseAtivity activity,Client client){
-        Log.v(TAG,"go to login activity");
+        Log.v(TAG,"go to profile activity");
         Intent intent = new Intent(activity,ProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("client",client);
+        activity.startActivity(intent);
+    }
+
+    public void goToDriverProfileActivity(BaseAtivity activity,Client client){
+        Log.v(TAG,"go to driver profile activity");
+        Intent intent = new Intent(activity,DriverProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("client",client);
+        activity.startActivity(intent);
+    }
+
+    public void goToPassengerProfileActivity(BaseAtivity activity,Client client){
+        Log.v(TAG,"go to passenger profile activity");
+        Intent intent = new Intent(activity,PassengerProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("client",client);
         activity.startActivity(intent);

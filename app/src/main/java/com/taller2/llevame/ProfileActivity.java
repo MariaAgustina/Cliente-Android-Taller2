@@ -29,9 +29,7 @@ public class ProfileActivity extends BaseAtivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         this.client = (Client) getIntent().getSerializableExtra("client");
-
         this.setUpInitials();
-
         //ClientRequest clientRequest = new ClientRequest();
         //clientRequest.setClientEndPoint(this.session.client_id,this.session.type_client);
         //clientRequest.getClient(this);

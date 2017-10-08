@@ -1,5 +1,7 @@
 package com.taller2.llevame.Models;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -21,10 +23,14 @@ public class Client implements Serializable{
     public String type;
     public String username;
 
-    public boolean isDriver;
+    private static final String TAG = "Client";
 
-    public Client client(String dictionary){
-
-        return this;
+    public boolean isDriver(){
+        if(this.type !=null){
+            return this.type.equals("driver");
+        }
+        Log.w(TAG,"type is null");
+        return false;
     }
+
 }
