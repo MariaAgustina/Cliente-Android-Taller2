@@ -27,7 +27,7 @@ public class MainActivity extends BaseAtivity {
 
 
     public void goToRegisterButtonPressed(View view) {
-        //Intent intent = new Intent(this, RegisterActivity.class);
-        //startActivity(intent);
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToRegisterActivity(this);
     }
 }

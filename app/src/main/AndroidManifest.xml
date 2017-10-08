@@ -18,25 +18,20 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".BaseAtivity" />
-
         <activity
             android:name=".ModifyProfileActivity"
-            android:parentActivityName=".ProfileActivity"
-        >
-        </activity>
-
+            android:parentActivityName=".ProfileActivity"></activity>
         <activity android:name=".PassengerProfileActivity" />
         <activity android:name=".DriverProfileActivity" />
-
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>

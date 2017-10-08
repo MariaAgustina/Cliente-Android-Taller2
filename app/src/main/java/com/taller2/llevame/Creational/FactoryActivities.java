@@ -17,6 +17,7 @@ import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.ModifyProfileActivity;
 import com.taller2.llevame.PassengerProfileActivity;
 import com.taller2.llevame.ProfileActivity;
+import com.taller2.llevame.RegisterActivity;
 
 /**
  * Created by MaríaAgustina on 5/10/2017.
@@ -68,7 +69,8 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
-    public void goToRegisterActivity(){
+    public void goToRegisterActivity(BaseAtivity activity){
         Log.v(TAG,"go to register activity");
+        goToActivity(activity, RegisterActivity.class);
     }
 }

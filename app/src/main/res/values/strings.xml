@@ -41,4 +41,5 @@
     <string name="response_error">Error en la respuesta</string>
     <string name="title_activity_modify_profile">ModifyProfileActivity</string>
     <string name="server_failed">Lo sentimos, hubo un error</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>
