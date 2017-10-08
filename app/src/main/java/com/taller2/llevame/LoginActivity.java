@@ -82,16 +82,12 @@ public class LoginActivity extends BaseAtivity {
         loginRequest.login(this);
     }
 
-    public void onLoginSuccess(){
+    public void onLoginSuccess(Client client){
         this.loadingView.setLoadingViewInvisible(this);
+        Log.v(TAG,client.username);
 
-        //TODO: por ahora esto esta hardcodeado, porque me lo tienene que devolver del server
-        Session session = new Session();
-        session.client_id = "1";
-        session.type_client = "client";
-
-        FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToProfileActivity(this,session);
+        //FactoryActivities factoryActivities = new FactoryActivities();
+        //factoryActivities.goToProfileActivity(this,session);
         //this.showProfileActivity();
     }
 

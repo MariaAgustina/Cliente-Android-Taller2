@@ -44,8 +44,8 @@ public class ModifyProfileActivity extends BaseAtivity {
     }
 
     private void setUpClientInformation(){
-        this.editNameInput.setText(this.client.first_name);
-        this.editSurnameInput.setText(this.client.last_name);
+        this.editNameInput.setText(this.client.name);
+        this.editSurnameInput.setText(this.client.surname);
         this.birthdateInput.setText(this.client.birthdate);
         this.emailInput.setText(this.client.email);
         this.countryInput.setText(this.client.country);
@@ -83,15 +83,15 @@ public class ModifyProfileActivity extends BaseAtivity {
             return;
         }
 
-        this.client.first_name = name;
-        this.client.last_name = surname;
+        this.client.name = name;
+        this.client.surname = surname;
         this.client.birthdate = birthdate;
         this.client.email = email;
         this.client.country = country;
 
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
-        Log.v(TAG,client.last_name);
+        Log.v(TAG,client.surname);
 
         ClientRequest clientRequest = new ClientRequest();
         clientRequest.modifyProfile(this,client);

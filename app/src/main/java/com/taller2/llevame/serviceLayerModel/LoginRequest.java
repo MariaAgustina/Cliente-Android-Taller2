@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.Models.Client;
 
@@ -37,7 +39,13 @@ public class LoginRequest extends  HTTPRequest {
                     @Override
                     public void onResponse(String response) {
                         Log.v(TAG,"Response is: "+ response);
-                        delegate.onLoginSuccess();
+
+                        JsonElement dataElem = new JsonParser().parse(response);
+                        JsonElement je = dataElem.getAsJsonObject().get("user");
+
+                        Gson gson = new Gson();
+                        Client client = gson.fromJson(je,Client.class);
+                        delegate.onLoginSuccess(client);
                     }
                 }, new Response.ErrorListener() {
             @Override

@@ -11,20 +11,19 @@ import java.io.Serializable;
 public class Client implements Serializable{
 
     public String birthdate;
-    public String client_id;
+    public String id;
     public String country;
     public String email;
-    public String fb_user_id;
-    public String fb_auth_token;
-    public String first_name;
-    public String last_name;
-    public String type_client;
+   // public String fb_user_id;
+   // public String fb_auth_token;
+    public String name;
+    public String surname;
+    public String type;
     public String username;
 
     public boolean isDriver;
 
     public Client client(String dictionary){
-
 
         return this;
     }
