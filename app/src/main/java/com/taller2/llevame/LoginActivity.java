@@ -84,11 +84,8 @@ public class LoginActivity extends BaseAtivity {
 
     public void onLoginSuccess(Client client){
         this.loadingView.setLoadingViewInvisible(this);
-        Log.v(TAG,client.username);
-
-        //FactoryActivities factoryActivities = new FactoryActivities();
-        //factoryActivities.goToProfileActivity(this,session);
-        //this.showProfileActivity();
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToProfileActivity(this,client);
     }
 
     public void onServiceDidFailed(VolleyError error) {

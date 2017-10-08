@@ -1,17 +1,18 @@
 package com.taller2.llevame;
 
 import android.content.Intent;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.login.LoginManager;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
-import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
 
@@ -19,26 +20,30 @@ public class ProfileActivity extends BaseAtivity {
 
     private static final String TAG = "ProfileActivity";
     private Client client;
-    private Session session;
     private LoadingView loadingView;
+    private TextView profileTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        this.session = (Session) getIntent().getSerializableExtra("session");
+        this.client = (Client) getIntent().getSerializableExtra("client");
 
         this.setUpInitials();
 
-        ClientRequest clientRequest = new ClientRequest();
-        clientRequest.setClientEndPoint(this.session.client_id,this.session.type_client);
-        clientRequest.getClient(this);
+        //ClientRequest clientRequest = new ClientRequest();
+        //clientRequest.setClientEndPoint(this.session.client_id,this.session.type_client);
+        //clientRequest.getClient(this);
     }
 
     public void setUpInitials(){
         this.loadingView = new LoadingView();
         this.loadingView.setLoadingViewInvisible(this);
+        this.profileTitle = (TextView) findViewById(R.id.profile_title);
+        if(this.client != null){
+            this.profileTitle.setText("Hola " + client.name);
+        }
     }
 
     public void logout(View view){

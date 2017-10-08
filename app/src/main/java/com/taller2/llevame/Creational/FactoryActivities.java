@@ -42,12 +42,11 @@ public class FactoryActivities {
         this.goToActivity(activity,LoginActivity.class);
     }
 
-    public void goToProfileActivity(BaseAtivity activity,Session session){
+    public void goToProfileActivity(BaseAtivity activity,Client client){
         Log.v(TAG,"go to login activity");
-        ProfileActivity profileActivity = new ProfileActivity();
         Intent intent = new Intent(activity,ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("session",session);
+        intent.putExtra("client",client);
         activity.startActivity(intent);
     }
 

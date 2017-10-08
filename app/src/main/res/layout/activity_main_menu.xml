@@ -8,9 +8,11 @@
 
     <RelativeLayout
         android:id="@+id/loadingPanel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" >
+        android:layout_width="53dp"
+        android:layout_height="495dp"
+        android:gravity="center"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -18,16 +20,32 @@
             android:indeterminate="true" />
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/profile_default"
+        tools:layout_editor_absoluteX="117dp"
+        android:id="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp" />
+
     <Button
         android:id="@+id/modifyProfile"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/modify_your_profile"
         android:onClick="modifyProfile"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="126dp" />
+        android:layout_marginTop="318dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:layout_marginRight="30dp" />
 
     <Button
         android:id="@+id/logout"
@@ -38,18 +56,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="180dp" />
+        android:layout_marginTop="380dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
 
     <TextView
-        android:id="@+id/main_menu_title"
-        android:layout_width="wrap_content"
+        android:id="@+id/profile_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
+        android:contextClickable="true"
+        android:gravity="center"
         android:text="@string/main_menu_title"
         android:textSize="30sp"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </android.support.constraint.ConstraintLayout>
