@@ -23,6 +23,9 @@
     <string name="confirm_password">Confirmar contraseña:</string>
     <string name="send">Enviar</string>
     <string name="username_should_not_empty">Por favor, ingrese su nombre de usuario</string>
+    <string name="password_should_not_empty">Por favor, ingrese su contraseña</string>
+    <string name="confirm_password_should_not_empty">Por favor, confirme su contraseña</string>
+    <string name="passwords_not_match">Por favor, confirme su contraseña</string>
 
     <!--Profile -->
     <string name="select_driver">Selecciona un conductor</string>

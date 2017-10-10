@@ -11,7 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.ClientData;
+import com.taller2.llevame.Models.FacebookData;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
+import com.taller2.llevame.serviceLayerModel.RegisterRequest;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class RegisterActivity extends BaseAtivity {
 
@@ -45,13 +51,36 @@ public class RegisterActivity extends BaseAtivity {
 
     public void registerButtonPressed(View view) {
 
-        /*String username = this.editUserNameInput.getText().toString();
+        String username = this.editUserNameInput.getText().toString();
         if(username.equals("")){
             Toast.makeText(getApplicationContext(),R.string.username_should_not_empty,Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String surname = this.editPasswordInput.getText().toString();
+        String password = this.editPasswordInput.getText().toString();
+        if(password.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.password_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String confirmPassword = this.confirmPasswordInput.getText().toString();
+        if(confirmPassword.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.confirm_password_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!confirmPassword.equals(password)){
+            Toast.makeText(getApplicationContext(),R.string.passwords_not_match,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String name = this.nameInput.getText().toString();
+        if(name.equals("")){
+            Toast.makeText(getApplicationContext(),R.string.name_should_not_empty,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String surname = this.surnameInput.getText().toString();
         if(surname.equals("")){
             Toast.makeText(getApplicationContext(),R.string.surname_should_not_empty,Toast.LENGTH_SHORT).show();
             return;
@@ -63,6 +92,7 @@ public class RegisterActivity extends BaseAtivity {
             return;
         }
 
+        //TODO: validar email
         String email = this.emailInput.getText().toString();
         if(email.equals("")){
             Toast.makeText(getApplicationContext(),R.string.email_should_not_empty,Toast.LENGTH_SHORT).show();
@@ -73,25 +103,35 @@ public class RegisterActivity extends BaseAtivity {
         if(birthdate.equals("")){
             Toast.makeText(getApplicationContext(),R.string.birthdate_should_not_empty,Toast.LENGTH_SHORT).show();
             return;
-        }*/
+        }
 
-/*        String username = this.editUserNameInput.getText().toString();
-        String password = this.editPasswordInput.getText().toString();
+        //TODO: meterlo en la vista
+        String type = "client";
 
-        this.client.name = name;
-        this.client.surname = surname;
-        this.client.birthdate = birthdate;
-        this.client.email = email;
-        this.client.country = country;
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setEndPoint(type);
 
-        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+        ClientData client = new ClientData();
+        client.username = username;
+        client.password = password;
 
-        Log.v(TAG,client.surname);
+        //TODO: esto va a haber que cambiarlo pero charlarlo con los chicos
+        FacebookData facebookData = new FacebookData();
+        facebookData.authToken = "authToken";
+        facebookData.userId = "userid";
 
-        ClientRequest clientRequest = new ClientRequest();
-        clientRequest.setClientEndPoint(client.type,client.id);
-        clientRequest.modifyProfile(this,client);*/
+        client.fb =facebookData;
+        client.firstName = name;
+        client.lastName = surname;
+        client.country = country;
+        client.email = "a@b.com";//email;
+        client.birthdate = birthdate;
+        client.images = new ArrayList();
+
+        registerRequest.registerClient(this,client);
     }
 
-
+    public void onRegisterClientSuccess() {
+        //TODO
+    }
 }

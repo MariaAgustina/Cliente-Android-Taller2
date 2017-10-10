@@ -10,6 +10,10 @@ import java.io.Serializable;
  * Created by MaríaAgustina on 23/9/2017.
  */
 
+/**
+ * The class that is received in the requests
+ */
+
 public class Client implements Serializable{
 
     public String birthdate;

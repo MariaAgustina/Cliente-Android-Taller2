@@ -37,4 +37,10 @@ public class BaseAtivity extends AppCompatActivity {
     public void onModifyClientSuccess(){
 
     }
+
+    //to override
+    public void onRegisterClientSuccess() {
+
+    }
+
 }
