@@ -10,9 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.ClientData;
 import com.taller2.llevame.Models.FacebookData;
+import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
 import com.taller2.llevame.serviceLayerModel.RegisterRequest;
 
@@ -30,6 +33,7 @@ public class RegisterActivity extends BaseAtivity {
     private TextView countryInput;
     private TextView emailInput;
     private TextView birthdateInput;
+    private LoadingView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class RegisterActivity extends BaseAtivity {
         this.birthdateInput = (TextView) findViewById(R.id.birthdateInput);
         this.emailInput = (TextView) findViewById(R.id.emailInput);
         this.countryInput = (TextView) findViewById(R.id.countryInput);
+        this.loadingView = new LoadingView();
+        this.loadingView.setLoadingViewInvisible(this);
     }
 
     public void registerButtonPressed(View view) {
@@ -128,10 +134,20 @@ public class RegisterActivity extends BaseAtivity {
         client.birthdate = birthdate;
         client.images = new ArrayList();
 
+        this.loadingView.setLoadingViewVisible(this);
         registerRequest.registerClient(this,client);
     }
 
     public void onRegisterClientSuccess() {
-        //TODO
+        Toast.makeText(getApplicationContext(),R.string.register_succeded,Toast.LENGTH_SHORT).show();
+        this.loadingView.setLoadingViewInvisible(this);
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToLoginActivity(this);
+    }
+
+    public void onServiceDidFailed(VolleyError error){
+        super.onServiceDidFailed(error);
+        this.loadingView.setLoadingViewInvisible(this);
+
     }
 }
