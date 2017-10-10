@@ -22,6 +22,7 @@
     <!--Register -->
     <string name="confirm_password">Confirmar contraseña:</string>
     <string name="send">Enviar</string>
+    <string name="username_should_not_empty">Por favor, ingrese su nombre de usuario</string>
 
     <!--Profile -->
     <string name="select_driver">Selecciona un conductor</string>

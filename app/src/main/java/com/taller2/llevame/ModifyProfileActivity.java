@@ -91,9 +91,8 @@ public class ModifyProfileActivity extends BaseAtivity {
 
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
-        Log.v(TAG,client.surname);
-
         ClientRequest clientRequest = new ClientRequest();
+        clientRequest.setClientEndPoint(client.type,client.id);
         clientRequest.modifyProfile(this,client);
     }
 

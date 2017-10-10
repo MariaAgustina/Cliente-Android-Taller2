@@ -39,7 +39,7 @@ public class ClientRequest extends  HTTPRequest {
         this.registerEnpoint = "/api/v1/driver";
     }
 
-    public void setClientEndPoint(String clientId,String clientType){
+    public void setClientEndPoint(String clientType,String clientId){
         this.getClientEndpoint = "/api/v1/" + clientType + "/" + clientId;
     }
 
@@ -88,6 +88,7 @@ public class ClientRequest extends  HTTPRequest {
 
         try {
             JSONObject jsonObject = new JSONObject(json);
+            Log.v(TAG,jsonObject.toString());
 
         // Request a string response from the provided URL.
             JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.PUT, this.url, jsonObject,
