@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="1100dp"
     tools:context="com.taller2.llevame.RegisterActivity">
 
     <RelativeLayout
         android:id="@+id/loadingPanel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" >
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -20,8 +23,8 @@
 
     <ScrollView
         android:id="@+id/ScrollView01"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -31,8 +34,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/RelativeLayout01"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="visible">
 
             <!--Tiltle-->
@@ -42,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="0dp"
                 android:text="@string/register"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/username"
                 android:textSize="15sp"
                 app:layout_constraintHorizontal_bias="0.012"
@@ -68,11 +70,12 @@
 
             <EditText
                 android:id="@+id/editUserNameInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -96,16 +99,18 @@
 
             <EditText
                 android:id="@+id/editPasswordInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password" />
+                app:layout_constraintTop_toBottomOf="@+id/password"
+                android:layout_marginTop="0dp" />
 
             <!--Confirm Password-->
             <TextView
@@ -124,11 +129,12 @@
 
             <EditText
                 android:id="@+id/confirmPasswordInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -152,16 +158,18 @@
 
             <EditText
                 android:id="@+id/nameInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name" />
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                android:layout_marginTop="0dp" />
 
 
             <!--SurName-->
@@ -181,16 +189,18 @@
 
             <EditText
                 android:id="@+id/surnameInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/surname" />
+                app:layout_constraintTop_toBottomOf="@+id/surname"
+                android:layout_marginTop="0dp" />
 
             <!--Country-->
             <TextView
@@ -209,16 +219,18 @@
 
             <EditText
                 android:id="@+id/countryInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/country" />
+                app:layout_constraintTop_toBottomOf="@+id/country"
+                android:layout_marginTop="0dp" />
 
 
             <!--email-->
@@ -238,16 +250,18 @@
 
             <EditText
                 android:id="@+id/emailInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email" />
+                app:layout_constraintTop_toBottomOf="@+id/email"
+                android:layout_marginTop="0dp" />
 
             <!--birthdate-->
             <TextView
@@ -266,29 +280,33 @@
 
             <EditText
                 android:id="@+id/birthdateInput"
-                android:layout_width="316dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="30dp"
                 android:inputType="text"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/birthdate" />
+                app:layout_constraintTop_toBottomOf="@+id/birthdate"
+                android:layout_marginTop="0dp" />
 
             <Button
                 android:id="@+id/sendButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="40dp"
                 android:onClick="registerButtonPressed"
                 android:text="@string/send"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.151"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/birthdateInput"
