@@ -16,6 +16,10 @@ public class BaseAtivity extends AppCompatActivity {
         setContentView(R.layout.activity_base_ativity);
     }
 
+    /**
+     * onServiceDidFailed
+     * @param error
+     */
     public void onServiceDidFailed(VolleyError error){
         //TODO: si hay tiempo, modificarlo para que sea un popup
         Log.e("error en la resupuesta", error.toString());
