@@ -8,10 +8,54 @@
     <string name="logout">Cerrar Sesión</string>
     <string name="login">Iniciar Sesión</string>
     <string name="main_menu_title">Menú principal</string>
+    <string name="username">Nombre de usuario:</string>
+    <string name="password">Contraseña:</string>
+    <string name="server_login_failed">Nombre de usuario y contraseña inválidos</string>
+
 
     <!--Main Strings -->
     <string name="welcome">Bienvenido a llevame</string>
+    <string name="welcome_description">Comienza a viajar de la forma más facil</string>
+    <string name="modify_your_profile">Modifica tu perfil</string>
+    <string name="register">Registrarse</string>
+    <string name="register_with_facebook">Registrarse con facebook</string>
+    <string name="register_with_facebook_description">Ingrese la siguiente información para luego poder iniciar sesión con facebook</string>
+
+
+
+    <!--Register -->
+    <string name="confirm_password">Confirmar contraseña:</string>
+    <string name="send">Enviar</string>
+    <string name="username_should_not_empty">Por favor, ingrese su nombre de usuario</string>
+    <string name="password_should_not_empty">Por favor, ingrese su contraseña</string>
+    <string name="confirm_password_should_not_empty">Por favor, confirme su contraseña</string>
+    <string name="passwords_not_match">Por favor, confirme su contraseña</string>
+    <string name="register_succeded">Usted se ha registrado correctamente</string>
+    <string name="is_a_driver">Soy chofer</string>
+
+
+    <!--Profile -->
+    <string name="select_driver">Selecciona un conductor</string>
+    <string name="driver_available">Disponible</string>
+    <string name="driver_on_trip">En viaje</string>
+
+    <!--Modify your profile-->
+    <string name="save_changes">Guardar cambios</string>
+    <string name="name">Nombre:</string>
+    <string name="surname">Apellido:</string>
+    <string name="country">País:</string>
+    <string name="email">Dirección de correo electrónico:</string>
+    <string name="birthdate">Fecha de nacimiento (DD/MM/AAAA):</string>
+    <string name="name_should_not_empty">Por favor, ingrese su nombre</string>
+    <string name="surname_should_not_empty">Por favor, ingrese su apellido</string>
+    <string name="email_should_not_empty">Por favor, ingrese su email</string>
+    <string name="birthdate_should_not_empty">Por favor, ingrese su fecha de nacimiento</string>
+    <string name="country_should_not_empty">Por favor, ingrese su país</string>
 
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>
+    <string name="title_activity_modify_profile">ModifyProfileActivity</string>
+    <string name="server_failed">Lo sentimos, hubo un error</string>
+    <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>

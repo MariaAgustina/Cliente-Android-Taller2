@@ -15,15 +15,24 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainMenuActivity"></activity>
+        <activity android:name=".BaseAtivity" />
+        <activity
+            android:name=".ModifyProfileActivity"
+            android:parentActivityName=".ProfileActivity" />
+        <activity android:name=".PassengerProfileActivity" />
+        <activity android:name=".DriverProfileActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterFacebookActivity"></activity>
     </application>
 
 </manifest>

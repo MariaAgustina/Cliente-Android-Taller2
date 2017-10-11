@@ -16,13 +16,15 @@ import java.security.*;
  */
 
 public class LlevameApp extends Application{
+
+    private static final String TAG = "LlevameApp";
+
     @Override
     public void onCreate() {
 
         super.onCreate();
         AppEventsLogger.activateApp(this);
-        goToLoginIfShould();
-
+        Log.v(TAG,"onCreate called");
         //logHashKey();
     }
 
@@ -48,25 +50,4 @@ public class LlevameApp extends Application{
 
     }
 
-    private void goToLoginIfShould(){
-        boolean isLoggedIn = (AccessToken.getCurrentAccessToken() != null);
-        if(!isLoggedIn){
-            goToMainActivity();
-            return;
-        }
-
-        goToMainMenuActivity();
-    }
-
-    private void goToMainActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private void goToMainMenuActivity(){
-        Intent intent = new Intent(this,MainMenuActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 }

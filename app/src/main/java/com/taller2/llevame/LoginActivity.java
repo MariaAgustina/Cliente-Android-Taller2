@@ -3,36 +3,93 @@ package com.taller2.llevame;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.taller2.llevame.Creational.FactoryActivities;
+import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Session;
+import com.taller2.llevame.Views.LoadingView;
+import com.taller2.llevame.serviceLayerModel.LoginFacebookRequest;
+import com.taller2.llevame.serviceLayerModel.LoginRequest;
 
-public class LoginActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
+public class LoginActivity extends BaseAtivity {
+
+    private static final String TAG = "LoginActivity";
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private TextView userNameInput;
+    private TextView passwordInput;
+    private LoadingView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setupCustomLoginComponents();
+        this.setUpInitials();
+        this.setupCustomLoginComponents();
+    }
 
+    private void setUpInitials (){
+        this.userNameInput = (TextView) findViewById(R.id.userNameInput);
+        this.passwordInput = (TextView) findViewById(R.id.passwordInput);
+        this.loadingView = new LoadingView();
+        this.loadingView.setLoadingViewInvisible(this);
     }
 
     protected void setupCustomLoginComponents(){
         loginButton = (LoginButton) findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
 
+        loginButton.setReadPermissions(Arrays.asList(
+                "public_profile", "email", "user_birthday", "user_friends"));
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                showMainMenuActivity();
+
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.v(TAG, response.toString());
+                        try {
+                            String fbId = object.getString("id") + "99999";
+                            Log.v(TAG,fbId);
+                            doLoginWithFacebook(fbId);
+
+                        } catch (JSONException e) {
+
+                        }
+                    }
+
+                });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday,locale,first_name,last_name");
+                request.setParameters(parameters);
+                request.executeAsync();
+
             }
+
 
             @Override
             public void onCancel() {
@@ -53,8 +110,40 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
-    private void showMainMenuActivity(){
-        Intent intent = new Intent(this,MainMenuActivity.class);
+    public void doLoginWithFacebook(String accessToken){
+        this.loadingView.setLoadingViewVisible(this);
+        LoginFacebookRequest loginFacebookRequest = new LoginFacebookRequest(accessToken);
+        loginFacebookRequest.login(this);
+    }
+
+    public void loginLlevameButtonPressed(View view){
+        this.loadingView.setLoadingViewVisible(this);
+        String userName = this.userNameInput.getText().toString();
+        String password = this.passwordInput.getText().toString();
+        LoginRequest loginRequest = new LoginRequest(userName,password);
+        loginRequest.login(this);
+    }
+
+
+    public void onLoginSuccess(Client client){
+        this.loadingView.setLoadingViewInvisible(this);
+        FactoryActivities factoryActivities = new FactoryActivities();
+        if(client.isDriver()){
+            factoryActivities.goToDriverProfileActivity(this,client);
+        }else{
+            factoryActivities.goToPassengerProfileActivity(this,client);
+        }
+    }
+
+    public void onServiceDidFailed(VolleyError error) {
+        Log.e("error en la resupuesta", error.toString());
+        this.loadingView.setLoadingViewInvisible(this);
+        Toast.makeText(getApplicationContext(),R.string.server_login_failed,Toast.LENGTH_SHORT).show();
+    }
+
+    //TODO: ponerlo en el factory
+    private void showProfileActivity(){
+        Intent intent = new Intent(this,ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
