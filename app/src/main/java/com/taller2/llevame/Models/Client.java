@@ -20,12 +20,13 @@ public class Client implements Serializable{
     public String id;
     public String country;
     public String email;
-   // public String fb_user_id;
-   // public String fb_auth_token;
+    public String fb_user_id;
+    public String fb_auth_token;
     public String name;
     public String surname;
     public String type;
     public String username;
+    public String password;
 
     private static final String TAG = "Client";
 

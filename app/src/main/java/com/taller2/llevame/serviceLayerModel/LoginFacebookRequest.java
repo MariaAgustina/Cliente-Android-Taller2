@@ -23,9 +23,11 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class LoginFacebookRequest extends  HTTPRequest {
 
     private static final String TAG = "LoginFacebookRequest";
+    private  String accessToken;
 
     public LoginFacebookRequest(String accessToken){
         this.endponintUrl = "/login/facebookAuthToken/" + accessToken;
+        this.accessToken = accessToken;
         this.configureUrl();
     }
 
@@ -44,6 +46,9 @@ public class LoginFacebookRequest extends  HTTPRequest {
 
                         Gson gson = new Gson();
                         Client client = gson.fromJson(je,Client.class);
+                        client.fb_auth_token = accessToken;
+                        client.fb_user_id = accessToken;
+
                         delegate.onLoginSuccess(client);
                     }
                 }, new Response.ErrorListener() {

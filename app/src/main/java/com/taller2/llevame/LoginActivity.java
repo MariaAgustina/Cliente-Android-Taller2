@@ -76,7 +76,6 @@ public class LoginActivity extends BaseAtivity {
                             Log.v(TAG,fbId);
                             doLoginWithFacebook(fbId);
 
-
                         } catch (JSONException e) {
 
                         }

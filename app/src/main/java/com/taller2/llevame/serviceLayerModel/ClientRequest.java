@@ -3,6 +3,7 @@ package com.taller2.llevame.serviceLayerModel;
 import android.app.Activity;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.ClientData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,8 +76,7 @@ public class ClientRequest extends  HTTPRequest {
     }
 
 
-    //TODO: arreglar este put porque cuando le apunto al server no hace nada, confirmar que este implementado del lado del server
-    public void modifyProfile(final BaseAtivity delegate,Client newClient){
+    public void modifyProfile(final BaseAtivity delegate,ClientData newClient){
 
         this.endponintUrl = this.getClientEndpoint;
         this.configureUrl();
@@ -105,7 +106,18 @@ public class ClientRequest extends  HTTPRequest {
             public void onErrorResponse(VolleyError error) {
                 delegate.onServiceDidFailed(error);
             }
-        });
+            }){
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    return headers;
+                }
+            };
 
             queue.add(stringRequest);
         }catch (JSONException e){

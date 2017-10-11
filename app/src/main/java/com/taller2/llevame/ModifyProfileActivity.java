@@ -13,7 +13,11 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.ClientData;
+import com.taller2.llevame.Models.FacebookData;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
+
+import java.util.ArrayList;
 
 public class ModifyProfileActivity extends BaseAtivity {
 
@@ -83,17 +87,32 @@ public class ModifyProfileActivity extends BaseAtivity {
             return;
         }
 
-        this.client.name = name;
-        this.client.surname = surname;
-        this.client.birthdate = birthdate;
-        this.client.email = email;
-        this.client.country = country;
+        ClientData clientData= new ClientData();
+
+        clientData.username = client.username;
+        clientData.password = client.password;
+
+        clientData.firstName = name;
+        clientData.lastName = surname;
+        //TODO: arreglarlo trae problemas
+        clientData.birthdate = "\"01/01/1990\"";
+        clientData.email = email;
+        clientData.country = country;
+        clientData.images = new ArrayList();
+
+        String type =  (client.type.equals("driver")) ? "driver" : "client";
+
+        FacebookData facebookData = new FacebookData();
+        facebookData.authToken = (this.client.fb_auth_token != null) ? this.client.fb_auth_token : "fb_token";
+        facebookData.userId = (this.client.fb_user_id != null) ? this.client.fb_user_id : "fb_user_id";
+
+        clientData.fb = facebookData;
 
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
         ClientRequest clientRequest = new ClientRequest();
-        clientRequest.setClientEndPoint(client.type,client.id);
-        clientRequest.modifyProfile(this,client);
+        clientRequest.setClientEndPoint(type,client.id);
+        clientRequest.modifyProfile(this,clientData);
     }
 
 

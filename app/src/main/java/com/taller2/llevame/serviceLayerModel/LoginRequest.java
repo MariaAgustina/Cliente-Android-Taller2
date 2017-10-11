@@ -23,9 +23,13 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class LoginRequest extends  HTTPRequest {
 
     private static final String TAG = "LoginRequest";
+    private String username;
+    private String password;
 
     public LoginRequest(String usernamae,String passwrod){
         this.endponintUrl = "/login/username/"+ usernamae +"/password/" + passwrod;
+        this.username = usernamae;
+        this.password = passwrod;
         this.configureUrl();
     }
 
@@ -45,7 +49,10 @@ public class LoginRequest extends  HTTPRequest {
 
                         Gson gson = new Gson();
                         Client client = gson.fromJson(je,Client.class);
+                        client.username = username;
+                        client.password = password;
                         delegate.onLoginSuccess(client);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
