@@ -12,6 +12,8 @@ import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.taller2.llevame.Creational.FactoryActivities;
@@ -20,6 +22,11 @@ import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.LoginFacebookRequest;
 import com.taller2.llevame.serviceLayerModel.LoginRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class LoginActivity extends BaseAtivity {
 
@@ -50,14 +57,40 @@ public class LoginActivity extends BaseAtivity {
         loginButton = (LoginButton) findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
 
+        loginButton.setReadPermissions(Arrays.asList(
+                "public_profile", "email", "user_birthday", "user_friends"));
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.v(TAG,loginResult.getAccessToken().getToken());
-                //showProfileActivity();
-                String facebookAccessToken = loginResult.getAccessToken().getToken();
-                doLoginWithFacebook(facebookAccessToken);
+
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.v(TAG, response.toString());
+                        try {
+                            String fbId = object.getString("id") + "44444";
+                            Log.v(TAG,fbId);
+                            doLoginWithFacebook(fbId);
+
+
+                        } catch (JSONException e) {
+
+                        }
+                    }
+
+                });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday,locale,first_name,last_name");
+                request.setParameters(parameters);
+                request.executeAsync();
+
             }
+
 
             @Override
             public void onCancel() {
@@ -79,6 +112,7 @@ public class LoginActivity extends BaseAtivity {
     }
 
     public void doLoginWithFacebook(String accessToken){
+        this.loadingView.setLoadingViewVisible(this);
         LoginFacebookRequest loginFacebookRequest = new LoginFacebookRequest(accessToken);
         loginFacebookRequest.login(this);
     }

@@ -18,6 +18,7 @@ import com.taller2.llevame.ModifyProfileActivity;
 import com.taller2.llevame.PassengerProfileActivity;
 import com.taller2.llevame.ProfileActivity;
 import com.taller2.llevame.RegisterActivity;
+import com.taller2.llevame.RegisterFacebookActivity;
 
 /**
  * Created by MaríaAgustina on 5/10/2017.
@@ -73,4 +74,10 @@ public class FactoryActivities {
         Log.v(TAG,"go to register activity");
         goToActivity(activity, RegisterActivity.class);
     }
+
+    public void goToRegisterWithFacebookActivity(BaseAtivity activity){
+        Log.v(TAG,"go to register activity");
+        goToActivity(activity, RegisterFacebookActivity.class);
+    }
+
 }

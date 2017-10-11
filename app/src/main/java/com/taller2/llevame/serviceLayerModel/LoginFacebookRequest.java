@@ -39,19 +39,18 @@ public class LoginFacebookRequest extends  HTTPRequest {
                     @Override
                     public void onResponse(String response) {
                         Log.v(TAG,"Response is: "+ response);
-                        //TODO: cuando ande
-                        //JsonElement dataElem = new JsonParser().parse(response);
-                        //JsonElement je = dataElem.getAsJsonObject().get("user");
+                        JsonElement dataElem = new JsonParser().parse(response);
+                        JsonElement je = dataElem.getAsJsonObject().get("user");
 
-                        //Gson gson = new Gson();
-                        //Client client = gson.fromJson(je,Client.class);
-                        //delegate.onLoginSuccess(client);
+                        Gson gson = new Gson();
+                        Client client = gson.fromJson(je,Client.class);
+                        delegate.onLoginSuccess(client);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("error en la resupuesta", error.toString());
-                delegate.onServiceDidFailed(error);
+                delegate.onLoginWithFacebookServiceDidFail(error);
             }
         });
 

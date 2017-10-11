@@ -28,10 +28,11 @@
         <activity android:name=".BaseAtivity" />
         <activity
             android:name=".ModifyProfileActivity"
-            android:parentActivityName=".ProfileActivity"></activity>
+            android:parentActivityName=".ProfileActivity" />
         <activity android:name=".PassengerProfileActivity" />
         <activity android:name=".DriverProfileActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterFacebookActivity"></activity>
     </application>
 
 </manifest>

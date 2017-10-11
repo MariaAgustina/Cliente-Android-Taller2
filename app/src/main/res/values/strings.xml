@@ -18,6 +18,10 @@
     <string name="welcome_description">Comienza a viajar de la forma más facil</string>
     <string name="modify_your_profile">Modifica tu perfil</string>
     <string name="register">Registrarse</string>
+    <string name="register_with_facebook">Registrarse con facebook</string>
+    <string name="register_with_facebook_description">Ingrese la siguiente información para luego poder iniciar sesión con facebook</string>
+
+
 
     <!--Register -->
     <string name="confirm_password">Confirmar contraseña:</string>
@@ -52,5 +56,6 @@
     <string name="response_error">Error en la respuesta</string>
     <string name="title_activity_modify_profile">ModifyProfileActivity</string>
     <string name="server_failed">Lo sentimos, hubo un error</string>
+    <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
     <string name="title_activity_register">RegisterActivity</string>
 </resources>

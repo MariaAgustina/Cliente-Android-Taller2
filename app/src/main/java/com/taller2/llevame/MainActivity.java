@@ -30,4 +30,11 @@ public class MainActivity extends BaseAtivity {
         FactoryActivities factoryActivities = new FactoryActivities();
         factoryActivities.goToRegisterActivity(this);
     }
+
+    public void goToRegisterWithFacebookButtonPressed(View view) {
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToRegisterWithFacebookActivity(this);
+    }
+
+
 }

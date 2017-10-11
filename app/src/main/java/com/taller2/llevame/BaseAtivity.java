@@ -22,7 +22,12 @@ public class BaseAtivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),R.string.server_failed,Toast.LENGTH_SHORT).show();
     }
 
-    //Esto esta asi para que los servicios se puedan llamar desde cualquier Activity
+    public void onLoginWithFacebookServiceDidFail(VolleyError error) {
+        Log.e("error en la resupuesta", error.toString());
+        Toast.makeText(getApplicationContext(),R.string.server_login_facebook_failed,Toast.LENGTH_SHORT).show();
+
+    }
+        //Esto esta asi para que los servicios se puedan llamar desde cualquier Activity
 
     //to override
     public void onGetClientSuccess(Client client){

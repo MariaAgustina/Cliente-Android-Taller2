@@ -144,6 +144,7 @@ public class RegisterActivity extends BaseAtivity {
     public void onRegisterClientSuccess() {
         Toast.makeText(getApplicationContext(),R.string.register_succeded,Toast.LENGTH_SHORT).show();
         this.loadingView.setLoadingViewInvisible(this);
+
         FactoryActivities factoryActivities = new FactoryActivities();
         factoryActivities.goToLoginActivity(this);
     }
