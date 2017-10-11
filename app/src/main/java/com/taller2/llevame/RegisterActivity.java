@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class RegisterActivity extends BaseAtivity {
     private TextView emailInput;
     private TextView birthdateInput;
     private LoadingView loadingView;
+    private Switch isADriverSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class RegisterActivity extends BaseAtivity {
         this.birthdateInput = (TextView) findViewById(R.id.birthdateInput);
         this.emailInput = (TextView) findViewById(R.id.emailInput);
         this.countryInput = (TextView) findViewById(R.id.countryInput);
+        this.isADriverSwitch = (Switch) findViewById(R.id.switchIsDriver);
         this.loadingView = new LoadingView();
         this.loadingView.setLoadingViewInvisible(this);
     }
@@ -111,8 +114,8 @@ public class RegisterActivity extends BaseAtivity {
             return;
         }
 
-        //TODO: meterlo en la vista
-        String type = "client";
+        boolean isADriver = this.isADriverSwitch.isChecked();
+        String type =  (isADriver) ? "driver" :"client";
 
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setEndPoint(type);
@@ -121,16 +124,16 @@ public class RegisterActivity extends BaseAtivity {
         client.username = username;
         client.password = password;
 
-        //TODO: esto va a haber que cambiarlo pero charlarlo con los chicos
+        //esta bien que este hardcodeado
         FacebookData facebookData = new FacebookData();
         facebookData.authToken = "authToken";
         facebookData.userId = "userid";
 
-        client.fb =facebookData;
+        client.fb = facebookData;
         client.firstName = name;
         client.lastName = surname;
         client.country = country;
-        client.email = "a@b.com";//email;
+        client.email = email;
         client.birthdate = birthdate;
         client.images = new ArrayList();
 
