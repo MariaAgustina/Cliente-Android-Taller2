@@ -72,7 +72,7 @@ public class LoginActivity extends BaseAtivity {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.v(TAG, response.toString());
                         try {
-                            String fbId = object.getString("id") + "44444";
+                            String fbId = object.getString("id") + "99999";
                             Log.v(TAG,fbId);
                             doLoginWithFacebook(fbId);
 

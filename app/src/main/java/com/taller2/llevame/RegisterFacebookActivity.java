@@ -148,13 +148,13 @@ public class RegisterFacebookActivity extends BaseAtivity {
         registerRequest.setEndPoint(type);
 
         ClientData client = new ClientData();
-        client.username = fbId+"44444";//fbId;
+        client.username = fbId+"99999";//fbId;
         client.password = fbId;
 
         //esta bien que este hardcodeado
         FacebookData facebookData = new FacebookData();
-        facebookData.authToken = fbId + "44444"; //TODO: le estoy agregando este numero para no registrar mi usuario posta
-        facebookData.userId = fbId + "44444";
+        facebookData.authToken = fbId + "99999"; //TODO: le estoy agregando este numero para no registrar mi usuario posta
+        facebookData.userId = fbId + "99999";
 
         client.fb = facebookData;
         client.firstName = name;
