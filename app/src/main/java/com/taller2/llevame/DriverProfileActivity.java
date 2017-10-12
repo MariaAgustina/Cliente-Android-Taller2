@@ -10,11 +10,18 @@ import android.view.View;
 public class DriverProfileActivity extends ProfileActivity{
 
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * the initials of the profile activity would find the corresponding views
+     */
     @Override
     public void setUpInitials(){
         super.setUpInitials();

@@ -26,15 +26,28 @@ import com.taller2.llevame.RegisterFacebookActivity;
  * Created by MaríaAgustina on 5/10/2017.
  */
 
+/**
+ * Factory to show activities, it is used for a better navigation mantainance
+ */
 public class FactoryActivities {
 
     private static final String TAG = "FactoryActivities";
 
+    /**
+     * general method to show activities
+     * @param activity the activity that needs to show other activity in the stack
+     * @param cls the class of the activity that will be shown
+     */
     private void goToActivity(BaseAtivity activity,Class<?> cls){
         Intent intent = new Intent(activity,cls);
         activity.startActivity(intent);
     }
 
+    /**
+     * modify profile
+     * @param activity the activity that needs to show other activity in the stack
+     * @param client the client object need to send in the extras of intents
+     */
     public void goToModifyProfileActivity(BaseAtivity activity, Client client){
         Log.v(TAG,"go to profile activity");
         ModifyProfileActivity  modifyProfileActivity= new ModifyProfileActivity();
@@ -42,6 +55,7 @@ public class FactoryActivities {
         intent.putExtra("client",client);
         activity.startActivity(intent);
     }
+
 
     public void goToDeleteProfileActivity(BaseAtivity activity, Client client){
         Log.v(TAG,"go to delete profile activity");
@@ -53,11 +67,22 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
+
+    /**
+     * will go to login activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
+
     public void goToLoginActivity(BaseAtivity activity){
         Log.v(TAG,"go to login activity");
         this.goToActivity(activity,LoginActivity.class);
     }
 
+    /**
+     * will go to profile activity
+     * @param activity the activity that needs to show other activity in the stack
+     * @param client the client object need to send in the extras of intents
+     */
     public void goToProfileActivity(BaseAtivity activity,Client client){
         Log.v(TAG,"go to profile activity");
         Intent intent = new Intent(activity,ProfileActivity.class);
@@ -66,6 +91,11 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
+    /**
+     * will go to driver profile activity
+     * @param activity the activity that needs to show other activity in the stack
+     * @param client the client object need to send in the extras of intents
+     */
     public void goToDriverProfileActivity(BaseAtivity activity,Client client){
         Log.v(TAG,"go to driver profile activity");
         Intent intent = new Intent(activity,DriverProfileActivity.class);
@@ -74,6 +104,11 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
+    /**
+     * will go to passenger profile activity
+     * @param activity the activity that needs to show other activity in the stack
+     * @param client the client object need to send in the extras of intents
+     */
     public void goToPassengerProfileActivity(BaseAtivity activity,Client client){
         Log.v(TAG,"go to passenger profile activity");
         Intent intent = new Intent(activity,PassengerProfileActivity.class);
@@ -82,10 +117,15 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
+    /**
+     * will go to register activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
     public void goToRegisterActivity(BaseAtivity activity){
         Log.v(TAG,"go to register activity");
         goToActivity(activity, RegisterActivity.class);
     }
+
 
     public void goToMainActivity(BaseAtivity activity){
         Intent intent = new Intent(activity,MainActivity.class);
@@ -93,6 +133,11 @@ public class FactoryActivities {
         activity.startActivity(intent);
 
     }
+
+    /**
+     * will go to register activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
     public void goToRegisterWithFacebookActivity(BaseAtivity activity){
         Log.v(TAG,"go to register activity");
         goToActivity(activity, RegisterFacebookActivity.class);

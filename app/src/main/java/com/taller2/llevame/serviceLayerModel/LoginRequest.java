@@ -30,6 +30,11 @@ public class LoginRequest extends  HTTPRequest {
     private String username;
     private String password;
 
+    /**
+     * Constructor
+     * @param usernamae the username that the user inputs
+     * @param passwrod  the password tha the user inputs
+     */
     public LoginRequest(String usernamae,String passwrod){
         this.endponintUrl = "/login/username/"+ usernamae +"/password/" + passwrod;
         this.username = usernamae;
@@ -37,6 +42,10 @@ public class LoginRequest extends  HTTPRequest {
         this.configureUrl();
     }
 
+    /**
+     * the login request that is sent
+     * @param delegate the delegate that will be notified when the async request has success or error
+     */
     public void login(final BaseAtivity delegate){
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

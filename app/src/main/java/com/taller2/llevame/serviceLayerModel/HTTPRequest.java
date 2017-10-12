@@ -25,6 +25,11 @@ public class HTTPRequest {
     public String endponintUrl;
     public String url;
 
+    /**
+      HTTPRequest()
+     * The parent request constructor
+     */
+
     public HTTPRequest (){
         this.baseUrl = "http://taller2-application-server.herokuapp.com"; //App server
         //this.baseUrl = "https://stormy-lowlands-30400.herokuapp.com/api/v1"; //Shared server
@@ -32,9 +37,17 @@ public class HTTPRequest {
         this.url = "";
     }
 
+    /**
+     * set the endpoint for the specific request
+     */
+
     public void configureUrl(){
         this.url = baseUrl+endponintUrl;
     }
+
+    /**
+     * send the request for corresponding service
+     */
 
     public void sendHTTPRequest(){
 
@@ -59,6 +72,10 @@ public class HTTPRequest {
         queue.add(stringRequest);
 
     }
+
+    /**
+     * Method not used, it returns the token to authenticate with the shared server
+     */
 
     public void getTokenSharedServer(){
         String requestUrl = "https://stormy-lowlands-30400.herokuapp.com/api/v1/llevame";

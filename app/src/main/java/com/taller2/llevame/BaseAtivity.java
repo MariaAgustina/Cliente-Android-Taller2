@@ -8,8 +8,15 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.taller2.llevame.Models.Client;
 
+/**
+ * The parent activity for all classes
+ */
 public class BaseAtivity extends AppCompatActivity {
 
+    /**
+     *on create for the base activity
+     * @param savedInstanceState the instance state of the bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

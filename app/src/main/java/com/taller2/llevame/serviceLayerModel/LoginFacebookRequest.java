@@ -25,11 +25,20 @@ public class LoginFacebookRequest extends  HTTPRequest {
     private static final String TAG = "LoginFacebookRequest";
     private  String accessToken;
 
+    /**
+     *
+     * @param accessToken the accessToken that facebook returns in the login with facebook
+     */
     public LoginFacebookRequest(String accessToken){
         this.endponintUrl = "/login/facebookAuthToken/" + accessToken;
         this.accessToken = accessToken;
         this.configureUrl();
     }
+
+    /**
+     *
+     * @param delegate the delegate that will be notified when the async request has success or error
+     */
 
     public void login(final BaseAtivity delegate){
 

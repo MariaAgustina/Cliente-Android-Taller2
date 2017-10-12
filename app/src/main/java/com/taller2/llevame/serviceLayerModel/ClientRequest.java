@@ -38,14 +38,28 @@ public class ClientRequest extends  HTTPRequest {
     private String registerEnpoint;
     private String getClientEndpoint;
 
+    /**
+     * The ClientRequest constructor
+     */
+
     public ClientRequest(){
         this.registerEnpoint = "/api/v1/driver";
     }
+
+    /**
+     *
+     * @param clientType driver or client
+     * @param clientId the clientId that comes from the server
+     */
 
     public void setClientEndPoint(String clientType,String clientId){
         this.getClientEndpoint = "/api/v1/" + clientType + "/" + clientId;
     }
 
+    /**
+     * request get client and send it to the delegate
+     * @param delegate the delegate that will be notified when the async request has success or error
+     */
     public void getClient(final BaseAtivity delegate){
 
         this.endponintUrl = this.getClientEndpoint;
@@ -76,7 +90,11 @@ public class ClientRequest extends  HTTPRequest {
         queue.add(stringRequest);
     }
 
-
+    /**
+     *
+     * @param delegate the delegate that will be notified when the async request has success or error
+     * @param newClient
+     */
     public void modifyProfile(final BaseAtivity delegate,ClientData newClient){
 
         this.endponintUrl = this.getClientEndpoint;
