@@ -13,6 +13,7 @@ import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.DeleteProfileActivity;
 import com.taller2.llevame.DriverProfileActivity;
 import com.taller2.llevame.LoginActivity;
+import com.taller2.llevame.MainActivity;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.ModifyProfileActivity;
@@ -86,6 +87,12 @@ public class FactoryActivities {
         goToActivity(activity, RegisterActivity.class);
     }
 
+    public void goToMainActivity(BaseAtivity activity){
+        Intent intent = new Intent(activity,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+
+    }
     public void goToRegisterWithFacebookActivity(BaseAtivity activity){
         Log.v(TAG,"go to register activity");
         goToActivity(activity, RegisterFacebookActivity.class);

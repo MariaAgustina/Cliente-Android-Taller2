@@ -51,13 +51,13 @@
     <string name="email_should_not_empty">Por favor, ingrese su email</string>
     <string name="birthdate_should_not_empty">Por favor, ingrese su fecha de nacimiento</string>
     <string name="country_should_not_empty">Por favor, ingrese su país</string>
+    <string name="modify_profile_success">Su perfil se ha modificado con exito</string>
 
     <!--Delete your profile-->
     <string name="delete_profile_title">Desea eliminar su perfil?</string>
     <string name="delete_profile_warning">Este proceso no es reversible</string>
     <string name="delete_my_profile">Eliminar mi perfil</string>
-    <string name="modify_profile_success">Su perfil se ha modificado con exito</string>
-
+    <string name="delete_success">Usuario eliminado con exito</string>
 
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>

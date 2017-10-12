@@ -6,9 +6,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.ClientData;
+import com.taller2.llevame.Models.FacebookData;
 import com.taller2.llevame.serviceLayerModel.ClientRequest;
 
 public class DeleteProfileActivity extends BaseAtivity {
@@ -37,4 +41,10 @@ public class DeleteProfileActivity extends BaseAtivity {
         clientRequest.deleteProfile(this, clientData);
     }
 
+    public void onServiceDidFailed(VolleyError error){
+        //TODO: esto esta asi porque supuestamente se elimina bien el usuario en el server pero retorna un error.
+        Toast.makeText(getApplicationContext(),R.string.delete_success,Toast.LENGTH_SHORT).show();
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToMainActivity(this);
+    }
 }
