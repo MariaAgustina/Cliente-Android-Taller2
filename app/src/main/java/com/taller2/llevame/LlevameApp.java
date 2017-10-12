@@ -19,6 +19,9 @@ public class LlevameApp extends Application{
 
     private static final String TAG = "LlevameApp";
 
+    /**
+     * the first activity presented, will show splash  after this
+     */
     @Override
     public void onCreate() {
 

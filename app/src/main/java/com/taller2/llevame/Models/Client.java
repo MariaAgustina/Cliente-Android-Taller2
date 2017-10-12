@@ -30,6 +30,10 @@ public class Client implements Serializable{
 
     private static final String TAG = "Client";
 
+    /**
+     *
+     * @return yes if the client is a driver
+     */
     public boolean isDriver(){
         if(this.type !=null){
             return this.type.equals("driver");

@@ -29,10 +29,19 @@ public class RegisterRequest extends HTTPRequest {
 
     private static final String TAG = "RegisterRequest";
 
+    /**
+     * the endpoint url for the register request
+     * @param clientType the client type would be client or driver
+     */
     public void setEndPoint(String clientType){
         this.endponintUrl = "/api/v1/" + clientType;
     }
 
+    /**
+     * the register request
+     * @param delegate the delegate that will be notified when the async request has success or error
+     * @param newClient the client that will be sent to the server with the data to register
+     */
     public void registerClient(final BaseAtivity delegate, ClientData newClient){
 
         this.configureUrl();

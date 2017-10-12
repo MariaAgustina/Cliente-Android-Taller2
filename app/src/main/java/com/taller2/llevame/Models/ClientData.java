@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * The class that will be send in the requests
+ * The class that will be sent to the requests
  */
 
 public class ClientData {

@@ -28,6 +28,9 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+/**
+ * the login activity has the option to login with llevame or login with facebook
+ */
 public class LoginActivity extends BaseAtivity {
 
     private static final String TAG = "LoginActivity";
@@ -38,6 +41,10 @@ public class LoginActivity extends BaseAtivity {
     private TextView passwordInput;
     private LoadingView loadingView;
 
+    /**
+     *
+     * @param savedInstanceState the instance state of the bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,9 @@ public class LoginActivity extends BaseAtivity {
         this.setupCustomLoginComponents();
     }
 
+    /**
+     * setup and initialize views
+     */
     private void setUpInitials (){
         this.userNameInput = (TextView) findViewById(R.id.userNameInput);
         this.passwordInput = (TextView) findViewById(R.id.passwordInput);
@@ -53,6 +63,9 @@ public class LoginActivity extends BaseAtivity {
         this.loadingView.setLoadingViewInvisible(this);
     }
 
+    /**
+     * login with facebook set up
+     */
     protected void setupCustomLoginComponents(){
         loginButton = (LoginButton) findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
@@ -104,18 +117,32 @@ public class LoginActivity extends BaseAtivity {
 
     }
 
+    /**
+     * the login with faceebok result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
+    /**
+     * the login after logeed in with facebook was successful, it sends the login to llevame with the accessToken
+     * @param accessToken
+     */
     public void doLoginWithFacebook(String accessToken){
         this.loadingView.setLoadingViewVisible(this);
         LoginFacebookRequest loginFacebookRequest = new LoginFacebookRequest(accessToken);
         loginFacebookRequest.login(this);
     }
 
+    /**
+     * this method is invoked when the app login button is pressed
+     * @param view the view that sends the message to the app
+     */
     public void loginLlevameButtonPressed(View view){
         this.loadingView.setLoadingViewVisible(this);
         String userName = this.userNameInput.getText().toString();
@@ -125,6 +152,10 @@ public class LoginActivity extends BaseAtivity {
     }
 
 
+    /**
+     * this method is invoked when the login with llevame is successful
+     * @param client the client that returns the login request
+     */
     public void onLoginSuccess(Client client){
         this.loadingView.setLoadingViewInvisible(this);
         FactoryActivities factoryActivities = new FactoryActivities();
@@ -135,13 +166,17 @@ public class LoginActivity extends BaseAtivity {
         }
     }
 
+    /**
+     * method when the login fail
+     * @param error the error received from service
+     */
     public void onServiceDidFailed(VolleyError error) {
         Log.e("error en la resupuesta", error.toString());
         this.loadingView.setLoadingViewInvisible(this);
         Toast.makeText(getApplicationContext(),R.string.server_login_failed,Toast.LENGTH_SHORT).show();
     }
 
-    //TODO: ponerlo en el factory
+    //TODO: delete method
     private void showProfileActivity(){
         Intent intent = new Intent(this,ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
