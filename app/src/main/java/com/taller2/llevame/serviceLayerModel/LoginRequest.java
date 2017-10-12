@@ -2,6 +2,7 @@ package com.taller2.llevame.serviceLayerModel;
 
 import android.util.Log;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -12,7 +13,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Client;
+
+import java.util.regex.Pattern;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -37,7 +41,6 @@ public class LoginRequest extends  HTTPRequest {
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, this.url,
                 new Response.Listener<String>() {
                     @Override
@@ -60,7 +63,20 @@ public class LoginRequest extends  HTTPRequest {
                 Log.e("error en la resupuesta", error.toString());
                 delegate.onServiceDidFailed(error);
             }
-        });
+        }){
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                String rawCookie = response.headers.get("Set-Cookie");
+                Log.v(TAG,"HEADERSSS: " + response.headers);
+                Log.v(TAG,"response.headers.get(\"Set-Cookie\"):" + response.headers.get("Set-Cookie"));
+                String parsedCookie = rawCookie.split(Pattern.quote(";"))[0];
+                Log.v(TAG,"parsedCookie:" + parsedCookie);
+                CookieHolder.INSTANCE.setCookie(parsedCookie);
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+
 
         queue.add(stringRequest);
     }

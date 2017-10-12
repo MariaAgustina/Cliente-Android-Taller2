@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.ClientData;
 
@@ -115,6 +116,10 @@ public class ClientRequest extends  HTTPRequest {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
+                    //headers.put("Set-Cookie","session=eyJ1c2VybmFtZSI6Im1maWRhbGdvIn0.DMBzlw.yghaCJ_TBtJru7lll0_Ol_Pwj5I");
+                    //headers.put("Cookie","session=eyJ1c2VybmFtZSI6Im1maWRhbGdvIn0.DMBzlw.yghaCJ_TBtJru7lll0_Ol_Pwj5I");
+                    headers.put("Set-Cookie", CookieHolder.INSTANCE.getCookie());
+                    headers.put("Cookie",CookieHolder.INSTANCE.getCookie());
                     return headers;
                 }
             };
@@ -162,6 +167,10 @@ public class ClientRequest extends  HTTPRequest {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Set-Cookie","session=eyJ1c2VybmFtZSI6Im1maWRhbGdvIn0.DMBzlw.yghaCJ_TBtJru7lll0_Ol_Pwj5I");
+                //headers.put("Cookie","session=eyJ1c2VybmFtZSI6Im1maWRhbGdvIn0.DMBzlw.yghaCJ_TBtJru7lll0_Ol_Pwj5I");
+                headers.put("Set-Cookie", CookieHolder.INSTANCE.getCookie());
+                headers.put("Cookie",CookieHolder.INSTANCE.getCookie());
                 return headers;
             }
         };
