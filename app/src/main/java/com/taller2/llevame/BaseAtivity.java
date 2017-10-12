@@ -52,4 +52,7 @@ public class BaseAtivity extends AppCompatActivity {
 
     }
 
+    public void onDeleteProfileSuccess() {
+        this.finish();
+    }
 }

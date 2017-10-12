@@ -32,7 +32,11 @@
         <activity android:name=".PassengerProfileActivity" />
         <activity android:name=".DriverProfileActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".RegisterFacebookActivity"></activity>
+        <activity android:name=".RegisterFacebookActivity" />
+        <activity
+            android:name=".DeleteProfileActivity"
+            android:label="@string/title_activity_delete_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

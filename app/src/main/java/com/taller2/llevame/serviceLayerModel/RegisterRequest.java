@@ -64,6 +64,7 @@ public class RegisterRequest extends HTTPRequest {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     delegate.onServiceDidFailed(error);
+                    Log.v(TAG,"Error: " +error.getMessage());
                 }
             }){
                 @Override

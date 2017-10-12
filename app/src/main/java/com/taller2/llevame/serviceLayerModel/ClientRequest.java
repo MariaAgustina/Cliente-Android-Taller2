@@ -126,4 +126,49 @@ public class ClientRequest extends  HTTPRequest {
         // Add the request to the RequestQueue.
     }
 
+
+
+    public void deleteProfile(final BaseAtivity delegate,ClientData newClient){
+        Log.v(TAG,"EJECUTANDO DELETE");
+
+        this.endponintUrl = this.getClientEndpoint;
+        this.configureUrl();
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.DELETE, this.url, new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.v(TAG,"Response is: "+ response);
+                        delegate.onDeleteProfileSuccess();
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v(TAG,error.toString());
+                delegate.onServiceDidFailed(error);
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                return headers;
+            }
+        };
+
+        queue.add(stringRequest);
+        // Add the request to the RequestQueue.
+    }
+
+
 }

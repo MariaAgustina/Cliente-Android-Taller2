@@ -15,14 +15,14 @@ import java.util.Map;
  */
 
 public class ClientData {
-    public String username;
-    public String password;
-    public FacebookData fb;
-    public String lastName;
-    public String firstName;
-    public String country;
-    public String birthdate;
-    public String email;
-    public String type;
-    public ArrayList images;
+    public String username = "";
+    public String password = "";
+    public FacebookData fb = new FacebookData();
+    public String lastName = "";
+    public String firstName = "";
+    public String country = "";
+    public String birthdate = "";
+    public String email = "";
+    public String type = "";
+    public ArrayList images = new ArrayList();
 }

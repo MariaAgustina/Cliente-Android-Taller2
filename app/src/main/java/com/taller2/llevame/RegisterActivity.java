@@ -136,6 +136,7 @@ public class RegisterActivity extends BaseAtivity {
         client.email = email;
         client.birthdate = birthdate;
         client.images = new ArrayList();
+        client.type = type;
 
         this.loadingView.setLoadingViewVisible(this);
         registerRequest.registerClient(this,client);

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.DeleteProfileActivity;
 import com.taller2.llevame.DriverProfileActivity;
 import com.taller2.llevame.LoginActivity;
 import com.taller2.llevame.Models.Client;
@@ -37,6 +38,16 @@ public class FactoryActivities {
         Log.v(TAG,"go to profile activity");
         ModifyProfileActivity  modifyProfileActivity= new ModifyProfileActivity();
         Intent intent = new Intent(activity,ModifyProfileActivity.class);
+        intent.putExtra("client",client);
+        activity.startActivity(intent);
+    }
+
+    public void goToDeleteProfileActivity(BaseAtivity activity, Client client){
+        Log.v(TAG,"go to delete profile activity");
+        DeleteProfileActivity deleteProfileActivity = new DeleteProfileActivity();
+        Intent intent = new Intent(activity,DeleteProfileActivity.class);
+        //ModifyProfileActivity  modifyProfileActivity= new ModifyProfileActivity();
+        //Intent intent = new Intent(activity,ModifyProfileActivity.class);
         intent.putExtra("client",client);
         activity.startActivity(intent);
     }

@@ -17,10 +17,10 @@
     <string name="welcome">Bienvenido a llevame</string>
     <string name="welcome_description">Comienza a viajar de la forma más facil</string>
     <string name="modify_your_profile">Modifica tu perfil</string>
+    <string name="delete_your_profile">Elimina tu perfil</string>
     <string name="register">Registrarse</string>
     <string name="register_with_facebook">Registrarse con facebook</string>
     <string name="register_with_facebook_description">Ingrese la siguiente información para luego poder iniciar sesión con facebook</string>
-
 
 
     <!--Register -->
@@ -52,10 +52,16 @@
     <string name="birthdate_should_not_empty">Por favor, ingrese su fecha de nacimiento</string>
     <string name="country_should_not_empty">Por favor, ingrese su país</string>
 
+    <!--Delete your profile-->
+    <string name="delete_profile_title">Desea eliminar su perfil?</string>
+    <string name="delete_profile_warning">Este proceso no es reversible</string>
+    <string name="delete_my_profile">Eliminar mi perfil</string>
+
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>
     <string name="title_activity_modify_profile">ModifyProfileActivity</string>
     <string name="server_failed">Lo sentimos, hubo un error</string>
     <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_delete_profile">DeleteProfileActivity</string>
 </resources>

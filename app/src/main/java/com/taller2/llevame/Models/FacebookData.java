@@ -5,6 +5,6 @@ package com.taller2.llevame.Models;
  */
 
 public class FacebookData {
-    public String userId;
-    public String authToken;
+    public String userId = "";
+    public String authToken = "";
 }

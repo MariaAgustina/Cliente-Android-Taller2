@@ -56,6 +56,11 @@ public class ProfileActivity extends BaseAtivity {
         factoryActivities.goToModifyProfileActivity(this,this.client);
     }
 
+    public void deleteProfile(View view){
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToDeleteProfileActivity(this,this.client);
+    }
+
     private void goToMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
