@@ -44,7 +44,7 @@ public class BaseAtivity extends AppCompatActivity {
     }
     //to override
     public void onModifyClientSuccess(){
-        this.finish();
+
     }
 
     //to override
@@ -53,6 +53,6 @@ public class BaseAtivity extends AppCompatActivity {
     }
 
     public void onDeleteProfileSuccess() {
-        this.finish();
+
     }
 }

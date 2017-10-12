@@ -56,6 +56,8 @@
     <string name="delete_profile_title">Desea eliminar su perfil?</string>
     <string name="delete_profile_warning">Este proceso no es reversible</string>
     <string name="delete_my_profile">Eliminar mi perfil</string>
+    <string name="modify_profile_success">Su perfil se ha modificado con exito</string>
+
 
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>

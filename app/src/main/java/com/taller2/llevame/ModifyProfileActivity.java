@@ -93,11 +93,16 @@ public class ModifyProfileActivity extends BaseAtivity {
         clientData.password = client.password;
 
         clientData.firstName = name;
+        this.client.name = name;
         clientData.lastName = surname;
+        this.client.surname = surname;
         //TODO: arreglarlo trae problemas
         clientData.birthdate = "\"01/01/1990\"";
+        this.client.birthdate = birthdate;
         clientData.email = email;
+        this.client.email = email;
         clientData.country = country;
+        this.client.country = country;
         clientData.images = new ArrayList();
 
         String type =  (client.type.equals("driver")) ? "driver" : "client";
@@ -121,9 +126,16 @@ public class ModifyProfileActivity extends BaseAtivity {
         findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
     }
 
+
     public void onModifyClientSuccess(){
+        Toast.makeText(getApplicationContext(),R.string.modify_profile_success,Toast.LENGTH_SHORT).show();
         findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
-        //TODO
+        FactoryActivities factoryActivities = new FactoryActivities();
+        if(client.isDriver()){
+            factoryActivities.goToDriverProfileActivity(this,this.client);
+        }else{
+            factoryActivities.goToPassengerProfileActivity(this,this.client);
+        }
     }
 
 }
