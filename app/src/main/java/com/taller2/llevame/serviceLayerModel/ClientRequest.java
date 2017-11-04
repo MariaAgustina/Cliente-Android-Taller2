@@ -93,7 +93,7 @@ public class ClientRequest extends  HTTPRequest {
     /**
      *
      * @param delegate the delegate that will be notified when the async request has success or error
-     * @param newClient
+     * @param newClient the client who's profile will be modified
      */
     public void modifyProfile(final BaseAtivity delegate,ClientData newClient){
 
@@ -149,7 +149,11 @@ public class ClientRequest extends  HTTPRequest {
         // Add the request to the RequestQueue.
     }
 
-
+    /**
+     *
+     * @param delegate the delegate that will be notified when the async request has success or error
+     * @param newClient the client that will be removed from the server
+     */
 
     public void deleteProfile(final BaseAtivity delegate,ClientData newClient){
         Log.v(TAG,"EJECUTANDO DELETE");

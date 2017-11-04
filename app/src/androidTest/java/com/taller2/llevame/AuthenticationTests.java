@@ -22,9 +22,4 @@ public class AuthenticationTests {
         assertEquals("com.taller2.llevame", appContext.getPackageName());
     }
 
-    @Test
-    public void loggedInUserSaved() throws Exception {
-        boolean isLoggedIn = (AccessToken.getCurrentAccessToken() != null);
-        assertEquals(isLoggedIn,true);
-    }
 }

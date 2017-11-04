@@ -28,7 +28,7 @@ public class LlevameApp extends Application{
         super.onCreate();
         AppEventsLogger.activateApp(this);
         Log.v(TAG,"onCreate called");
-        //logHashKey();
+        logHashKey();
     }
 
     private void logHashKey(){

@@ -29,6 +29,10 @@ public class ModifyProfileActivity extends BaseAtivity {
     private TextView emailInput;
     private TextView birthdateInput;
 
+    /**
+     * the creation of the modify profile activity
+     * @param savedInstanceState the instance state of the bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,9 @@ public class ModifyProfileActivity extends BaseAtivity {
         this.setUpClientInformation();
     }
 
+    /**
+     * set ups the views that contain the class
+     */
     private void setUpInitials (){
         this.client = (Client) getIntent().getSerializableExtra("client");
         this.editNameInput = (TextView) findViewById(R.id.editNameInput);
@@ -47,6 +54,9 @@ public class ModifyProfileActivity extends BaseAtivity {
         this.countryInput = (TextView) findViewById(R.id.countryInput);
     }
 
+    /**
+     * the client information received from the server is saved in the controller properties
+     */
     private void setUpClientInformation(){
         this.editNameInput.setText(this.client.name);
         this.editSurnameInput.setText(this.client.surname);
@@ -55,6 +65,10 @@ public class ModifyProfileActivity extends BaseAtivity {
         this.countryInput.setText(this.client.country);
     }
 
+    /**
+     * this method handles the action when de button for changes is pressed
+     * @param view the view that contains the button
+     */
     public void saveChangesButtonPressed(View view){
 
         String name = this.editNameInput.getText().toString();
@@ -120,6 +134,10 @@ public class ModifyProfileActivity extends BaseAtivity {
         clientRequest.modifyProfile(this,clientData);
     }
 
+    /**
+     * shows a toast that explains the user there is an error
+     * @param error the error that comes from the server
+     */
 
     public void onServiceDidFailed(VolleyError error) {
         super.onServiceDidFailed(error);
@@ -127,6 +145,9 @@ public class ModifyProfileActivity extends BaseAtivity {
     }
 
 
+    /**
+     * client success save new data and go back to profile activity
+     */
     public void onModifyClientSuccess(){
         Toast.makeText(getApplicationContext(),R.string.modify_profile_success,Toast.LENGTH_SHORT).show();
         findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);

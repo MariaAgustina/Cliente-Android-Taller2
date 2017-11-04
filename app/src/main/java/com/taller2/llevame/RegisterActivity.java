@@ -37,6 +37,10 @@ public class RegisterActivity extends BaseAtivity {
     private LoadingView loadingView;
     private Switch isADriverSwitch;
 
+    /**
+     *
+     * @param savedInstanceState the instance state of the bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,10 @@ public class RegisterActivity extends BaseAtivity {
         this.loadingView.setLoadingViewInvisible(this);
     }
 
+    /**
+     * method check the user had completed all changes
+     * @param view
+     */
     public void registerButtonPressed(View view) {
 
         String username = this.editUserNameInput.getText().toString();
@@ -142,6 +150,9 @@ public class RegisterActivity extends BaseAtivity {
         registerRequest.registerClient(this,client);
     }
 
+    /**
+     * shows a toast informing that the user has registered successfuly and then goes to login activity
+     */
     public void onRegisterClientSuccess() {
         Toast.makeText(getApplicationContext(),R.string.register_succeded,Toast.LENGTH_SHORT).show();
         this.loadingView.setLoadingViewInvisible(this);
@@ -150,6 +161,10 @@ public class RegisterActivity extends BaseAtivity {
         factoryActivities.goToLoginActivity(this);
     }
 
+    /**
+     *
+     * @param error
+     */
     public void onServiceDidFailed(VolleyError error){
         super.onServiceDidFailed(error);
         this.loadingView.setLoadingViewInvisible(this);

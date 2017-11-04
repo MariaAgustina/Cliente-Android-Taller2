@@ -24,6 +24,10 @@ public class ProfileActivity extends BaseAtivity {
     private LoadingView loadingView;
     private TextView profileTitle;
 
+    /**
+     *
+     * @param savedInstanceState the instance state of the bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,6 +40,9 @@ public class ProfileActivity extends BaseAtivity {
         //clientRequest.getClient(this);
     }
 
+    /**
+     * set up initial view values
+     */
     public void setUpInitials(){
         this.loadingView = new LoadingView();
         this.loadingView.setLoadingViewInvisible(this);
@@ -45,28 +52,47 @@ public class ProfileActivity extends BaseAtivity {
         }
     }
 
+    /**
+     * logout from facebook
+     * @param view
+     */
     public void logout(View view){
         //cierro sesion en facebook
         LoginManager.getInstance().logOut();
         goToMainActivity();
     }
 
+    /**
+     * modify profil button pressed
+     * @param view the view that contains the go to modifyProfile button
+     */
     public void modifyProfile(View view){
         FactoryActivities factoryActivities = new FactoryActivities();
         factoryActivities.goToModifyProfileActivity(this,this.client);
     }
 
+    /**
+     * delete profile button pressed
+     * @param view the view that contains the go to delete button
+     */
     public void deleteProfile(View view){
         FactoryActivities factoryActivities = new FactoryActivities();
         factoryActivities.goToDeleteProfileActivity(this,this.client);
     }
 
+    /**
+     * this method shows the main activity
+     */
     private void goToMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent,1);
     }
 
+    /**
+     *
+     * @param client the client that received from the server
+     */
     @Override
     public void onGetClientSuccess(Client client){
         this.loadingView.setLoadingViewInvisible(this);
@@ -74,6 +100,10 @@ public class ProfileActivity extends BaseAtivity {
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 
+    /**
+     * method will show toast saying to the user that there was an error
+     * @param error
+     */
     public void onServiceDidFailed(VolleyError error){
         super.onServiceDidFailed(error);
         this.loadingView.setLoadingViewInvisible(this);
