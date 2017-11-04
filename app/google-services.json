@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "127760588617",
+    "firebase_url": "https://cliente-android-taller2.firebaseio.com",
+    "project_id": "cliente-android-taller2",
+    "storage_bucket": "cliente-android-taller2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127760588617:android:91a74c0d24072dac",
+        "android_client_info": {
+          "package_name": "com.taller2.llevame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127760588617-e0n467ujnp86nvogfimndggo5keida5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLna4jVYIrb9jpDQovv70c-0v33N58fCI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
