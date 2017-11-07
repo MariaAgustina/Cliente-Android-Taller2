@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.ChatActivity;
 import com.taller2.llevame.DeleteProfileActivity;
 import com.taller2.llevame.DriverProfileActivity;
 import com.taller2.llevame.LoginActivity;
@@ -126,7 +127,10 @@ public class FactoryActivities {
         goToActivity(activity, RegisterActivity.class);
     }
 
-
+    /**
+     * will go to main activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
     public void goToMainActivity(BaseAtivity activity){
         Intent intent = new Intent(activity,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -141,6 +145,15 @@ public class FactoryActivities {
     public void goToRegisterWithFacebookActivity(BaseAtivity activity){
         Log.v(TAG,"go to register activity");
         goToActivity(activity, RegisterFacebookActivity.class);
+    }
+
+    /**
+     * will go to chat activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
+    public void goToChatActivity(BaseAtivity activity){
+        Log.v(TAG,"go to register activity");
+        goToActivity(activity, ChatActivity.class);
     }
 
 }

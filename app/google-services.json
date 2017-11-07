@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "127760588617-fi6ibjck69f5hknhbsgsg57l6f89jq6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taller2.llevame",
+            "certificate_hash": "40cd8d22bb15d477d2d7b9f598f35d8655c8eb0e"
+          }
+        },
+        {
           "client_id": "127760588617-e0n467ujnp86nvogfimndggo5keida5u.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127760588617-e0n467ujnp86nvogfimndggo5keida5u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
