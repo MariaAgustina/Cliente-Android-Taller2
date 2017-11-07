@@ -16,7 +16,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.taller2.llevame.Models.ChatMessage;
 
 public class ChatActivity extends AppCompatActivity {
@@ -70,20 +73,30 @@ public class ChatActivity extends AppCompatActivity {
                 EditText input = (EditText)findViewById(R.id.input);
 
 
-                //TODO: sacar estos valores hardcodeados
+                //TODO: sacar estos valores hardcodeados y ordenar usuario1-usario2 para que quede unico en la db
                 ChatMessage chatMessage = new ChatMessage(input.getText().toString(),"Agustina","Oscar");
+                FirebaseDatabase.getInstance().getReference().child("Agustina-Oscar").push().setValue(chatMessage);
 
-                FirebaseDatabase.getInstance()
-                        .getReference()
-                        .push()
-                        .setValue(chatMessage
-                        );
 
                 // Clear the input
                 input.setText("");
             }
         });
     }
+
+    ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            ChatMessage chatMessage = dataSnapshot.getValue(ChatMessage.class);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            // ...
+        }
+    };
 
     /*private void displayChatMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
