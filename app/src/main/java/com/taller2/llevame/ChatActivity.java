@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.taller2.llevame.Models.ChatMessage;
+import com.taller2.llevame.serviceLayerModel.ChatRequest;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -41,6 +42,8 @@ public class ChatActivity extends AppCompatActivity {
 
         authenticateOnFirebase();
         configMessageButtonPressed();
+        getChatMessages();
+
     }
 
     private void authenticateOnFirebase(){
@@ -97,6 +100,12 @@ public class ChatActivity extends AppCompatActivity {
             // ...
         }
     };
+
+    private void getChatMessages(){
+        ChatRequest chatRequest = new ChatRequest();
+        chatRequest.endponintUrl = "Agustina-Oscar.json";
+        chatRequest.getChat();
+    }
 
     /*private void displayChatMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
