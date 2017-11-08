@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.Client;
 
 /**
@@ -56,6 +57,11 @@ public class BaseAtivity extends AppCompatActivity {
 
     //to override
     public void onRegisterClientSuccess() {
+
+    }
+
+    //to override
+    public void onGetChatSuccess(Chat chat) {
 
     }
 

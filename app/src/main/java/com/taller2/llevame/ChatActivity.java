@@ -4,13 +4,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,13 +23,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.ChatMessage;
 import com.taller2.llevame.serviceLayerModel.ChatRequest;
 
-public class ChatActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class ChatActivity extends BaseAtivity {
 
     private  FloatingActionButton fab;
     private  FirebaseUser currentUser;
+    private ArrayAdapter<ChatMessage> adapter;
+
+    private Chat chat;
 
     private static final String TAG = "ChatActivity";
 
@@ -63,7 +72,6 @@ public class ChatActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                         }
 
-                        // ...
                     }
                 });
 
@@ -97,23 +105,53 @@ public class ChatActivity extends AppCompatActivity {
         public void onCancelled(DatabaseError databaseError) {
             // Getting Post failed, log a message
             Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            // ...
         }
     };
 
     private void getChatMessages(){
         ChatRequest chatRequest = new ChatRequest();
         chatRequest.endponintUrl = "Agustina-Oscar.json";
-        chatRequest.getChat();
+        chatRequest.getChat(this);
+    }
+
+    public void onGetChatSuccess(Chat chat) {
+        this.chat = chat;
+        displayChatMessages();
+    }
+
+    private void displayChatMessages() {
+        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, this.chat.messages);
+
+        listOfMessages.setAdapter(adapter);
+
     }
 
     /*private void displayChatMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
-        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
+        for (ChatMessage chatMessage : chat.messages) {
+
+            // Get references to the views of message.xml
+            TextView messageText = (TextView)findViewById(R.id.message_text);
+            TextView messageUser = (TextView)findViewById(R.id.message_user);
+            //TextView messageTime = (TextView)v.findViewById(R.id.message_time);
+
+            // Set their text
+            messageText.setText(chatMessage.messageText);
+            messageUser.setText(chatMessage.userSender);
+
+            // Format the date before showing it
+            //messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+             //       chatMessage.messageTime));
+        }
+
+        /*adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
                 R.layout.message, FirebaseDatabase.getInstance().getReference()) {
             @Override
-            protected void populateView(View v, ChatMessage model, int position) {
+            protected void populateView(View v, ChatMessage chatMessage, int position) {
 
                 // Get references to the views of message.xml
                 TextView messageText = (TextView)v.findViewById(R.id.message_text);
@@ -121,15 +159,16 @@ public class ChatActivity extends AppCompatActivity {
                 TextView messageTime = (TextView)v.findViewById(R.id.message_time);
 
                 // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
+                messageText.setText(chatMessage.messageText);
+                messageUser.setText(chatMessage.userSender);
 
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        model.getMessageTime()));
+                        chatMessage.messageTime));
             }
-        };
+        };*/
 
-        listOfMessages.setAdapter(adapter);
-    }*/
+      //  listOfMessages.setAdapter(adapter);
+    //}
+
 }

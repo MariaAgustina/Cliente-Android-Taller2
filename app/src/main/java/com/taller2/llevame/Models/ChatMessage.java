@@ -10,7 +10,6 @@ public class ChatMessage {
     public String messageText;
     public String userSender;
     public String userReceiver;
-
     public long messageTime;
 
     public ChatMessage(String messageText, String userSender, String userReceiver) {

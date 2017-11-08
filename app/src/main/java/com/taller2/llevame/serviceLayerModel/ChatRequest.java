@@ -8,6 +8,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.Models.Chat;
+import com.taller2.llevame.Models.ChatMessage;
+
+import java.util.HashMap;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -45,7 +51,7 @@ public class ChatRequest {
      * send the request for corresponding service
      */
 
-    public void getChat(){
+    public void getChat(final BaseAtivity delegate){
 
         this.configureUrl();
 
@@ -58,6 +64,10 @@ public class ChatRequest {
                     @Override
                     public void onResponse(String response) {
                         Log.v(TAG,"Response is: "+ response);
+                        Gson gson = new Gson();
+                        HashMap chatsDictionary = gson.fromJson(response,HashMap.class);
+                        Chat chat = new Chat(chatsDictionary);
+                        delegate.onGetChatSuccess(chat);
                     }
                 }, new Response.ErrorListener() {
             @Override
