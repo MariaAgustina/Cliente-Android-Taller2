@@ -83,16 +83,23 @@ public class ChatActivity extends BaseAtivity {
             public void onClick(View view) {
                 EditText input = (EditText)findViewById(R.id.input);
 
-
                 //TODO: sacar estos valores hardcodeados y ordenar usuario1-usario2 para que quede unico en la db
                 ChatMessage chatMessage = new ChatMessage(input.getText().toString(),"Agustina","Oscar");
                 FirebaseDatabase.getInstance().getReference().child("Agustina-Oscar").push().setValue(chatMessage);
 
+                chat.messages.add(chatMessage.messageText);
+                chat.chatMessages.add(chatMessage);
+
 
                 // Clear the input
                 input.setText("");
+                updateChatView();
             }
         });
+    }
+
+    private void updateChatView(){
+        displayChatMessages();
     }
 
     ValueEventListener postListener = new ValueEventListener() {
@@ -126,6 +133,8 @@ public class ChatActivity extends BaseAtivity {
                     android.R.layout.simple_list_item_1, android.R.id.text1, this.chat.messages);
 
         listOfMessages.setAdapter(adapter);
+        listOfMessages.setSelection(this.chat.messages.size());
+
 
     }
 
