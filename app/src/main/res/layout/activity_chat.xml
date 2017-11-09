@@ -14,13 +14,11 @@
 
     <RelativeLayout
         android:id="@+id/loadingPanel"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="400dp"
+        android:layout_height="495dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <ProgressBar
             android:layout_width="wrap_content"
