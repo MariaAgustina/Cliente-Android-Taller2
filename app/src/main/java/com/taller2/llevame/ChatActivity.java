@@ -23,19 +23,34 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.ChatMessage;
+import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Notification;
+import com.taller2.llevame.Models.PushNotification;
+import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.ChatRequest;
+import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
+import com.taller2.llevame.Views.MessageAdapter;
+
+
 
 import java.util.ArrayList;
 
 public class ChatActivity extends BaseAtivity {
+
+    private String senderUserName;
+    private String receiverUserName;
 
     private  FloatingActionButton fab;
     private  FirebaseUser currentUser;
     private ArrayAdapter<ChatMessage> adapter;
 
     private Chat chat;
+    private LoadingView loadingView;
+
 
     private static final String TAG = "ChatActivity";
 
@@ -44,6 +59,11 @@ public class ChatActivity extends BaseAtivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        this.senderUserName =  (String)getIntent().getSerializableExtra("senderUserName");
+        this.receiverUserName =  (String)getIntent().getSerializableExtra("receiverUserName");
+
+        this.loadingView = new LoadingView();
+
         this.fab = (FloatingActionButton)findViewById(R.id.fab);
 
         FloatingActionButton fab =
@@ -52,7 +72,6 @@ public class ChatActivity extends BaseAtivity {
         authenticateOnFirebase();
         configMessageButtonPressed();
         getChatMessages();
-
     }
 
     private void authenticateOnFirebase(){
@@ -83,14 +102,15 @@ public class ChatActivity extends BaseAtivity {
             public void onClick(View view) {
                 EditText input = (EditText)findViewById(R.id.input);
 
-                //TODO: sacar estos valores hardcodeados y ordenar usuario1-usario2 para que quede unico en la db
-                ChatMessage chatMessage = new ChatMessage(input.getText().toString(),"Agustina","Oscar");
-                FirebaseDatabase.getInstance().getReference().child("Agustina-Oscar").push().setValue(chatMessage);
+                ChatMessage chatMessage = new ChatMessage(input.getText().toString(),senderUserName,receiverUserName);
+
+                String chatName = getChatStringName();
+                FirebaseDatabase.getInstance().getReference().child(chatName).push().setValue(chatMessage);
 
                 chat.messages.add(chatMessage.messageText);
                 chat.chatMessages.add(chatMessage);
 
-
+                sendPushNotification(chatMessage);
                 // Clear the input
                 input.setText("");
                 updateChatView();
@@ -100,6 +120,20 @@ public class ChatActivity extends BaseAtivity {
 
     private void updateChatView(){
         displayChatMessages();
+    }
+
+    private void sendPushNotification(ChatMessage chatMessage){
+        Log.v(TAG,"Sending push notification.....");
+        Notification notification = new Notification();
+        notification.title = chatMessage.messageText;
+        //notification.body = "This is an FCM notification message!";
+
+        PushNotification pushNotification = new PushNotification();
+        pushNotification.sender_id = "938482449732";
+        pushNotification.to = "dVYNP90RWeU:APA91bHhC_7vm6Cbe1ZoqT7THAmncG0tyC1iXVdEbqcD28NajcpkyN8A1C5fdTjhZNNY6R1UUIB7vVFHTxq8fd5qzyZtjZBa_fcdAVmfZbthGSTsGgzlBwM3dSmbLcOWZKE7wJRiyfA9";
+
+        PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
+        pushNotificationRequest.sendPushNotification(this,pushNotification);
     }
 
     ValueEventListener postListener = new ValueEventListener() {
@@ -117,11 +151,24 @@ public class ChatActivity extends BaseAtivity {
 
     private void getChatMessages(){
         ChatRequest chatRequest = new ChatRequest();
-        chatRequest.endponintUrl = "Agustina-Oscar.json";
+        String chatName = getChatStringName();
+
+        chatRequest.endponintUrl = chatName + ".json";
         chatRequest.getChat(this);
     }
 
+    private String getChatStringName(){
+        int compare = this.senderUserName.compareTo(this.receiverUserName);
+        if (compare < 0){
+            return this.senderUserName + "-" + this.receiverUserName;
+        }
+        return this.receiverUserName + "-" + this.senderUserName;
+
+    }
+
     public void onGetChatSuccess(Chat chat) {
+        this.loadingView.setLoadingViewInvisible(this);
+
         this.chat = chat;
         displayChatMessages();
     }
@@ -129,55 +176,12 @@ public class ChatActivity extends BaseAtivity {
     private void displayChatMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, this.chat.messages);
+        MessageAdapter messageAdapter = new MessageAdapter(this,chat.chatMessages);
 
-        listOfMessages.setAdapter(adapter);
+        listOfMessages.setAdapter(messageAdapter);
         listOfMessages.setSelection(this.chat.messages.size());
 
 
     }
-
-    /*private void displayChatMessages() {
-        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
-
-        for (ChatMessage chatMessage : chat.messages) {
-
-            // Get references to the views of message.xml
-            TextView messageText = (TextView)findViewById(R.id.message_text);
-            TextView messageUser = (TextView)findViewById(R.id.message_user);
-            //TextView messageTime = (TextView)v.findViewById(R.id.message_time);
-
-            // Set their text
-            messageText.setText(chatMessage.messageText);
-            messageUser.setText(chatMessage.userSender);
-
-            // Format the date before showing it
-            //messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-             //       chatMessage.messageTime));
-        }
-
-        /*adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
-            @Override
-            protected void populateView(View v, ChatMessage chatMessage, int position) {
-
-                // Get references to the views of message.xml
-                TextView messageText = (TextView)v.findViewById(R.id.message_text);
-                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
-                TextView messageTime = (TextView)v.findViewById(R.id.message_time);
-
-                // Set their text
-                messageText.setText(chatMessage.messageText);
-                messageUser.setText(chatMessage.userSender);
-
-                // Format the date before showing it
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        chatMessage.messageTime));
-            }
-        };*/
-
-      //  listOfMessages.setAdapter(adapter);
-    //}
 
 }

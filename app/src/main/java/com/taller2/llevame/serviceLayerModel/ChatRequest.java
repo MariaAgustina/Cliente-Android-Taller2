@@ -14,6 +14,7 @@ import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.ChatMessage;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -65,7 +66,7 @@ public class ChatRequest {
                     public void onResponse(String response) {
                         Log.v(TAG,"Response is: "+ response);
                         Gson gson = new Gson();
-                        HashMap chatsDictionary = gson.fromJson(response,HashMap.class);
+                        LinkedHashMap chatsDictionary = gson.fromJson(response,LinkedHashMap.class);
                         Chat chat = new Chat(chatsDictionary);
                         delegate.onGetChatSuccess(chat);
                     }

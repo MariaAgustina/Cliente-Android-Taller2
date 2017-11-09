@@ -151,9 +151,12 @@ public class FactoryActivities {
      * will go to chat activity
      * @param activity the activity that needs to show other activity in the stack
      */
-    public void goToChatActivity(BaseAtivity activity){
+    public void goToChatActivity(BaseAtivity activity,String senderUserName,String receiverUserName){
         Log.v(TAG,"go to register activity");
-        goToActivity(activity, ChatActivity.class);
+        Intent intent = new Intent(activity,ChatActivity.class);
+        intent.putExtra("senderUserName",senderUserName);
+        intent.putExtra("receiverUserName",receiverUserName);
+        activity.startActivity(intent);
     }
 
 }

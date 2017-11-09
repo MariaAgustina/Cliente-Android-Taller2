@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import android.content.pm.*;
 import android.content.pm.Signature;
@@ -29,6 +30,11 @@ public class LlevameApp extends Application{
         AppEventsLogger.activateApp(this);
         Log.v(TAG,"onCreate called");
         logHashKey();
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        if(refreshedToken != null){
+            Log.d(TAG, "Refreshed token: " + refreshedToken);
+        }
     }
 
     private void logHashKey(){
