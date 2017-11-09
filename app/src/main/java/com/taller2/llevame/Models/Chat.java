@@ -27,6 +27,10 @@ public class Chat {
         this.chatMessages = new ArrayList<ChatMessage>();
         this.messages = new ArrayList<String>();
 
+        if(dictionary == null){
+            return;
+        }
+        
         Iterator it = dictionary.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry)it.next();
