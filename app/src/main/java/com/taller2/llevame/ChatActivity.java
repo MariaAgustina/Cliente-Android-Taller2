@@ -66,9 +66,6 @@ public class ChatActivity extends BaseAtivity {
 
         this.fab = (FloatingActionButton)findViewById(R.id.fab);
 
-        FloatingActionButton fab =
-                (FloatingActionButton)findViewById(R.id.fab);
-
         authenticateOnFirebase();
         configMessageButtonPressed();
         getChatMessages();

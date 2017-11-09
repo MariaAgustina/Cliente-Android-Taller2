@@ -1,17 +1,21 @@
 package com.taller2.llevame;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.facebook.login.LoginManager;
+import com.google.firebase.database.FirebaseDatabase;
 import com.taller2.llevame.Creational.FactoryActivities;
+import com.taller2.llevame.Models.ChatMessage;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.ClientData;
 import com.taller2.llevame.Views.LoadingView;
@@ -23,6 +27,7 @@ public class ProfileActivity extends BaseAtivity {
     private Client client;
     private LoadingView loadingView;
     private TextView profileTitle;
+    private FloatingActionButton fab;
 
     /**
      *
@@ -47,6 +52,8 @@ public class ProfileActivity extends BaseAtivity {
         this.loadingView = new LoadingView();
         this.loadingView.setLoadingViewInvisible(this);
         this.profileTitle = (TextView) findViewById(R.id.profile_title);
+        this.fab = (FloatingActionButton)findViewById(R.id.fab);
+        configFabButtonPressed();
         if(this.client != null){
             this.profileTitle.setText("Hola " + client.name);
         }
@@ -87,6 +94,22 @@ public class ProfileActivity extends BaseAtivity {
         Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent,1);
+    }
+
+    public void configFabButtonPressed() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showChat();
+            }
+        });
+    }
+
+    public void showChat(){
+        //TODO: Eliminar valor hardcodeado
+        Log.v(TAG,"go to chat");
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToChatActivity(this,client.username,"Oscar");
     }
 
     /**
