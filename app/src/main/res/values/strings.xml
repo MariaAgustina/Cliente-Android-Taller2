@@ -32,6 +32,7 @@
     <string name="passwords_not_match">Por favor, confirme su contraseña</string>
     <string name="register_succeded">Usted se ha registrado correctamente</string>
     <string name="is_a_driver">Soy chofer</string>
+    <string name="title_activity_register">RegisterActivity</string>
 
 
     <!--Profile -->
@@ -58,13 +59,21 @@
     <string name="delete_profile_warning">Este proceso no es reversible</string>
     <string name="delete_my_profile">Eliminar mi perfil</string>
     <string name="delete_success">Usuario eliminado con exito</string>
+    <string name="title_activity_delete_profile">DeleteProfileActivity</string>
 
     <!--Errors-->
     <string name="response_error">Error en la respuesta</string>
     <string name="title_activity_modify_profile">ModifyProfileActivity</string>
     <string name="server_failed">Lo sentimos, hubo un error</string>
     <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_delete_profile">DeleteProfileActivity</string>
+    <string name="permisson_denied_error">Para poder viajar se necesitan los permisos de ubicacion</string>
+    <string name="title_location_permission">Permisos de ubicacion</string>
+    <string name="text_location_permission">Llevame solicita acceder a su ubicación para poder comenzar a viajar</string>
+    <string name="text_location_confirm">Confirmar</string>
+
+
+
+
+    <!--Map activity-->
     <string name="title_activity_maps">Map</string>
 </resources>
