@@ -35,7 +35,7 @@
 
 
     <!--Profile -->
-    <string name="select_driver">Selecciona un conductor</string>
+    <string name="start_trip">Comenzar a viajar</string>
     <string name="driver_available">Disponible</string>
     <string name="driver_on_trip">En viaje</string>
 
@@ -66,4 +66,5 @@
     <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_delete_profile">DeleteProfileActivity</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

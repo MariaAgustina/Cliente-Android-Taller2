@@ -1,13 +1,7 @@
 package com.taller2.llevame.Creational;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.view.View;
 
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.ChatActivity;
@@ -15,8 +9,8 @@ import com.taller2.llevame.DeleteProfileActivity;
 import com.taller2.llevame.DriverProfileActivity;
 import com.taller2.llevame.LoginActivity;
 import com.taller2.llevame.MainActivity;
+import com.taller2.llevame.MapsActivity;
 import com.taller2.llevame.Models.Client;
-import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.ModifyProfileActivity;
 import com.taller2.llevame.PassengerProfileActivity;
 import com.taller2.llevame.ProfileActivity;
@@ -159,4 +153,13 @@ public class FactoryActivities {
         activity.startActivity(intent);
     }
 
-}
+    /**
+     * will go to Map activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
+    public void goToMapActivity(BaseAtivity activity) {
+        Log.v(TAG,"go to Map Activity");
+        goToActivity(activity, MapsActivity.class);
+    }
+
+    }

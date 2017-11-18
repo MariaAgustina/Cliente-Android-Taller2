@@ -3,6 +3,8 @@ package com.taller2.llevame;
 import android.os.Bundle;
 import android.view.View;
 
+import com.taller2.llevame.Creational.FactoryActivities;
+
 /**
  * Created by amarkosich on 10/8/17.
  */
@@ -31,8 +33,9 @@ public class PassengerProfileActivity extends ProfileActivity {
      * will show the list of drivers available for the passenger
      * @param view the view that contains the button
      */
-    public void selectDriverButtonPressed(View view) {
-        //TODO: en el checkpoint 3
+    public void startTripButtonPressed(View view) {
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToMapActivity(this);
     }
 
 }
