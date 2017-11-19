@@ -73,8 +73,7 @@
     <string name="text_location_confirm">Confirmar</string>
 
 
-
-
     <!--Map activity-->
     <string name="title_activity_maps">Map</string>
+    <string name="where_go">¿A dónde vas?</string>
 </resources>

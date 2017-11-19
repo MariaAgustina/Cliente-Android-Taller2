@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -108,6 +109,14 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
     public void onServiceDidFailed(VolleyError error){
         Log.e("error en la resupuesta", error.toString());
         Toast.makeText(getApplicationContext(),R.string.server_failed,Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Method is called when the where go button is pressed, it shows the activity that selects the trip
+     * @param view the button view
+     */
+    public void whereGoButtonPressed(View view){
+        //TODO: present activity
     }
 
 }
