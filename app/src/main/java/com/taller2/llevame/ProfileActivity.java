@@ -24,7 +24,7 @@ import com.taller2.llevame.serviceLayerModel.ClientRequest;
 public class ProfileActivity extends BaseAtivity {
 
     private static final String TAG = "ProfileActivity";
-    private Client client;
+    public Client client;
     private LoadingView loadingView;
     private TextView profileTitle;
     private FloatingActionButton fab;

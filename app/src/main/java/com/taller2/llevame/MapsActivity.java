@@ -89,7 +89,7 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
 
 
     private void getAvailableDrivers(LatLng latLng){
-        double radio = 1000;
+        double radio = 100.0;
         AvailableDriversRequest availableDriversRequest = new AvailableDriversRequest(latLng,radio);
         availableDriversRequest.getAvailableDrivers(this);
     }

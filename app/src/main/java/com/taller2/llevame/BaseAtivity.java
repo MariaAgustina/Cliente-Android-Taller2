@@ -83,4 +83,11 @@ public class BaseAtivity extends AppCompatActivity {
 
     }
 
+    /**
+     * to override
+     */
+    public void onPostLocationSuccess() {
+
+    }
+
 }
