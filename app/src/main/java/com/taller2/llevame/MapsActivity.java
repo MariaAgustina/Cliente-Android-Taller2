@@ -1,29 +1,40 @@
 package com.taller2.llevame;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+    /**
+     * creation of main activity
+     * @param savedInstanceState the instance state of the bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,34 +59,55 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-  //      mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-  //      mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            //mMap.setOnMyLocationButtonClickListener(this);
-           // mMap.setOnMyLocationClickListener(this);
+
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+
+            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+            if (location != null)
+            {
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                        .zoom(14)                   // Sets the zoom
+                        .build();                   // Creates a CameraPosition from the builder
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                getAvailableDrivers(latLng);
+            }
+
         }else {
             Toast.makeText(getApplicationContext(),R.string.permisson_denied_error,Toast.LENGTH_SHORT).show();
             finish();
         }
     }
 
-    /*@Override
-    public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+
+    private void getAvailableDrivers(LatLng latLng){
+        double radio = 1000;
+        AvailableDriversRequest availableDriversRequest = new AvailableDriversRequest(latLng,radio);
+        availableDriversRequest.getAvailableDrivers(this);
     }
 
-    @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
-        return false;
-    }*/
+    /**
+     * this method is called when gets succeded on available drivers list
+     */
+    public void onAvailableDriverSuccess() {
 
+    }
 
+    /**
+     * onServiceDidFailed shows Toast to inform the user the server has failed
+     * @param error to log in console
+     */
+    public void onServiceDidFailed(VolleyError error){
+        Log.e("error en la resupuesta", error.toString());
+        Toast.makeText(getApplicationContext(),R.string.server_failed,Toast.LENGTH_SHORT).show();
+    }
 
 }

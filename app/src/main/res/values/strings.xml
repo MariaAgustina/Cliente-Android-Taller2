@@ -65,6 +65,7 @@
     <string name="response_error">Error en la respuesta</string>
     <string name="title_activity_modify_profile">ModifyProfileActivity</string>
     <string name="server_failed">Lo sentimos, hubo un error</string>
+    <string name="server_failed_drivers">Lo sentimos, hubo un error, no se mostrarán los choferes disponibles</string>
     <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
     <string name="permisson_denied_error">Para poder viajar se necesitan los permisos de ubicacion</string>
     <string name="title_location_permission">Permisos de ubicacion</string>

@@ -39,33 +39,48 @@ public class BaseAtivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),R.string.server_login_facebook_failed,Toast.LENGTH_SHORT).show();
 
     }
-        //Esto esta asi para que los servicios se puedan llamar desde cualquier Activity
+    //Esto esta asi para que los servicios se puedan llamar desde cualquier Activity
 
-    //to override
+    /**
+     * to override
+     */
     public void onGetClientSuccess(Client client){
 
     }
 
-    //to override
+    /**
+     * to override
+     */
     public void onLoginSuccess(Client client){
 
     }
-    //to override
+
+    /**
+     * to override
+     */
     public void onModifyClientSuccess(){
 
     }
 
-    //to override
+    /**
+     * to override
+     */
     public void onRegisterClientSuccess() {
 
     }
 
-    //to override
+    /**
+     * to override
+     */
     public void onGetChatSuccess(Chat chat) {
 
     }
 
+    /**
+     * to override
+     */
     public void onDeleteProfileSuccess() {
 
     }
+
 }

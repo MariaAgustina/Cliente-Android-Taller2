@@ -138,7 +138,6 @@ public class ModifyProfileActivity extends BaseAtivity {
      * shows a toast that explains the user there is an error
      * @param error the error that comes from the server
      */
-
     public void onServiceDidFailed(VolleyError error) {
         super.onServiceDidFailed(error);
         findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
