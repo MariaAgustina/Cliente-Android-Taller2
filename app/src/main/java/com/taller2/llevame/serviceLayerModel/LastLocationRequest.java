@@ -99,6 +99,8 @@ public class LastLocationRequest extends  HTTPRequest {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Set-Cookie", CookieHolder.INSTANCE.getCookie());
+                    headers.put("Cookie",CookieHolder.INSTANCE.getCookie());
                     return headers;
                 }
             };
