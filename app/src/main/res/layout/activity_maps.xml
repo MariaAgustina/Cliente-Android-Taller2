@@ -19,7 +19,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/whereToGoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -29,8 +29,43 @@
         android:textStyle="normal"
         android:background="#ffffff"
         android:text="@string/where_go"
-        android:onClick="whereGoButtonPressed"
+        android:onClick="whereToGoButtonPressed"
         android:textColor="#000000" />
+
+
+    <RelativeLayout
+        android:id="@+id/whereToGoView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#ffffff"
+        android:visibility="invisible">
+
+
+        <!--From-->
+
+        <EditText
+            android:id="@+id/fromInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="40dp"
+            android:inputType="text" />
+
+        <!--To-->
+
+        <EditText
+            android:id="@+id/toInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/fromInput"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="16dp"
+            android:inputType="text" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
 

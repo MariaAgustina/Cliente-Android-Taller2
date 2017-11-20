@@ -26,11 +26,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 
 public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCallback {
 
+
+    private static final String TAG = "MapsActivity";
     private GoogleMap mMap;
+    private View whereToGoButton;
+    private View whereToGoView;
 
     /**
      * creation of main activity
@@ -40,12 +45,22 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        setupInitials();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
+    /**
+     * set up the initial componnents of the activyty
+     */
+    private void setupInitials(){
+        this.whereToGoButton = this.findViewById(R.id.whereToGoButton);
+        this.whereToGoView = this.findViewById(R.id.whereToGoView);
+
+    }
 
     /**
      * Manipulates the map once available.
@@ -115,8 +130,12 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
      * Method is called when the where go button is pressed, it shows the activity that selects the trip
      * @param view the button view
      */
-    public void whereGoButtonPressed(View view){
-        //TODO: present activity
+    public void whereToGoButtonPressed(View view){
+
+        this.whereToGoButton.setVisibility(View.INVISIBLE);
+        this.whereToGoView.setVisibility(View.VISIBLE);
+
+
     }
 
 }
