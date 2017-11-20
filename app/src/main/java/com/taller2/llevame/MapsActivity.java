@@ -12,8 +12,12 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -27,6 +31,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.taller2.llevame.Creational.FactoryActivities;
+import com.taller2.llevame.Models.GeoSearchResult;
+import com.taller2.llevame.Views.DelayAutoCompleteTextView;
+import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 
 public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCallback {
@@ -37,6 +44,9 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
     private View whereToGoButton;
     private View whereToGoView;
 
+    private Integer THRESHOLD = 2;
+    private DelayAutoCompleteTextView geo_autocomplete;
+    private ImageView geo_autocomplete_clear;
     /**
      * creation of main activity
      * @param savedInstanceState the instance state of the bundle
@@ -59,6 +69,59 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
     private void setupInitials(){
         this.whereToGoButton = this.findViewById(R.id.whereToGoButton);
         this.whereToGoView = this.findViewById(R.id.whereToGoView);
+        setUpGeoAutocompleteView();
+
+    }
+
+    /**
+     * Set ups GeoAutocompleteView
+     */
+    private void setUpGeoAutocompleteView(){
+        geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
+
+        geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
+        geo_autocomplete.setThreshold(THRESHOLD);
+        geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this)); // 'this' is Activity instance
+
+        geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
+                geo_autocomplete.setText(result.getAddress());
+            }
+        });
+
+        geo_autocomplete.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() > 0)
+                {
+                    geo_autocomplete_clear.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    geo_autocomplete_clear.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        geo_autocomplete_clear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                geo_autocomplete.setText("");
+            }
+        });
 
     }
 
