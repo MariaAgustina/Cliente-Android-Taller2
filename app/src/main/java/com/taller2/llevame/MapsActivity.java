@@ -46,6 +46,7 @@ import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCallback {
 
@@ -90,6 +91,7 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
         this.whereToGoView = this.findViewById(R.id.whereToGoView);
         setUpGeoAutocompleteView();
         setUpGeoAutocompleteToView();
+
 
     }
 
@@ -192,6 +194,27 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
 
     }
 
+    private Location getLastKnownLocation() {
+        Location bestLocation = null;
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            LocationManager mLocationManager;
+            mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            List<String> providers = mLocationManager.getProviders(true);
+            for (String provider : providers) {
+                Location l = mLocationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+            }
+        }
+        return bestLocation;
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -212,7 +235,7 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
 
-            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+            Location location = this.getLastKnownLocation();
             if (location != null) {
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
@@ -288,22 +311,29 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
 
     }
 
+    private void clearPolylinesIfShould(){
+        mMap.clear();
+
+    }
+
     /**
      * Renders the way on the map
      * @param steps all the steps returned from google api
      */
     public void onGetWaySuccess(ArrayList<Step> steps) {
 
+        clearPolylinesIfShould();
         for (int i = 0; i < steps.size(); i++){
 
             Step step = steps.get(i);
             LatLng latLng1 = new LatLng(step.start_location.lat,step.start_location.lng);
             LatLng latLng2 = new LatLng(step.end_location.lat,step.end_location.lng);
 
-            mMap.addPolyline(new PolylineOptions()
+            PolylineOptions polyline = new PolylineOptions()
                     .add(latLng1, latLng2)
                     .width(10)
-                    .color(Color.BLUE));
+                    .color(Color.BLUE);
+            mMap.addPolyline(polyline);
 
         }
 
