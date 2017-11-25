@@ -1,5 +1,6 @@
 package com.taller2.llevame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.location.Address;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -18,6 +20,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -42,6 +46,7 @@ import com.taller2.llevame.Models.Step;
 import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.Views.DelayAutoCompleteTextView;
 import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
+import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
 
@@ -65,6 +70,8 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
 
     private Address addressFrom;
     private Address addressTo;
+    private View loadingView;
+
 
     /**
      * creation of main activity
@@ -91,8 +98,18 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
         this.whereToGoView = this.findViewById(R.id.whereToGoView);
         setUpGeoAutocompleteView();
         setUpGeoAutocompleteToView();
+        this.loadingView = this.findViewById(R.id.loadingPanel);
+    }
 
+    private void setLoadingViewInvisible(){
+        this.loadingView.setVisibility(View.INVISIBLE);
+        this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
 
+    private void setLoadingViewVisible(){
+        this.loadingView.setVisibility(View.VISIBLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     /**
@@ -278,6 +295,7 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
      */
     public void onServiceDidFailed(VolleyError error) {
         Log.e("error en la resupuesta", error.toString());
+        updateInitialValues();
         Toast.makeText(getApplicationContext(), R.string.server_failed, Toast.LENGTH_SHORT).show();
     }
 
@@ -287,12 +305,19 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
      * @param view the button view
      */
     public void whereToGoButtonPressed(View view) {
-
         this.whereToGoButton.setVisibility(View.INVISIBLE);
         this.whereToGoView.setVisibility(View.VISIBLE);
-
-
     }
+
+    /**
+     * update the views to initial states
+     */
+    private void updateInitialValues(){
+        this.whereToGoButton.setVisibility(View.VISIBLE);
+        this.whereToGoView.setVisibility(View.INVISIBLE);
+        this.setLoadingViewInvisible();
+    }
+
 
     /**
      * this method is called once the client wants to start the trip
@@ -300,6 +325,12 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
      * @param view the button view
      */
     public void startTripButtonPressed(View view) {
+
+        if(addressTo == null || addressFrom == null || addressFrom.equals("") || addressTo.equals("")){
+            Toast.makeText(getApplicationContext(), R.string.complete_fields_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        this.setLoadingViewVisible();
         addressTo.getLatitude();
         Trajectory trajectory = new Trajectory();
         trajectory.origin_lat = addressFrom.getLatitude();
@@ -322,7 +353,9 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
      */
     public void onGetWaySuccess(ArrayList<Step> steps) {
 
+        updateInitialValues();
         clearPolylinesIfShould();
+
         for (int i = 0; i < steps.size(); i++){
 
             Step step = steps.get(i);
