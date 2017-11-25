@@ -1,35 +1,22 @@
 package com.taller2.llevame;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.places.GeoDataApi;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,16 +24,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.zxing.client.result.GeoResultParser;
-import com.taller2.llevame.Creational.FactoryActivities;
+import com.taller2.llevame.Models.AvailableDriver;
+import com.taller2.llevame.Models.Driver;
 import com.taller2.llevame.Models.GeoSearchResult;
+import com.taller2.llevame.Models.LLELocation;
 import com.taller2.llevame.Models.Step;
 import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.Views.DelayAutoCompleteTextView;
 import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
-import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
 
@@ -249,9 +235,6 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
 
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-
             Location location = this.getLastKnownLocation();
             if (location != null) {
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -284,8 +267,17 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
     /**
      * this method is called when gets succeded on available drivers list
      */
-    public void onAvailableDriverSuccess() {
+    public void onAvailableDriverSuccess(List<AvailableDriver> availableDrivers) {
 
+        for (int i = 0; i < availableDrivers.size(); i++){
+            Driver driver = availableDrivers.get(i).info;
+            LLELocation location = availableDrivers.get(i).location;
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location.lat,location.Long))
+                    .title(driver.name)
+                    .snippet(driver.surname)); //TODO: mostrar info sobre autos
+        }
     }
 
     /**
@@ -369,6 +361,9 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
             mMap.addPolyline(polyline);
 
         }
+
+        //TODO: agarrar el primer chofer de la lista y mandarle una push notification
+
 
     }
 

@@ -11,12 +11,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
-import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
-import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.AvailableDriver;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -48,10 +49,15 @@ public class AvailableDriversRequest extends  HTTPRequest {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        //por el problema de Long SS
+                        response = response.replace("long","Long");
                         Log.v(TAG,"Response is: "+ response);
-                        //Gson gson = new Gson();
-                        //Client client = gson.fromJson(response,Client.class);
-                        delegate.onAvailableDriverSuccess();
+
+                        Gson gson = new Gson();
+
+                        List<AvailableDriver> driversList = Arrays.asList(gson.fromJson(response,
+                                AvailableDriver[].class));
+                        delegate.onAvailableDriverSuccess(driversList);
                     }
                 }, new Response.ErrorListener() {
             @Override
