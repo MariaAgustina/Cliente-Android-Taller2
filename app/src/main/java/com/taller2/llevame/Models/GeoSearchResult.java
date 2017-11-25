@@ -1,5 +1,6 @@
 package com.taller2.llevame.Models;
 import android.location.Address;
+import android.location.Location;
 
 /**
  * Created by amarkosich on 11/20/17.
@@ -28,6 +29,10 @@ public class GeoSearchResult {
         display_address = display_address.substring(0, display_address.length() - 2);
 
         return display_address;
+    }
+
+    public Address getAddressObject(){
+        return this.address;
     }
 
     public String toString(){

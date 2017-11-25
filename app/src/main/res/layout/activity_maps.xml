@@ -41,66 +41,101 @@
         android:visibility="invisible">
 
 
-        <!--From-->
-
-        <EditText
-            android:id="@+id/fromInput"
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="40dp"
-            android:inputType="text" />
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:id="@+id/frameLayout2">
 
-        <!--To-->
+            <com.taller2.llevame.Views.DelayAutoCompleteTextView
+                android:id="@+id/geo_autocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:inputType="textCapSentences"
+                android:textColor="#000000"
+                android:background="#ffffff"
+                android:hint="Desde"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:padding="10dp"
+                android:dropDownWidth="fill_parent"
+                />
 
-        <EditText
-            android:id="@+id/toInput"
+            <ImageView
+                android:id="@+id/geo_autocomplete_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_remove"
+                android:contentDescription="otro string"
+                android:layout_gravity="center_vertical|end"
+                android:visibility="gone"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                />
+        </FrameLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/fromInput"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="16dp"
-            android:inputType="text" />
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_below="@+id/frameLayout2"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp">
+
+            <com.taller2.llevame.Views.DelayAutoCompleteTextView
+                android:id="@+id/geo_autocomplete_to"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:inputType="textCapSentences"
+                android:textColor="#000000"
+                android:background="#ffffff"
+                android:hint="Hasta"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:padding="10dp"
+                android:dropDownWidth="fill_parent"
+                />
+
+            <ImageView
+                android:id="@+id/geo_autocomplete_clear_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_remove"
+                android:contentDescription="otro string"
+                android:layout_gravity="center_vertical|end"
+                android:visibility="gone"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/startTripButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textStyle="normal"
+            android:background="#ffffff"
+            android:text="@string/go"
+            android:onClick="startTripButtonPressed"
+            android:textColor="#000000"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
 
     </RelativeLayout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff">
 
-        <com.taller2.llevame.Views.DelayAutoCompleteTextView
-            android:id="@+id/geo_autocomplete"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:imeOptions="flagNoExtractUi|actionSearch"
-            android:inputType="textCapSentences"
-            android:textColor="#000000"
-            android:background="#ffffff"
-            android:hint="Desde"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:padding="10dp"
-            android:dropDownWidth="fill_parent"
-            />
-
-        <ImageView
-            android:id="@+id/geo_autocomplete_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_remove"
-            android:contentDescription="otro string"
-            android:layout_gravity="center_vertical|end"
-            android:visibility="gone"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            />
-    </FrameLayout>
 
 </RelativeLayout>
 

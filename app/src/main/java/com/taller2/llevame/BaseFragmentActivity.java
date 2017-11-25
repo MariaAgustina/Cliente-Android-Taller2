@@ -19,10 +19,14 @@ public class BaseFragmentActivity extends FragmentActivity{
 
     }
 
-    /**
-     * onServiceDidFailed shows Toast to inform the user the server has failed
-     * @param error to log in console
-     */
+    public void onGetWaySuccess() {
+
+    }
+
+        /**
+         * onServiceDidFailed shows Toast to inform the user the server has failed
+         * @param error to log in console
+         */
     public void onServiceDidFailed(VolleyError error){
         Log.e("error en la resupuesta", error.toString());
         Toast.makeText(getApplicationContext(),R.string.server_failed,Toast.LENGTH_SHORT).show();
