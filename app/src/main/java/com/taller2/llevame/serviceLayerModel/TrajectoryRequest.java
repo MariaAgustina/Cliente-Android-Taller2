@@ -10,13 +10,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
+import com.taller2.llevame.Models.Step;
 import com.taller2.llevame.Models.Trajectory;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,7 +70,26 @@ public class TrajectoryRequest extends HTTPRequest {
                         public void onResponse(JSONObject response) {
                             Log.v(TAG,"Response is: "+ response);
 
-                            delegate.onGetWaySuccess();
+                            try {
+
+                                JSONObject routesJson = response.getJSONArray("routes").getJSONObject(0);
+                                JSONObject legsJson = routesJson.getJSONArray("legs").getJSONObject(0);
+                                JSONArray jsonStepsArray = legsJson.getJSONArray("steps");
+                                Log.v(TAG,jsonStepsArray.toString());
+                                ArrayList<Step> stepsArray = new ArrayList<Step>();
+
+                                for(int i = 0; i < jsonStepsArray.length(); i++){
+                                    JSONObject stepJson = jsonStepsArray.getJSONObject(i);
+                                    Gson gson = new Gson();
+                                    Step step = gson.fromJson(stepJson.toString(),Step.class);
+                                    stepsArray.add(step);
+                                }
+
+                                delegate.onGetWaySuccess(stepsArray);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
 

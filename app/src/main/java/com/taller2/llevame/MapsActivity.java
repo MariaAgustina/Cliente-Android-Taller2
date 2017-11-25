@@ -3,6 +3,7 @@ package com.taller2.llevame;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Location;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.places.GeoDataApi;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,13 +34,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.zxing.client.result.GeoResultParser;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.GeoSearchResult;
+import com.taller2.llevame.Models.Step;
 import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.Views.DelayAutoCompleteTextView;
 import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCallback {
 
@@ -281,7 +288,24 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
 
     }
 
-    public void onGetWaySuccess() {
+    /**
+     * Renders the way on the map
+     * @param steps all the steps returned from google api
+     */
+    public void onGetWaySuccess(ArrayList<Step> steps) {
+
+        for (int i = 0; i < steps.size(); i++){
+
+            Step step = steps.get(i);
+            LatLng latLng1 = new LatLng(step.start_location.lat,step.start_location.lng);
+            LatLng latLng2 = new LatLng(step.end_location.lat,step.end_location.lng);
+
+            mMap.addPolyline(new PolylineOptions()
+                    .add(latLng1, latLng2)
+                    .width(10)
+                    .color(Color.BLUE));
+
+        }
 
     }
 

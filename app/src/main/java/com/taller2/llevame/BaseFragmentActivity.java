@@ -5,6 +5,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.taller2.llevame.Models.Step;
+
+import java.util.ArrayList;
 
 /**
  * Created by amarkosich on 11/19/17.
@@ -19,7 +22,7 @@ public class BaseFragmentActivity extends FragmentActivity{
 
     }
 
-    public void onGetWaySuccess() {
+    public void onGetWaySuccess(ArrayList<Step> steps) {
 
     }
 
