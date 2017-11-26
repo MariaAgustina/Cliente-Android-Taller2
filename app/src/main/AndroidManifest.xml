@@ -4,16 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <service android:name=".MyFirebaseInstanceIDService">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-        </intent-filter>
-    </service>
-    <service android:name=".MyFirebaseMessagingService">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-    </service>
 
     <meta-data
         android:name="com.google.android.gms.version"
@@ -21,6 +11,7 @@
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyBXGxjDTvfSt7kuWv30wtnHM1p9vnc8ZEs" />
+
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -36,6 +27,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service android:name=".Models.LLEFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Models.LLEFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -63,7 +66,6 @@
             android:label="@string/title_activity_delete_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".MapActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -79,6 +81,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+
+
     </application>
 
 </manifest>

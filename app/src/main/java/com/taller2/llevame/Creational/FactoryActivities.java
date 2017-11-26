@@ -157,9 +157,11 @@ public class FactoryActivities {
      * will go to Map activity
      * @param activity the activity that needs to show other activity in the stack
      */
-    public void goToMapActivity(BaseAtivity activity) {
+    public void goToMapActivity(BaseAtivity activity,Client client) {
         Log.v(TAG,"go to Map Activity");
-        goToActivity(activity, MapsActivity.class);
+        Intent intent = new Intent(activity,MapsActivity.class);
+        intent.putExtra("client",client);
+        activity.startActivity(intent);
     }
 
-    }
+}

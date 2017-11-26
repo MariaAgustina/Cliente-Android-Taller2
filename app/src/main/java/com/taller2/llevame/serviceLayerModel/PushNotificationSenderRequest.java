@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
-import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.PushNotification;

@@ -26,8 +26,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.gson.JsonElement;
 import com.taller2.llevame.Models.AvailableDriver;
+import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.Models.Driver;
 import com.taller2.llevame.Models.GeoSearchResult;
 import com.taller2.llevame.Models.LLELocation;
@@ -64,6 +65,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private Address addressTo;
     private View loadingView;
     private List<AvailableDriver> availableDrivers;
+    private Client client;
 
     /**
      * creation of main activity
@@ -91,6 +93,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         setUpGeoAutocompleteView();
         setUpGeoAutocompleteToView();
         this.loadingView = this.findViewById(R.id.loadingPanel);
+        this.client = (Client) getIntent().getSerializableExtra("client");
+
     }
 
     private void setLoadingViewInvisible(){
@@ -398,12 +402,21 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         Notification notification = new Notification();
         notification.title = "Pasajero solicita nuevo viaje";
         notification.body = "";
-        notification.comunicationToken = FirebaseInstanceId.getInstance().getToken();
+
+
+        TripRequestData data = new TripRequestData();
+        data.comunicationToken = FirebaseInstanceId.getInstance().getToken();
+        data.type = "trip-request";
+        data.name = client.name;
+        data.surname = client.surname;
+        data.address_to = addressTo.getAddressLine(0);
+        data.address_from = addressFrom.getAddressLine(0);
 
         PushNotification pushNotification = new PushNotification();
         pushNotification.sender_id = "938482449732";
         pushNotification.to = driverComunicationToken;
         pushNotification.notification = notification;
+        pushNotification.data = data;
 
         PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
         pushNotificationRequest.sendPushNotification(this,pushNotification);

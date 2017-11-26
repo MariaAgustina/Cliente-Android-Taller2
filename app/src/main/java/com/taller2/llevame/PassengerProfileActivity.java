@@ -35,7 +35,7 @@ public class PassengerProfileActivity extends ProfileActivity {
      */
     public void startTripButtonPressed(View view) {
         FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToMapActivity(this);
+        factoryActivities.goToMapActivity(this,this.client);
     }
 
 }

@@ -1,9 +1,16 @@
 package com.taller2.llevame.Models;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+import com.taller2.llevame.R;
 
 /**
  * Created by amarkosich on 11/4/17.
@@ -12,27 +19,34 @@ import com.google.firebase.messaging.RemoteMessage;
 public class LLEFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "LLEFirebaseMessagin";
+    private LocalBroadcastManager broadcaster;
+
+    @Override
+    public void onCreate() {
+        broadcaster = LocalBroadcastManager.getInstance(this);
+    }
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
+        Log.v(TAG, "MESSAGE RECEIVED: " + remoteMessage);
+        Log.v(TAG, "title " + remoteMessage.getNotification().getTitle());
+        Log.v(TAG, "data" + remoteMessage.getData());
 
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        if(remoteMessage.getData().get("type").equals("trip-request")){
+            Intent intent = new Intent("NotificationData");
+            intent.putExtra("comunicationToken", remoteMessage.getData().get("comunicationToken"));
+            intent.putExtra("name", remoteMessage.getData().get("name"));
+            intent.putExtra("surname", remoteMessage.getData().get("surname"));
+            intent.putExtra("address_from", remoteMessage.getData().get("address_from"));
+            intent.putExtra("address_to", remoteMessage.getData().get("address_to"));
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            broadcaster.sendBroadcast(intent);
+
         }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
+
 
 }
