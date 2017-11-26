@@ -398,7 +398,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         Notification notification = new Notification();
         notification.title = "Pasajero solicita nuevo viaje";
         notification.body = "";
-        //notification.comunicationToken = FirebaseInstanceId.getInstance().getToken();
+        notification.comunicationToken = FirebaseInstanceId.getInstance().getToken();
 
         PushNotification pushNotification = new PushNotification();
         pushNotification.sender_id = "938482449732";
