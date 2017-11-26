@@ -7,6 +7,7 @@ package com.taller2.llevame.Models;
 public class Notification {
     public String body;
     public String title;
+    public String comunicationToken;
 
     public Notification(){
 

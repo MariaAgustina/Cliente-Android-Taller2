@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.facebook.login.LoginManager;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.ChatMessage;
 import com.taller2.llevame.Models.Client;
@@ -54,9 +55,19 @@ public class ProfileActivity extends BaseAtivity {
         this.profileTitle = (TextView) findViewById(R.id.profile_title);
         this.fab = (FloatingActionButton)findViewById(R.id.fab);
         configFabButtonPressed();
+
         if(this.client != null){
             this.profileTitle.setText("Hola " + client.name);
         }
+
+        saveFirebaseTokenForPushNotifiactions();
+    }
+
+    /**
+     * Saves the token of the device in firebase database
+     */
+    private void saveFirebaseTokenForPushNotifiactions(){
+        FirebaseDatabase.getInstance().getReference().child("firebaseTokens").child(client.id).setValue(FirebaseInstanceId.getInstance().getToken());
     }
 
     /**

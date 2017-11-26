@@ -6,8 +6,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.JsonElement;
+import com.taller2.llevame.Models.AvailableDriver;
 import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Step;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The parent activity for all classes
@@ -29,7 +35,6 @@ public class BaseAtivity extends AppCompatActivity {
      * @param error
      */
     public void onServiceDidFailed(VolleyError error){
-        //TODO: si hay tiempo, modificarlo para que sea un popup
         Log.e("error en la resupuesta", error.toString());
         Toast.makeText(getApplicationContext(),R.string.server_failed,Toast.LENGTH_SHORT).show();
     }
@@ -87,6 +92,27 @@ public class BaseAtivity extends AppCompatActivity {
      * to override
      */
     public void onPostLocationSuccess() {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onAvailableDriverSuccess(List<AvailableDriver> drivers) {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onGetWaySuccess(ArrayList<Step> steps) {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onGetFirebaseComunicationTokenSuccess(String comunicationToken) {
 
     }
 

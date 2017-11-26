@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.AvailableDriver;
@@ -39,7 +40,7 @@ public class AvailableDriversRequest extends  HTTPRequest {
      * request get list of available drivers
      * @param delegate the delegate that will be notified when the async request has success or error
      */
-    public void getAvailableDrivers(final BaseFragmentActivity delegate){
+    public void getAvailableDrivers(final BaseAtivity delegate){
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

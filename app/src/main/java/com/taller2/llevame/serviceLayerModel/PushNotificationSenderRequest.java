@@ -1,5 +1,6 @@
 package com.taller2.llevame.serviceLayerModel;
 
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
+import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.PushNotification;
@@ -51,7 +53,7 @@ public class PushNotificationSenderRequest {
         this.url = baseUrl;
     }
 
-    public void sendPushNotification(final BaseAtivity delegate,PushNotification pushNotification){
+    public void sendPushNotification(final BaseAtivity delegate, PushNotification pushNotification){
 
         this.configureUrl();
 

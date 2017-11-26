@@ -25,21 +25,27 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.JsonElement;
 import com.taller2.llevame.Models.AvailableDriver;
 import com.taller2.llevame.Models.Driver;
 import com.taller2.llevame.Models.GeoSearchResult;
 import com.taller2.llevame.Models.LLELocation;
+import com.taller2.llevame.Models.Notification;
+import com.taller2.llevame.Models.PushNotification;
 import com.taller2.llevame.Models.Step;
 import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.Views.DelayAutoCompleteTextView;
 import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
+import com.taller2.llevame.serviceLayerModel.LLEFirebaseTokenRequest;
+import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
 
     private static final String TAG = "MapsActivity";
@@ -57,7 +63,7 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
     private Address addressFrom;
     private Address addressTo;
     private View loadingView;
-
+    private List<AvailableDriver> availableDrivers;
 
     /**
      * creation of main activity
@@ -269,6 +275,7 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
      */
     public void onAvailableDriverSuccess(List<AvailableDriver> availableDrivers) {
 
+        this.availableDrivers = availableDrivers;
         for (int i = 0; i < availableDrivers.size(); i++){
             Driver driver = availableDrivers.get(i).info;
             LLELocation location = availableDrivers.get(i).location;
@@ -362,9 +369,49 @@ public class MapsActivity extends BaseFragmentActivity implements OnMapReadyCall
 
         }
 
-        //TODO: agarrar el primer chofer de la lista y mandarle una push notification
-
+        selectDriver();
 
     }
+
+    /**
+     * selects a driver to start a trip
+     */
+    private void selectDriver(){
+        if(availableDrivers.size() <= 0){
+            Toast.makeText(getApplicationContext(), R.string.no_drivers_available, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int position=0;
+        Driver driver = availableDrivers.get(position).info;
+        LLEFirebaseTokenRequest tokenRequest = new LLEFirebaseTokenRequest();
+        tokenRequest.getFirebaseToken(this,driver.id);
+
+    }
+
+    /**
+     * This method will comunicate the driver there is a new trip
+     * @param driverComunicationToken the driver comunication token to send push notification
+     */
+    public void onGetFirebaseComunicationTokenSuccess(String driverComunicationToken) {
+        Log.v(TAG,"Sending push notification.....");
+        Notification notification = new Notification();
+        notification.title = "Pasajero solicita nuevo viaje";
+        notification.body = "";
+        //notification.comunicationToken = FirebaseInstanceId.getInstance().getToken();
+
+        PushNotification pushNotification = new PushNotification();
+        pushNotification.sender_id = "938482449732";
+        pushNotification.to = driverComunicationToken;
+        pushNotification.notification = notification;
+
+        PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
+        pushNotificationRequest.sendPushNotification(this,pushNotification);
+
+        Toast.makeText(getApplicationContext(), R.string.notification_sent, Toast.LENGTH_SHORT).show();
+
+    }
+
+
 
 }

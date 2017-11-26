@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Step;
@@ -47,7 +48,7 @@ public class TrajectoryRequest extends HTTPRequest {
      * @param delegate the delegate that will be notified when the async request has success or error
      * @param trajectory the trajectory
      */
-    public void getWay(final BaseFragmentActivity delegate, Trajectory trajectory){
+    public void getWay(final BaseAtivity delegate, Trajectory trajectory){
 
 
         // Instantiate the RequestQueue.

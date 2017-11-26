@@ -69,6 +69,7 @@
     <string name="server_login_facebook_failed">Para poder iniciar sesión en facebook, usted debe registrarse primero</string>
     <string name="permisson_denied_error">Para poder viajar se necesitan los permisos de ubicacion</string>
     <string name="complete_fields_error">Por favor, ingrese las ubicaciones correctamente</string>
+    <string name="no_drivers_available">En este momento no se encuentran choferes disponibles, por favor intentelo más tarde</string>
     <string name="no_location_error">Por favor, encienda el GPS</string>
     <string name="title_location_permission">Permisos de ubicacion</string>
     <string name="text_location_permission">Llevame solicita acceder a su ubicación para poder comenzar a viajar</string>
@@ -79,5 +80,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="where_go">¿A dónde vas?</string>
     <string name="go">Ir</string>
+    <string name="notification_sent">Chofer asignado, en breve se le comunicará la respuesta del mismo para iniciar el viaje</string>
+
 
 </resources>
