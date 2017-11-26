@@ -1,9 +1,13 @@
 package com.taller2.llevame;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -120,18 +124,22 @@ public class ChatActivity extends BaseAtivity {
     }
 
     private void sendPushNotification(ChatMessage chatMessage){
+        //TODO: Hay codigo hardcodeado
+
         Log.v(TAG,"Sending push notification.....");
         Notification notification = new Notification();
         notification.title = chatMessage.messageText;
-        //notification.body = "This is an FCM notification message!";
+        notification.body = "This is an FCM notification message!";
 
         PushNotification pushNotification = new PushNotification();
         pushNotification.sender_id = "938482449732";
-        pushNotification.to = "dVYNP90RWeU:APA91bHhC_7vm6Cbe1ZoqT7THAmncG0tyC1iXVdEbqcD28NajcpkyN8A1C5fdTjhZNNY6R1UUIB7vVFHTxq8fd5qzyZtjZBa_fcdAVmfZbthGSTsGgzlBwM3dSmbLcOWZKE7wJRiyfA9";
+        pushNotification.to = "dyqaQ4Os9z0:APA91bEt5CwSQgWJg5_ZKrrA3AdMwcL6oLGZwFWCRlOq-ro4feIa6Vl6esogdu1Nbg3-m0IWEtW3wPEG_c2MlfO_8MFJDDeg0maEGR7maR8i37DbMo46lgqV3LhiT48p5D1p27nyR1-L";
+        pushNotification.notification = notification;
 
         PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
         pushNotificationRequest.sendPushNotification(this,pushNotification);
     }
+
 
     ValueEventListener postListener = new ValueEventListener() {
         @Override

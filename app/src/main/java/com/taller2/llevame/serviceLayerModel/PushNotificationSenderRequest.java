@@ -64,6 +64,7 @@ public class PushNotificationSenderRequest {
 
             JSONObject jsonObject = new JSONObject(json);
 
+            Log.v(TAG,"JSON request: "+ jsonObject.toString());
 
             // Request a string response from the provided URL.
             JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, this.url, jsonObject,
