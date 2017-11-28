@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -433,6 +434,10 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         this.tripSteps = steps;
         selectDriver();
 
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+
     }
 
     /**
@@ -524,7 +529,6 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         sendTrip();
-                        //TODO: mostrar boton de comenzar viaje
                     }
                 })
 
