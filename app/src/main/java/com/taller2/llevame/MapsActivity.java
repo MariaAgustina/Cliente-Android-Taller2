@@ -57,6 +57,7 @@ import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.LLEFirebaseTokenRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
+import com.taller2.llevame.serviceLayerModel.TripRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -549,8 +550,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         tripData.accepted_route = new HashMap();
         tripData.paymethod = paymethod;
 
-        //TripRequest tripRequest = new TripRequest(this.client.id);
-        //tripRequest.postTrip(this,tripData);
+        TripRequest tripRequest = new TripRequest(this.client.id);
+        tripRequest.postTrip(this,tripData);
     }
 
     public void onTripRequestSuccess(String tripId) {
