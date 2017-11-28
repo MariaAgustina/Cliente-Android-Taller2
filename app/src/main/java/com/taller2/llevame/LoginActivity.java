@@ -1,6 +1,7 @@
 package com.taller2.llevame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,7 @@ import java.util.Arrays;
 public class LoginActivity extends BaseAtivity {
 
     private static final String TAG = "LoginActivity";
+    public static final String SESSION_SETTINGS = "sessionSettings";
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -157,6 +159,7 @@ public class LoginActivity extends BaseAtivity {
     public void onLoginSuccess(Client client){
         this.loadingView.setLoadingViewInvisible(this);
         FactoryActivities factoryActivities = new FactoryActivities();
+        saveSessionData(client);
         if(client.isDriver()){
             factoryActivities.goToDriverProfileActivity(this,client);
         }else{
@@ -164,21 +167,35 @@ public class LoginActivity extends BaseAtivity {
         }
     }
 
-    /**
-     * method when the login fail
-     * @param error the error received from service
-     */
+    private void saveSessionData(Client client) {
+
+        SharedPreferences settings = getSharedPreferences(SESSION_SETTINGS, 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        editor.putBoolean("sessionSaved",true);
+        editor.putString("birthdate",client.birthdate);
+        editor.putString("id",client.id);
+        editor.putString("country",client.country);
+        editor.putString("email",client.email);
+        editor.putString("fb_user_id",client.fb_user_id);
+        editor.putString("fb_auth_token",client.fb_auth_token);
+        editor.putString("name",client.name);
+        editor.putString("surname",client.surname);
+        editor.putString("type",client.type);
+        editor.putString("username",client.username);
+
+        editor.commit();
+
+    }
+        /**
+         * method when the login fail
+         * @param error the error received from service
+         */
     public void onServiceDidFailed(VolleyError error) {
         Log.e("error en la resupuesta", error.toString());
         this.loadingView.setLoadingViewInvisible(this);
-        Toast.makeText(getApplicationContext(),R.string.server_login_failed,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),R.string.login_error,Toast.LENGTH_SHORT).show();
     }
 
-    //TODO: delete method
-    private void showProfileActivity(){
-        Intent intent = new Intent(this,ProfileActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
 }

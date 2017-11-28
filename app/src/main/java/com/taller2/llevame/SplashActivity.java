@@ -2,17 +2,21 @@ package com.taller2.llevame;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.taller2.llevame.Creational.FactoryActivities;
+import com.taller2.llevame.Models.Client;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseAtivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     private static final String TAG = "SplashActivity";
+    public static final String SESSION_SETTINGS = "sessionSettings";
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -34,14 +38,49 @@ public class SplashActivity extends Activity {
     }
 
     private Intent getIntentToShow(){
-        boolean isLoggedIn = (AccessToken.getCurrentAccessToken() != null);
-        //Para que me tenga que loguear siempre que entre a la app
+
+        SharedPreferences settings = getSharedPreferences(SESSION_SETTINGS, 0);
+        boolean isLoggedIn = settings.getBoolean("sessionSaved",false);
+
+
         if(isLoggedIn){
-            LoginManager.getInstance().logOut();
+            Client client = getSession();
+            FactoryActivities factoryActivities = new FactoryActivities();
+            if(client.isDriver()){
+                Intent driverIntent = new Intent(this,DriverProfileActivity.class);
+                driverIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                driverIntent.putExtra("client",client);
+                return driverIntent;
+            }else{
+                Intent clientIntent = new Intent(this,PassengerProfileActivity.class);
+                clientIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                clientIntent.putExtra("client",client);
+                return clientIntent;
+            }
         }
+
         Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
+    }
+
+    private Client getSession(){
+        SharedPreferences settings = getSharedPreferences(SESSION_SETTINGS, 0);
+
+        Client client = new Client();
+
+        client.birthdate = settings.getString("birthdate","");
+        client.id = settings.getString("id","");
+        client.country = settings.getString("country","");
+        client.email = settings.getString("email","");
+        client.fb_user_id = settings.getString("fb_user_id","");
+        client.fb_auth_token = settings.getString("fb_auth_token","");
+        client.name =settings.getString("name","");
+        client.surname = settings.getString("surname","");
+        client.type = settings.getString("type","");
+        client.username = settings.getString("username","");
+
+        return client;
     }
 
 }
