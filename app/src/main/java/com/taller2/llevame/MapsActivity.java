@@ -56,6 +56,7 @@ import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.LLEFirebaseTokenRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
+import com.taller2.llevame.serviceLayerModel.StateTripRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
 import com.taller2.llevame.serviceLayerModel.TripRequest;
 
@@ -516,7 +517,6 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         sendTrip();
-                        //TODO:servicio chofer acepta viaje
                         //TODO: mostrar boton de comenzar viaje
                     }
                 })
@@ -555,8 +555,14 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     }
 
     public void onTripRequestSuccess(String tripId) {
-        Log.v(TAG,"Trip id: "+ tripId);
+        sendAcceptTrip(tripId);
     }
+
+    private void sendAcceptTrip(String tripId){
+        StateTripRequest stateTripRequest = new StateTripRequest("accept",this.selectedDriver.id,tripId);
+        stateTripRequest.sendStateTripRequest(this);
+    }
+    
 }
 
 
