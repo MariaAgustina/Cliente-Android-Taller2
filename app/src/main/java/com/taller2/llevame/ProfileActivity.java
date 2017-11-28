@@ -21,8 +21,6 @@ public class ProfileActivity extends BaseAtivity {
     public Client client;
     private LoadingView loadingView;
     private TextView profileTitle;
-    private FloatingActionButton fab;
-
     /**
      *
      * @param savedInstanceState the instance state of the bundle
@@ -43,9 +41,6 @@ public class ProfileActivity extends BaseAtivity {
         this.loadingView = new LoadingView();
         this.loadingView.setLoadingViewInvisible(this);
         this.profileTitle = (TextView) findViewById(R.id.profile_title);
-        this.fab = (FloatingActionButton)findViewById(R.id.fab);
-        configFabButtonPressed();
-
         if(this.client != null){
             this.profileTitle.setText("Hola " + client.name);
         }
@@ -79,30 +74,6 @@ public class ProfileActivity extends BaseAtivity {
         factoryActivities.goToDeleteProfileActivity(this,this.client);
     }
 
-    /**
-     * this method shows the main activity
-     */
-    private void goToMainActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivityForResult(intent,1);
-    }
-
-    public void configFabButtonPressed() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showChat();
-            }
-        });
-    }
-
-    public void showChat(){
-        //TODO: Eliminar valor hardcodeado
-        Log.v(TAG,"go to chat");
-        FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToChatActivity(this,client.username,"Oscar");
-    }
 
     /**
      *

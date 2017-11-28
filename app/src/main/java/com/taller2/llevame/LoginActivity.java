@@ -183,6 +183,7 @@ public class LoginActivity extends BaseAtivity {
         editor.putString("surname",client.surname);
         editor.putString("type",client.type);
         editor.putString("username",client.username);
+        editor.putString("cookie",CookieHolder.INSTANCE.getCookie());
 
         editor.commit();
 

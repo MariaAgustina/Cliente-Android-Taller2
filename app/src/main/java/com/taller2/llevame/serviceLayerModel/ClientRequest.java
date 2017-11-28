@@ -186,8 +186,6 @@ public class ClientRequest extends  HTTPRequest {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Set-Cookie","session=eyJ1c2VybmFtZSI6Im1maWRhbGdvIn0.DMBzlw.yghaCJ_TBtJru7lll0_Ol_Pwj5I");
-                //headers.put("Cookie","session=eyJ1c2VybmFtZSI6Im1maWRhbGdvIn0.DMBzlw.yghaCJ_TBtJru7lll0_Ol_Pwj5I");
                 headers.put("Set-Cookie", CookieHolder.INSTANCE.getCookie());
                 headers.put("Cookie",CookieHolder.INSTANCE.getCookie());
                 return headers;

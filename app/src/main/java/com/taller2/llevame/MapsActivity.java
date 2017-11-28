@@ -14,6 +14,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.AvailableDriver;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.Driver;
@@ -96,6 +98,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private StartEndPointTrip startPoint;
     private StartEndPointTrip endPoint;
     private String tripId;
+    private FloatingActionButton fab;
 
     /**
      * creation of main activity
@@ -126,6 +129,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         setUpGeoAutocompleteToView();
         this.loadingView = this.findViewById(R.id.loadingPanel);
         this.client = (Client) getIntent().getSerializableExtra("client");
+        this.fab = (FloatingActionButton)findViewById(R.id.fab);
+        configFabButtonPressed();
 
     }
 
@@ -610,6 +615,21 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
     }
 
+    public void configFabButtonPressed() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showChat();
+            }
+        });
+    }
+
+    public void showChat(){
+        //TODO: Eliminar valor hardcodeado
+        Log.v(TAG,"go to chat");
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToChatActivity(this,client.username,"Oscar");
+    }
 
 }
 

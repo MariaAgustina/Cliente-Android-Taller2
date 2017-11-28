@@ -79,6 +79,8 @@ public class SplashActivity extends BaseAtivity {
         client.surname = settings.getString("surname","");
         client.type = settings.getString("type","");
         client.username = settings.getString("username","");
+        String cookie = settings.getString("cookie","");
+        CookieHolder.INSTANCE.setCookie(cookie);
 
         return client;
     }
