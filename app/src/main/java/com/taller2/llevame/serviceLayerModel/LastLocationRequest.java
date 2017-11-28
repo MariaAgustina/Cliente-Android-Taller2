@@ -14,7 +14,6 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.taller2.llevame.BaseAtivity;
-import com.taller2.llevame.BaseFragmentActivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.LLELocation;
 

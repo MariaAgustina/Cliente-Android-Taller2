@@ -147,7 +147,7 @@ public class RegisterActivity extends BaseAtivity {
         client.type = type;
 
         this.loadingView.setLoadingViewVisible(this);
-        registerRequest.registerClient(this,client);
+        registerRequest.registerClient(this, client);
     }
 
     /**

@@ -21,7 +21,12 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.taller2.llevame.Models.Notification;
+import com.taller2.llevame.Models.PushNotification;
+import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.serviceLayerModel.LastLocationRequest;
+import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
 
 /**
  * Created by amarkosich on 10/8/17.
@@ -30,7 +35,7 @@ import com.taller2.llevame.serviceLayerModel.LastLocationRequest;
 public class DriverProfileActivity extends ProfileActivity {
 
     private static final String TAG = "ProfileActivity";
-
+    private String clientComunicationToken;
     /**
      * @param savedInstanceState
      */
@@ -88,7 +93,7 @@ public class DriverProfileActivity extends ProfileActivity {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String comunicationToken = intent.getExtras().getString("comunicationToken");
+            clientComunicationToken = intent.getExtras().getString("comunicationToken");
             String name = intent.getExtras().getString("name");
             String surname = intent.getExtras().getString("surname");
             String from = intent.getExtras().getString("address_from");
@@ -111,7 +116,7 @@ public class DriverProfileActivity extends ProfileActivity {
                 .setMessage(alertString)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO
+                        tripAccepted();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -121,6 +126,30 @@ public class DriverProfileActivity extends ProfileActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    /**
+     * This method is called when the driver accepts the trip, it notifies the client and the app server
+     */
+    private void tripAccepted(){
+        Log.v(TAG,"Sending push notification.....");
+        Notification notification = new Notification();
+        notification.title = "Chofer ha aceptado su viaje";
+        notification.body = "";
+
+        TripRequestData data = new TripRequestData();
+        data.comunicationToken = FirebaseInstanceId.getInstance().getToken();
+        data.type = "trip-accepted";
+
+        PushNotification pushNotification = new PushNotification();
+        pushNotification.sender_id = "938482449732";
+        pushNotification.to = clientComunicationToken;
+        pushNotification.notification = notification;
+        pushNotification.data = data;
+
+        PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
+        pushNotificationRequest.sendPushNotification(this,pushNotification);
+
     }
 
     /**

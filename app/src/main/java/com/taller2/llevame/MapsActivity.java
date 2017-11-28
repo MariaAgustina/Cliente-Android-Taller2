@@ -1,12 +1,20 @@
 package com.taller2.llevame;
 
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -28,6 +36,13 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.taller2.llevame.Models.AvailableDriver;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.LLEAddress;
+import com.taller2.llevame.Models.Paymethod;
+import com.taller2.llevame.Models.PaymethodCashParameters;
+import com.taller2.llevame.Models.StartEndPointTrip;
+import com.taller2.llevame.Models.Trip;
+import com.taller2.llevame.Models.TripData;
+import com.taller2.llevame.Models.TripLocation;
 import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.Models.Driver;
 import com.taller2.llevame.Models.GeoSearchResult;
@@ -42,8 +57,10 @@ import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.LLEFirebaseTokenRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
+import com.taller2.llevame.serviceLayerModel.TripRequest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
@@ -60,12 +77,16 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private DelayAutoCompleteTextView geo_autocomplete_to;
     private ImageView geo_autocomplete_clear_to;
 
+    private ArrayList<Step> tripSteps;
 
     private Address addressFrom;
     private Address addressTo;
     private View loadingView;
     private List<AvailableDriver> availableDrivers;
     private Client client;
+    private Driver selectedDriver;
+    private StartEndPointTrip startPoint;
+    private StartEndPointTrip endPoint;
 
     /**
      * creation of main activity
@@ -333,6 +354,33 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
             Toast.makeText(getApplicationContext(), R.string.complete_fields_error, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        //for trip service
+        this.startPoint = new StartEndPointTrip();
+
+        LLEAddress lleaddressStart = new LLEAddress();
+        lleaddressStart.street = addressFrom.getAddressLine(0);
+
+        TripLocation starttripLocation= new TripLocation();
+        starttripLocation.lat = addressFrom.getLatitude();
+        starttripLocation.lon = addressFrom.getLongitude();
+        lleaddressStart.location = starttripLocation;
+
+        this.startPoint.address = lleaddressStart;
+
+        this.endPoint = new StartEndPointTrip();
+
+        LLEAddress lleaddressEnd = new LLEAddress();
+        lleaddressEnd.street = addressTo.getAddressLine(0);
+
+        TripLocation endripLocation= new TripLocation();
+        endripLocation.lat = addressTo.getLatitude();
+        endripLocation.lon = addressTo.getLongitude();
+        lleaddressEnd.location = endripLocation;
+
+        this.endPoint.address = lleaddressEnd;
+
+
         this.setLoadingViewVisible();
         addressTo.getLatitude();
         Trajectory trajectory = new Trajectory();
@@ -349,6 +397,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         mMap.clear();
 
     }
+
 
     /**
      * Renders the way on the map
@@ -373,6 +422,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
         }
 
+        this.tripSteps = steps;
         selectDriver();
 
     }
@@ -387,10 +437,9 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         }
 
         int position=0;
-        Driver driver = availableDrivers.get(position).info;
+        this.selectedDriver = availableDrivers.get(position).info;
         LLEFirebaseTokenRequest tokenRequest = new LLEFirebaseTokenRequest();
-        tokenRequest.getFirebaseToken(this,driver.id);
-
+        tokenRequest.getFirebaseToken(this,this.selectedDriver.id);
     }
 
     /**
@@ -425,6 +474,89 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((mMessageReceiver),
+                new IntentFilter("NotificationData")
+        );
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String driverComunicationToken = intent.getExtras().getString("comunicationToken");
+            String tripState = intent.getExtras().getString("tripState"); //accepted or rejected
+
+            if(tripState.equals("accepted")){
+                String alertString = "Viaje aceptado, solicitamos nos indique cuando el comienza el viaje, apretando botón de comenzar viaje";
+                showAlertDialog(alertString);
+            }else{
+                //TODO: VIAJE RECHAZADO
+            }
+
+        }
+    };
+
+    private void showAlertDialog(String alertString){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setTitle("Nuevo Viaje")
+                .setMessage(alertString)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendTrip();
+                        //TODO:servicio chofer acepta viaje
+                        //TODO: mostrar boton de comenzar viaje
+                    }
+                })
+
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void sendTrip(){
+
+        TripData tripData = new TripData();
+
+        Trip trip = new Trip();
+        trip.driver = this.selectedDriver.id;
+        trip.passenger = this.client.id;
+        trip.route = this.tripSteps;
+
+        trip.start = this.startPoint;
+        trip.end = this.endPoint;
+
+        //TODO: Pago hardcodeado por ahora hasta poner activity de pagos
+        Paymethod paymethod = new Paymethod();
+        paymethod.paymethod = "cash";
+        PaymethodCashParameters payCash = new PaymethodCashParameters();
+        payCash.type = "USD";
+        paymethod.currency = "USD";
+        paymethod.parameters = payCash;
 
 
+        tripData.trip = trip;
+        tripData.accepted_route = new HashMap();
+        tripData.paymethod = paymethod;
+
+        //TripRequest tripRequest = new TripRequest(this.client.id);
+        //tripRequest.postTrip(this,tripData);
+    }
+
+    public void onTripRequestSuccess(String tripId) {
+        Log.v(TAG,"Trip id: "+ tripId);
+    }
 }
+
+

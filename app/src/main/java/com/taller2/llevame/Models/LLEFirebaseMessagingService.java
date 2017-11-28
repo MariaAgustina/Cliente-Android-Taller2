@@ -40,9 +40,16 @@ public class LLEFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra("surname", remoteMessage.getData().get("surname"));
             intent.putExtra("address_from", remoteMessage.getData().get("address_from"));
             intent.putExtra("address_to", remoteMessage.getData().get("address_to"));
-
             broadcaster.sendBroadcast(intent);
-
+        }else if(remoteMessage.getData().get("type").equals("trip-accepted")){
+            Intent intent = new Intent("NotificationData");
+            intent.putExtra("comunicationToken", remoteMessage.getData().get("comunicationToken"));
+            intent.putExtra("tripState", "accepted");
+            broadcaster.sendBroadcast(intent);
+        }else if(remoteMessage.getData().get("type").equals("trip-rejected")){
+            Intent intent = new Intent("NotificationData");
+            intent.putExtra("tripState", "rejected");
+            broadcaster.sendBroadcast(intent);
         }
 
 

@@ -10,12 +10,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Step;
 import com.taller2.llevame.Models.Trajectory;
+import com.taller2.llevame.Models.TripData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,26 +27,23 @@ import java.util.Map;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
- * Created by amarkosich on 11/25/17.
+ * Created by amarkosich on 11/26/17.
  */
 
-public class TrajectoryRequest extends HTTPRequest {
+public class TripRequest extends HTTPRequest {
+    private static final String TAG = "TripRequest";
 
-    private static final String TAG = "TrajectoryRequest";
-
-
-    public TrajectoryRequest(){
-        this.endponintUrl = "/api/v1/trajectories";
+    public TripRequest(String clientId){
+        this.endponintUrl = "/api/v1/client/" + clientId + "/trips";
         this.configureUrl();
-
     }
 
     /**
-     * the trajectory request
+     * the postTrip request
      * @param delegate the delegate that will be notified when the async request has success or error
-     * @param trajectory the trajectory
+     * @param tripData the trip data
      */
-    public void getWay(final BaseAtivity delegate, Trajectory trajectory){
+    public void postTrip(final BaseAtivity delegate, TripData tripData){
 
 
         // Instantiate the RequestQueue.
@@ -55,7 +51,7 @@ public class TrajectoryRequest extends HTTPRequest {
 
 
         Gson gson = new Gson();
-        String json = gson.toJson(trajectory);
+        String json = gson.toJson(tripData);
 
         try {
             JSONObject jsonObject = new JSONObject(json);
@@ -69,23 +65,8 @@ public class TrajectoryRequest extends HTTPRequest {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.v(TAG,"Response is: "+ response);
-
                             try {
-
-                                JSONObject routesJson = response.getJSONArray("routes").getJSONObject(0);
-                                JSONObject legsJson = routesJson.getJSONArray("legs").getJSONObject(0);
-                                JSONArray jsonStepsArray = legsJson.getJSONArray("steps");
-                                Log.v(TAG,jsonStepsArray.toString());
-                                ArrayList<Step> stepsArray = new ArrayList<Step>();
-
-                                for(int i = 0; i < jsonStepsArray.length(); i++){
-                                    JSONObject stepJson = jsonStepsArray.getJSONObject(i);
-                                    Gson gson = new Gson();
-                                    Step step = gson.fromJson(stepJson.toString(),Step.class);
-                                    stepsArray.add(step);
-                                }
-
-                                delegate.onGetWaySuccess(stepsArray);
+                            delegate.onTripRequestSuccess(response.get("tripId").toString());
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -121,5 +102,6 @@ public class TrajectoryRequest extends HTTPRequest {
 
 
     }
+
 
 }
