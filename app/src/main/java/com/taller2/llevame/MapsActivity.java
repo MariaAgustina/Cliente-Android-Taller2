@@ -71,6 +71,10 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private View whereToGoButton;
     private View whereToGoView;
+    private View startedTripButton;
+    private View finishedTripButton;
+
+
 
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
@@ -88,6 +92,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private Driver selectedDriver;
     private StartEndPointTrip startPoint;
     private StartEndPointTrip endPoint;
+    private String tripId;
 
     /**
      * creation of main activity
@@ -111,6 +116,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
      */
     private void setupInitials() {
         this.whereToGoButton = this.findViewById(R.id.whereToGoButton);
+        this.startedTripButton = this.findViewById(R.id.startedTripButton);
+        this.finishedTripButton = this.findViewById(R.id.finishedTripButton);
         this.whereToGoView = this.findViewById(R.id.whereToGoView);
         setUpGeoAutocompleteView();
         setUpGeoAutocompleteToView();
@@ -555,14 +562,33 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     }
 
     public void onTripRequestSuccess(String tripId) {
+        this.tripId = tripId;
         sendAcceptTrip(tripId);
     }
 
     private void sendAcceptTrip(String tripId){
         StateTripRequest stateTripRequest = new StateTripRequest("accept",this.selectedDriver.id,tripId);
         stateTripRequest.sendStateTripRequest(this);
+        this.startedTripButton.setVisibility(View.VISIBLE);
+        this.whereToGoView.setVisibility(View.INVISIBLE);
     }
-    
+
+    public void startedTripButtonPressed(View view) {
+        StateTripRequest stateTripRequest = new StateTripRequest("start",this.client.id,tripId);
+        stateTripRequest.sendStateTripRequest(this);
+        this.finishedTripButton.setVisibility(View.VISIBLE);
+        this.startedTripButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void finishedTripButtonPressed(View view) {
+        StateTripRequest stateTripRequest = new StateTripRequest("end",this.client.id,tripId);
+        stateTripRequest.sendStateTripRequest(this);
+        this.whereToGoButton.setVisibility(View.VISIBLE);
+        this.finishedTripButton.setVisibility(View.INVISIBLE);
+
+    }
+
+
 }
 
 

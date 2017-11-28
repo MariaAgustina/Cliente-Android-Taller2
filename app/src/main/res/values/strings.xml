@@ -81,6 +81,8 @@
     <string name="where_go">¿A dónde vas?</string>
     <string name="go">Ir</string>
     <string name="notification_sent">Chofer asignado, en breve se le comunicará la respuesta del mismo para iniciar el viaje</string>
+    <string name="started_trip">Viaje Comenzado</string>
+    <string name="finished_trip">Viaje Finalizado</string>
 
 
 </resources>

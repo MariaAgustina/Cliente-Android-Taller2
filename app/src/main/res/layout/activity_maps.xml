@@ -49,6 +49,36 @@
         android:onClick="whereToGoButtonPressed"
         android:textColor="#000000" />
 
+    <Button
+        android:id="@+id/startedTripButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="80dp"
+        android:textStyle="normal"
+        android:background="#ffffff"
+        android:text="@string/started_trip"
+        android:onClick="startedTripButtonPressed"
+        android:visibility="invisible"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/finishedTripButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="80dp"
+        android:textStyle="normal"
+        android:background="#ffffff"
+        android:text="@string/finished_trip"
+        android:onClick="finishedTripButtonPressed"
+        android:visibility="invisible"
+        android:textColor="#000000" />
+
 
     <RelativeLayout
         android:id="@+id/whereToGoView"
