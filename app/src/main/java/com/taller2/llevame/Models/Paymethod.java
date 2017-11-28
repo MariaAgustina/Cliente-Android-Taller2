@@ -7,5 +7,5 @@ package com.taller2.llevame.Models;
 public class Paymethod {
     public String paymethod;
     public String currency;
-    public PaymethodCashParameters parameters;
+    public PaymethodParameters parameters;
 }

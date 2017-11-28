@@ -27,6 +27,15 @@ public class PassengerProfileActivity extends ProfileActivity {
     public void setUpInitials(){
         super.setUpInitials();
         this.findViewById(R.id.selectDriver).setVisibility(View.VISIBLE);
+        setPaymentMethodIfShould();
+    }
+
+
+    private void setPaymentMethodIfShould(){
+        //TODO: if paymethod guardado return
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToPaymentActivity(this);
+
     }
 
     /**

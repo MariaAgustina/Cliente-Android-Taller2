@@ -22,6 +22,25 @@
     <string name="register_with_facebook">Registrarse con facebook</string>
     <string name="register_with_facebook_description">Ingrese la siguiente información para luego poder iniciar sesión con facebook</string>
 
+    <!--Payment Strings -->
+    <string name="paymennt_title">Forma de Pago</string>
+    <string name="payment_Description">Seleccione su forma de pago para poder viajar</string>
+    <string name="paymethod_cash">Efectivo</string>
+    <string name="paymethod_card">Tarjeta</string>
+    <string name="cash_ARS">ARS</string>
+    <string name="cash_USD">USD</string>
+    <string name="card_expiration_month">Vence mes</string>
+    <string name="card_expiration_year">Vence año</string>
+    <string name="card_number">Número de tarjeta</string>
+    <string name="card_type">Tipo: (VISA,MASTER)</string>
+    <string name="card_security_code">Código de seguridad</string>
+    <string name="card_VISA">VISA</string>
+    <string name="card_MASTER">MASTER</string>
+    <string name="payment_ok">Aceptar</string>
+    <string name="card_number_should_not_empty">Por favor, ingrese su numero de tarjeta</string>
+    <string name="card_expiraton_month_not_empty">Por favor, ingrese el mes de vencimiento de su tarjeta</string>
+    <string name="card_expiration_year_not_empty">Por favor, ingrese el año de vencimiento de  su tarjeta</string>
+    <string name="card_security_code_not_empty">Por favor, ingrese el codigo de seguridad de su tarjeta</string>
 
     <!--Register -->
     <string name="confirm_password">Confirmar contraseña:</string>

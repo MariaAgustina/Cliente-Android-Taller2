@@ -13,6 +13,7 @@ import com.taller2.llevame.MapsActivity;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.ModifyProfileActivity;
 import com.taller2.llevame.PassengerProfileActivity;
+import com.taller2.llevame.PaymentActivity;
 import com.taller2.llevame.ProfileActivity;
 import com.taller2.llevame.RegisterActivity;
 import com.taller2.llevame.RegisterFacebookActivity;
@@ -161,6 +162,16 @@ public class FactoryActivities {
         Log.v(TAG,"go to Map Activity");
         Intent intent = new Intent(activity,MapsActivity.class);
         intent.putExtra("client",client);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * will go to PaymentActivity
+     * @param activity the activity that needs to show other activity in the stack
+     */
+    public void goToPaymentActivity(BaseAtivity activity) {
+        Log.v(TAG,"go to Payment Activity");
+        Intent intent = new Intent(activity,PaymentActivity.class);
         activity.startActivity(intent);
     }
 

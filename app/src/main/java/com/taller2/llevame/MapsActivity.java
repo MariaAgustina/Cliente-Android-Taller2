@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -43,6 +44,7 @@ import com.taller2.llevame.Models.LLEAddress;
 import com.taller2.llevame.Models.LLELocation;
 import com.taller2.llevame.Models.Notification;
 import com.taller2.llevame.Models.Paymethod;
+import com.taller2.llevame.Models.PaymethodCardParameters;
 import com.taller2.llevame.Models.PaymethodCashParameters;
 import com.taller2.llevame.Models.PushNotification;
 import com.taller2.llevame.Models.StartEndPointTrip;
@@ -67,7 +69,7 @@ import java.util.List;
 
 public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
-
+    private static final String PAYMENT_SETTINGS = "paymentSettings";
     private static final String TAG = "MapsActivity";
     private GoogleMap mMap;
     private View whereToGoButton;
@@ -548,13 +550,29 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         trip.start = this.startPoint;
         trip.end = this.endPoint;
 
-        //TODO: Pago hardcodeado por ahora hasta poner activity de pagos
+
+        // Restore preferences
+        SharedPreferences settings = getSharedPreferences(PAYMENT_SETTINGS, 0);
+        String paymethodSaved = settings.getString("paymethod","");
+
         Paymethod paymethod = new Paymethod();
-        paymethod.paymethod = "cash";
-        PaymethodCashParameters payCash = new PaymethodCashParameters();
-        payCash.type = "USD";
-        paymethod.currency = "USD";
-        paymethod.parameters = payCash;
+
+        if(paymethodSaved.equals("cash")){
+            paymethod.paymethod = "cash";
+            PaymethodCashParameters payCash = new PaymethodCashParameters();
+            payCash.type = settings.getString("paymentCashCurrency","USD");
+            paymethod.currency = settings.getString("paymentCashCurrency","USD");
+            paymethod.parameters = payCash;
+        }else{
+            paymethod.paymethod = "card";
+            PaymethodCardParameters payCardParameters = new PaymethodCardParameters();
+            payCardParameters.type = settings.getString("cardType","visa");
+            payCardParameters.ccvv = settings.getString("ccvv","");
+            payCardParameters.expiration_month = settings.getString("expiration_month","");
+            payCardParameters.expiration_year = settings.getString("expiration_year","");
+            payCardParameters.number = settings.getString("cardNumber","");
+            paymethod.parameters = payCardParameters;
+        }
 
 
         tripData.trip = trip;
