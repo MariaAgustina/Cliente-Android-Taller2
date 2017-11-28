@@ -12,15 +12,11 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.CookieHolder;
-import com.taller2.llevame.Models.Step;
-import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.Models.TripData;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

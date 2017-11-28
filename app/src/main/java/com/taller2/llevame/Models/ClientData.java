@@ -4,11 +4,7 @@ package com.taller2.llevame.Models;
  * Created by amarkosich on 10/10/17.
  */
 
-import android.util.Log;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * The class that will be sent to the requests

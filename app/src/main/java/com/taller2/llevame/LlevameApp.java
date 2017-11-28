@@ -1,16 +1,17 @@
 package com.taller2.llevame;
+
 import android.app.Application;
-import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.util.Base64;
 import android.util.Log;
 
-import com.facebook.AccessToken;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import android.content.pm.*;
-import android.content.pm.Signature;
-import android.util.Base64;
-import java.security.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by MaríaAgustina on 2/9/2017.

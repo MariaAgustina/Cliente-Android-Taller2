@@ -1,5 +1,4 @@
 package com.taller2.llevame.Models;
-import com.taller2.llevame.Models.TrajectoryLocation;
 
 import java.io.Serializable;
 

@@ -1,12 +1,11 @@
 package com.taller2.llevame;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.google.gson.JsonElement;
 import com.taller2.llevame.Models.AvailableDriver;
 import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.Client;

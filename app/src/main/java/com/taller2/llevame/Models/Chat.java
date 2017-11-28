@@ -1,14 +1,8 @@
 package com.taller2.llevame.Models;
 
-import android.nfc.Tag;
-import android.util.Log;
-
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;

@@ -1,14 +1,14 @@
 package com.taller2.llevame.Views;
 
-import android.widget.BaseAdapter;
-import android.widget.Filterable;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.taller2.llevame.Models.GeoSearchResult;

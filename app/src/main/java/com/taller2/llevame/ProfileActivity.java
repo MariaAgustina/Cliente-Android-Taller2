@@ -1,14 +1,10 @@
 package com.taller2.llevame;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -16,11 +12,8 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.taller2.llevame.Creational.FactoryActivities;
-import com.taller2.llevame.Models.ChatMessage;
 import com.taller2.llevame.Models.Client;
-import com.taller2.llevame.Models.ClientData;
 import com.taller2.llevame.Views.LoadingView;
-import com.taller2.llevame.serviceLayerModel.ClientRequest;
 
 public class ProfileActivity extends BaseAtivity {
 

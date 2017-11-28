@@ -1,6 +1,5 @@
 package com.taller2.llevame.serviceLayerModel;
 
-import android.app.Activity;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -12,8 +11,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Client;

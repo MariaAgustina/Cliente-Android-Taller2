@@ -11,9 +11,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.Models.Chat;
-import com.taller2.llevame.Models.ChatMessage;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import static com.facebook.FacebookSdk.getApplicationContext;

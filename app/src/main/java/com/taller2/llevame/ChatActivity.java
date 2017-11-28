@@ -1,23 +1,14 @@
 package com.taller2.llevame;
 
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-
-import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,21 +18,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.ChatMessage;
-import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.Notification;
 import com.taller2.llevame.Models.PushNotification;
 import com.taller2.llevame.Views.LoadingView;
+import com.taller2.llevame.Views.MessageAdapter;
 import com.taller2.llevame.serviceLayerModel.ChatRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
-import com.taller2.llevame.Views.MessageAdapter;
-
-
-
-import java.util.ArrayList;
 
 public class ChatActivity extends BaseAtivity {
 

@@ -1,5 +1,5 @@
 package com.taller2.llevame.serviceLayerModel;
-import android.app.Activity;
+
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -8,10 +8,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import static com.facebook.FacebookSdk.getApplicationContext;
-import com.android.volley.DefaultRetryPolicy;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by MaríaAgustina on 11/9/2017.

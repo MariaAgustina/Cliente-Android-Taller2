@@ -2,8 +2,6 @@ package com.taller2.llevame.Models;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import java.io.Serializable;
 
 /**

@@ -1,7 +1,5 @@
 package com.taller2.llevame;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
@@ -11,8 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.AccessToken;
-import com.taller2.llevame.serviceLayerModel.HTTPRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

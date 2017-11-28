@@ -1,7 +1,6 @@
 package com.taller2.llevame;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
-import com.taller2.llevame.Models.Session;
 import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.serviceLayerModel.LoginFacebookRequest;
 import com.taller2.llevame.serviceLayerModel.LoginRequest;

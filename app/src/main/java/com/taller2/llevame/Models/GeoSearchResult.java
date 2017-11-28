@@ -1,6 +1,6 @@
 package com.taller2.llevame.Models;
+
 import android.location.Address;
-import android.location.Location;
 
 /**
  * Created by amarkosich on 11/20/17.

@@ -10,8 +10,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.CookieHolder;
 import com.taller2.llevame.Models.Step;
