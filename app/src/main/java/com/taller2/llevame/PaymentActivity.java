@@ -28,7 +28,6 @@ public class PaymentActivity extends AppCompatActivity {
 
     public static final String PAYMENT_SETTINGS = "paymentSettings";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

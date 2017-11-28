@@ -1,8 +1,10 @@
 package com.taller2.llevame;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import com.facebook.login.LoginManager;
 import com.taller2.llevame.Creational.FactoryActivities;
 
 /**
@@ -10,6 +12,8 @@ import com.taller2.llevame.Creational.FactoryActivities;
  */
 
 public class PassengerProfileActivity extends ProfileActivity {
+
+    private static final String PAYMENT_SETTINGS = "paymentSettings";
 
     /**
      *
@@ -31,11 +35,26 @@ public class PassengerProfileActivity extends ProfileActivity {
     }
 
 
+    public void editPaymentMethodButtonPressed(View view){
+
+        showPayMethodActivity();
+    }
+
+
     private void setPaymentMethodIfShould(){
-        //TODO: if paymethod guardado return
+        SharedPreferences settings = getSharedPreferences(PAYMENT_SETTINGS, 0);
+        String paymethodSaved = settings.getString("paymethod","");
+
+        boolean paymethodAlreadySaved = !paymethodSaved.trim().isEmpty();
+        if(paymethodAlreadySaved){
+            return;
+        }
+        showPayMethodActivity();
+    }
+
+    private void showPayMethodActivity(){
         FactoryActivities factoryActivities = new FactoryActivities();
         factoryActivities.goToPaymentActivity(this);
-
     }
 
     /**

@@ -48,8 +48,7 @@ public class DriverProfileActivity extends ProfileActivity {
     @Override
     public void setUpInitials() {
         super.setUpInitials();
-        this.findViewById(R.id.switchAvailable).setVisibility(View.VISIBLE);
-        this.findViewById(R.id.switchOnTrip).setVisibility(View.VISIBLE);
+        this.findViewById(R.id.editPaymentMethod).setVisibility(View.INVISIBLE);
         postLocation();
     }
 

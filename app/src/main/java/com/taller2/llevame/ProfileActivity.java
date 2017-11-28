@@ -62,16 +62,6 @@ public class ProfileActivity extends BaseAtivity {
     }
 
     /**
-     * logout from facebook
-     * @param view
-     */
-    public void logout(View view){
-        //cierro sesion en facebook
-        LoginManager.getInstance().logOut();
-        goToMainActivity();
-    }
-
-    /**
      * modify profil button pressed
      * @param view the view that contains the go to modifyProfile button
      */

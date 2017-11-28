@@ -58,6 +58,8 @@
     <string name="start_trip">Comenzar a viajar</string>
     <string name="driver_available">Disponible</string>
     <string name="driver_on_trip">En viaje</string>
+    <string name="edit_payment_method">Editar forma de pago</string>
+
 
     <!--Modify your profile-->
     <string name="save_changes">Guardar cambios</string>
