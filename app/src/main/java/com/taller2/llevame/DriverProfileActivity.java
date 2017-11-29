@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Notification;
 import com.taller2.llevame.Models.PushNotification;
+import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.serviceLayerModel.LastLocationRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
@@ -34,6 +36,7 @@ public class DriverProfileActivity extends ProfileActivity {
 
     private static final String TAG = "ProfileActivity";
     private String clientComunicationToken;
+    Trajectory trajectory;
     /**
      * @param savedInstanceState
      */
@@ -93,16 +96,23 @@ public class DriverProfileActivity extends ProfileActivity {
             clientComunicationToken = intent.getExtras().getString("comunicationToken");
             String name = intent.getExtras().getString("name");
             String surname = intent.getExtras().getString("surname");
+            String username = intent.getExtras().getString("username");
             String from = intent.getExtras().getString("address_from");
             String to = intent.getExtras().getString("address_to");
 
+            Trajectory trajectory = new Trajectory();
+            trajectory.origin_lat = Double.parseDouble(intent.getExtras().getString("lat_from"));
+            trajectory.origin_long = Double.parseDouble(intent.getExtras().getString("lon_from"));
+            trajectory.destination_lat = Double.parseDouble(intent.getExtras().getString("lat_to"));
+            trajectory.destination_long = Double.parseDouble(intent.getExtras().getString("lon_to"));
+
             String alertString = "Pasajero " + name + " " + surname + " desea viajar desde " + from + " hasta " + to;
-            showAlertDialog(alertString);
+            showAlertDialog(alertString,trajectory,username);
         }
     };
 
 
-    private void showAlertDialog(String alertString){
+    private void showAlertDialog(String alertString, final Trajectory trajectory,final String username){
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
@@ -116,6 +126,11 @@ public class DriverProfileActivity extends ProfileActivity {
                         tripAccepted();
                     }
                 })
+                .setNeutralButton("Ver Mapa", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        goToMapActivity(trajectory,username);
+                    }
+                })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO
@@ -123,6 +138,11 @@ public class DriverProfileActivity extends ProfileActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void goToMapActivity(Trajectory trajectory,String username){
+        FactoryActivities factoryActivities = new FactoryActivities();
+        factoryActivities.goToDriverMapActivity(this,this.client,trajectory,clientComunicationToken,username);
     }
 
     /**

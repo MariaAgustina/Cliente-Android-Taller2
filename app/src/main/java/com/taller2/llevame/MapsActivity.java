@@ -73,8 +73,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
     private static final String PAYMENT_SETTINGS = "paymentSettings";
     private static final String TAG = "MapsActivity";
-    private GoogleMap mMap;
-    private View whereToGoButton;
+    public GoogleMap mMap;
+    public View whereToGoButton;
     private View whereToGoView;
     private View startedTripButton;
     private View finishedTripButton;
@@ -98,7 +98,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private StartEndPointTrip startPoint;
     private StartEndPointTrip endPoint;
     private String tripId;
-    private FloatingActionButton fab;
+    public FloatingActionButton fab;
+    private String driverToken;
 
     /**
      * creation of main activity
@@ -130,6 +131,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         this.loadingView = this.findViewById(R.id.loadingPanel);
         this.client = (Client) getIntent().getSerializableExtra("client");
         this.fab = (FloatingActionButton)findViewById(R.id.fab);
+        this.fab.setVisibility(View.INVISIBLE);
         configFabButtonPressed();
 
     }
@@ -409,7 +411,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
     }
 
-    private void clearPolylinesIfShould(){
+    public void clearPolylinesIfShould(){
         mMap.clear();
 
     }
@@ -480,12 +482,18 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         data.surname = client.surname;
         data.address_to = addressTo.getAddressLine(0);
         data.address_from = addressFrom.getAddressLine(0);
+        data.clientUsername = client.username;
+        data.lat_from = addressFrom.getLatitude();
+        data.lat_to = addressTo.getLatitude();
+        data.lon_from = addressFrom.getLongitude();
+        data.lon_to = addressTo.getLongitude();
 
         PushNotification pushNotification = new PushNotification();
         pushNotification.sender_id = "938482449732";
         pushNotification.to = driverComunicationToken;
         pushNotification.notification = notification;
         pushNotification.data = data;
+        this.driverToken = driverComunicationToken;
 
         PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
         pushNotificationRequest.sendPushNotification(this,pushNotification);
@@ -517,8 +525,10 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
             if(tripState.equals("accepted")){
                 String alertString = "Viaje aceptado, solicitamos nos indique cuando el comienza el viaje, apretando botón de comenzar viaje";
                 showAlertDialog(alertString);
-            }else{
+            }else if(tripState.equals("rejected")){
                 //TODO: VIAJE RECHAZADO
+            }else if(tripState.equals("chat-message")){
+                Toast.makeText(getApplicationContext(), R.string.message_recived, Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -598,6 +608,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         stateTripRequest.sendStateTripRequest(this);
         this.startedTripButton.setVisibility(View.VISIBLE);
         this.whereToGoView.setVisibility(View.INVISIBLE);
+        this.fab.setVisibility(View.VISIBLE);
     }
 
     public void startedTripButtonPressed(View view) {
@@ -612,6 +623,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         stateTripRequest.sendStateTripRequest(this);
         this.whereToGoButton.setVisibility(View.VISIBLE);
         this.finishedTripButton.setVisibility(View.INVISIBLE);
+        this.fab.setVisibility(View.INVISIBLE);
 
     }
 
@@ -625,10 +637,9 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     }
 
     public void showChat(){
-        //TODO: Eliminar valor hardcodeado
         Log.v(TAG,"go to chat");
         FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToChatActivity(this,client.username,"Oscar");
+        factoryActivities.goToChatActivity(this,client.username,this.selectedDriver.username,driverToken);
     }
 
 }

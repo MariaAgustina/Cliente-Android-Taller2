@@ -6,11 +6,13 @@ import android.util.Log;
 import com.taller2.llevame.BaseAtivity;
 import com.taller2.llevame.ChatActivity;
 import com.taller2.llevame.DeleteProfileActivity;
+import com.taller2.llevame.DriverMapsActivity;
 import com.taller2.llevame.DriverProfileActivity;
 import com.taller2.llevame.LoginActivity;
 import com.taller2.llevame.MainActivity;
 import com.taller2.llevame.MapsActivity;
 import com.taller2.llevame.Models.Client;
+import com.taller2.llevame.Models.Trajectory;
 import com.taller2.llevame.ModifyProfileActivity;
 import com.taller2.llevame.PassengerProfileActivity;
 import com.taller2.llevame.PaymentActivity;
@@ -146,11 +148,12 @@ public class FactoryActivities {
      * will go to chat activity
      * @param activity the activity that needs to show other activity in the stack
      */
-    public void goToChatActivity(BaseAtivity activity,String senderUserName,String receiverUserName){
+    public void goToChatActivity(BaseAtivity activity,String senderUserName,String receiverUserName,String communicationToken){
         Log.v(TAG,"go to register activity");
         Intent intent = new Intent(activity,ChatActivity.class);
         intent.putExtra("senderUserName",senderUserName);
         intent.putExtra("receiverUserName",receiverUserName);
+        intent.putExtra("communicationToken",communicationToken);
         activity.startActivity(intent);
     }
 
@@ -162,6 +165,20 @@ public class FactoryActivities {
         Log.v(TAG,"go to Map Activity");
         Intent intent = new Intent(activity,MapsActivity.class);
         intent.putExtra("client",client);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * will go to Map activity
+     * @param activity the activity that needs to show other activity in the stack
+     */
+    public void goToDriverMapActivity(BaseAtivity activity, Client client, Trajectory trajectory,String clientComunicationToken,String username) {
+        Log.v(TAG,"go to Map Activity");
+        Intent intent = new Intent(activity,DriverMapsActivity.class);
+        intent.putExtra("client",client);
+        intent.putExtra("trajectory",trajectory);
+        intent.putExtra("username",username);
+        intent.putExtra("clientComunicationToken",clientComunicationToken);
         activity.startActivity(intent);
     }
 

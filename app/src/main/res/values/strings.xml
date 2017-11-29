@@ -100,6 +100,9 @@
     <!--Map activity-->
     <string name="title_activity_maps">Map</string>
     <string name="where_go">¿A dónde vas?</string>
+    <string name="message_recived">Mensaje recibido</string>
+    <string name="accept_trip">Aceptar viaje</string>
+    <string name="reject_trip">Rechazar viaje</string>
     <string name="go">Ir</string>
     <string name="notification_sent">Chofer asignado, en breve se le comunicará la respuesta del mismo para iniciar el viaje</string>
     <string name="started_trip">Viaje Comenzado</string>

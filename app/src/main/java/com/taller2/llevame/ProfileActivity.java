@@ -94,4 +94,6 @@ public class ProfileActivity extends BaseAtivity {
         super.onServiceDidFailed(error);
         this.loadingView.setLoadingViewInvisible(this);
     }
+
+
 }

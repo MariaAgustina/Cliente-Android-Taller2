@@ -33,8 +33,14 @@ public class LLEFirebaseMessagingService extends FirebaseMessagingService {
             intent.putExtra("comunicationToken", remoteMessage.getData().get("comunicationToken"));
             intent.putExtra("name", remoteMessage.getData().get("name"));
             intent.putExtra("surname", remoteMessage.getData().get("surname"));
+            intent.putExtra("username", remoteMessage.getData().get("clientUsername"));
             intent.putExtra("address_from", remoteMessage.getData().get("address_from"));
             intent.putExtra("address_to", remoteMessage.getData().get("address_to"));
+            intent.putExtra("lat_from", remoteMessage.getData().get("lat_from"));
+            intent.putExtra("lon_from", remoteMessage.getData().get("lon_from"));
+            intent.putExtra("lat_to", remoteMessage.getData().get("lat_to"));
+            intent.putExtra("lon_to", remoteMessage.getData().get("lon_to"));
+
             broadcaster.sendBroadcast(intent);
         }else if(remoteMessage.getData().get("type").equals("trip-accepted")){
             Intent intent = new Intent("NotificationData");
@@ -45,10 +51,14 @@ public class LLEFirebaseMessagingService extends FirebaseMessagingService {
             Intent intent = new Intent("NotificationData");
             intent.putExtra("tripState", "rejected");
             broadcaster.sendBroadcast(intent);
+        }else if(remoteMessage.getData().get("type").equals("chat-message")) {
+            Intent intent = new Intent("NotificationData");
+            intent.putExtra("tripState", "chat-message");
+            broadcaster.sendBroadcast(intent);
         }
 
 
-    }
+        }
 
 
 }

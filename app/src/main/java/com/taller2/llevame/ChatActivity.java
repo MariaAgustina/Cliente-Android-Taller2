@@ -18,10 +18,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.taller2.llevame.Models.Chat;
 import com.taller2.llevame.Models.ChatMessage;
 import com.taller2.llevame.Models.Notification;
 import com.taller2.llevame.Models.PushNotification;
+import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.Views.LoadingView;
 import com.taller2.llevame.Views.MessageAdapter;
 import com.taller2.llevame.serviceLayerModel.ChatRequest;
@@ -38,22 +40,22 @@ public class ChatActivity extends BaseAtivity {
 
     private Chat chat;
     private LoadingView loadingView;
-
+    private String communicationToken;
 
     private static final String TAG = "ChatActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         this.senderUserName =  (String)getIntent().getSerializableExtra("senderUserName");
         this.receiverUserName =  (String)getIntent().getSerializableExtra("receiverUserName");
+        this.communicationToken =  (String)getIntent().getSerializableExtra("communicationToken");
 
         this.loadingView = new LoadingView();
-
         this.fab = (FloatingActionButton)findViewById(R.id.fab);
-
         authenticateOnFirebase();
         configMessageButtonPressed();
         getChatMessages();
@@ -108,17 +110,20 @@ public class ChatActivity extends BaseAtivity {
     }
 
     private void sendPushNotification(ChatMessage chatMessage){
-        //TODO: Hay codigo hardcodeado
 
         Log.v(TAG,"Sending push notification.....");
         Notification notification = new Notification();
         notification.title = chatMessage.messageText;
-        notification.body = "This is an FCM notification message!";
+
+        TripRequestData data = new TripRequestData();
+        data.comunicationToken = FirebaseInstanceId.getInstance().getToken();
+        data.type = "chat-message";
 
         PushNotification pushNotification = new PushNotification();
         pushNotification.sender_id = "938482449732";
-        pushNotification.to = "dyqaQ4Os9z0:APA91bEt5CwSQgWJg5_ZKrrA3AdMwcL6oLGZwFWCRlOq-ro4feIa6Vl6esogdu1Nbg3-m0IWEtW3wPEG_c2MlfO_8MFJDDeg0maEGR7maR8i37DbMo46lgqV3LhiT48p5D1p27nyR1-L";
+        pushNotification.to = this.communicationToken;
         pushNotification.notification = notification;
+        pushNotification.data = data;
 
         PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
         pushNotificationRequest.sendPushNotification(this,pushNotification);
