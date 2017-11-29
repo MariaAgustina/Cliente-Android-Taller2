@@ -101,9 +101,9 @@ public class RegisterActivity extends BaseAtivity {
             return;
         }
 
-        //TODO: validar email
         String email = this.emailInput.getText().toString();
-        if(email.equals("")){
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if(email.equals("") || !email.matches(emailPattern)){
             Toast.makeText(getApplicationContext(),R.string.email_should_not_empty,Toast.LENGTH_SHORT).show();
             return;
         }

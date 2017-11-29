@@ -70,7 +70,7 @@
     <string name="birthdate">Fecha de nacimiento (DD/MM/AAAA):</string>
     <string name="name_should_not_empty">Por favor, ingrese su nombre</string>
     <string name="surname_should_not_empty">Por favor, ingrese su apellido</string>
-    <string name="email_should_not_empty">Por favor, ingrese su email</string>
+    <string name="email_should_not_empty">Por favor, ingrese una direccion de email valida</string>
     <string name="birthdate_should_not_empty">Por favor, ingrese su fecha de nacimiento</string>
     <string name="country_should_not_empty">Por favor, ingrese su país</string>
     <string name="modify_profile_success">Su perfil se ha modificado con exito</string>
