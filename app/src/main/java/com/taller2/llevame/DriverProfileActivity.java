@@ -28,6 +28,8 @@ import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.serviceLayerModel.LastLocationRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
 
+import java.util.List;
+
 /**
  * Created by amarkosich on 10/8/17.
  */
@@ -55,18 +57,34 @@ public class DriverProfileActivity extends ProfileActivity {
         postLocation();
     }
 
+    private Location getLastKnownLocation() {
+        Location bestLocation = null;
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            LocationManager mLocationManager;
+            mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            List<String> providers = mLocationManager.getProviders(true);
+            for (String provider : providers) {
+                Location l = mLocationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+            }
+        }
+        return bestLocation;
+    }
+
     private void postLocation(){
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
 
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-
-            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+            Location location = this.getLastKnownLocation();
             if (location != null)
             {
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
                 LastLocationRequest lastLoactionRequest = new LastLocationRequest(location,this.client.id);
                 lastLoactionRequest.postLastLocation(this);
             }

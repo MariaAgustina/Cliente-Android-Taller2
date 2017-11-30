@@ -100,23 +100,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="307dp"
-        android:gravity="center"
-        android:onClick="deleteProfile"
-        android:visibility="invisible"
-        android:text="@string/delete_your_profile"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/editPaymentMethod"
@@ -133,6 +116,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="deleteProfile"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_action_remove"
+        tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="71dp" />
 
 
 </android.support.constraint.ConstraintLayout>

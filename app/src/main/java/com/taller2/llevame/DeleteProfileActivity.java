@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.taller2.llevame.Creational.FactoryActivities;
 import com.taller2.llevame.Models.Client;
 import com.taller2.llevame.Models.ClientData;
@@ -39,8 +41,17 @@ public class DeleteProfileActivity extends BaseAtivity {
 
     public void onServiceDidFailed(VolleyError error){
         //TODO: esto esta asi porque supuestamente se elimina bien el usuario en el server pero retorna un error.
+        if(isLoggedInFacebook()){
+            LoginManager.getInstance().logOut();
+        }
         Toast.makeText(getApplicationContext(),R.string.delete_success,Toast.LENGTH_SHORT).show();
         FactoryActivities factoryActivities = new FactoryActivities();
         factoryActivities.goToMainActivity(this);
     }
+
+    public boolean isLoggedInFacebook() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
+
 }

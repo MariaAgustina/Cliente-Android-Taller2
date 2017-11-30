@@ -190,8 +190,6 @@ public class RegisterFacebookActivity extends BaseAtivity {
         }else{
             factoryActivities.goToPassengerProfileActivity(this,client);
         }
-
-        factoryActivities.goToProfileActivity(this,client);
     }
 
     public void onServiceDidFailed(VolleyError error){
