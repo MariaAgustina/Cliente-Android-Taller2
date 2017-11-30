@@ -121,4 +121,33 @@ public class BaseAtivity extends AppCompatActivity {
     public void onTripRequestSuccess(String tripId) {
 
     }
+
+    /**
+     * to override
+     */
+    public void onPostLocationTripHasStartedSuccess() {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onPostLocationtripHasFinishedSuccess() {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onPostLocationTripHasStartedFailed() {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onPostLocationtripHasFinishedFailed() {
+
+    }
+
 }

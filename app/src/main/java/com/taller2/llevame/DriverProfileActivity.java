@@ -86,7 +86,7 @@ public class DriverProfileActivity extends ProfileActivity {
             if (location != null)
             {
                 LastLocationRequest lastLoactionRequest = new LastLocationRequest(location,this.client.id);
-                lastLoactionRequest.postLastLocation(this);
+                lastLoactionRequest.postLastLocation(this,false,false);
             }
 
         }else {

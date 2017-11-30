@@ -48,7 +48,7 @@ public class LastLocationRequest extends  HTTPRequest {
      * request post last location of available drivers
      * @param delegate the delegate that will be notified when the async request has success or error
      */
-    public void postLastLocation(final BaseAtivity delegate) {
+    public void postLastLocation(final BaseAtivity delegate, final boolean tripHasFinished, final boolean tripHasStarted) {
         this.endponintUrl = "/api/v1/lastlocation";
         this.configureUrl();
 
@@ -78,13 +78,25 @@ public class LastLocationRequest extends  HTTPRequest {
                         public void onResponse(JSONObject response) {
                             Log.v(TAG,"Response is: "+ response);
 
-                            delegate.onPostLocationSuccess();
+                            if(!tripHasFinished && !tripHasStarted) {
+                                delegate.onPostLocationSuccess();
+                            }else if(tripHasStarted){
+                                delegate.onPostLocationTripHasStartedSuccess();
+                            }else if(tripHasFinished){
+                                delegate.onPostLocationtripHasFinishedSuccess();
+                            }
                         }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    delegate.onServiceDidFailed(error);
+                    if(!tripHasFinished && !tripHasStarted) {
+                        delegate.onServiceDidFailed(error);
+                    }else if(tripHasStarted){
+                        delegate.onPostLocationTripHasStartedFailed();
+                    }else if(tripHasFinished){
+                        delegate.onPostLocationtripHasFinishedFailed();
+                    }
                     Log.v(TAG,"Error: " +error.getMessage());
                 }
             }){

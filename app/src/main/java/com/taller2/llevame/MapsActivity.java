@@ -60,6 +60,7 @@ import com.taller2.llevame.Views.DelayAutoCompleteTextView;
 import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
 import com.taller2.llevame.serviceLayerModel.LLEFirebaseTokenRequest;
+import com.taller2.llevame.serviceLayerModel.LastLocationRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
 import com.taller2.llevame.serviceLayerModel.StateTripRequest;
 import com.taller2.llevame.serviceLayerModel.TrajectoryRequest;
@@ -68,6 +69,9 @@ import com.taller2.llevame.serviceLayerModel.TripRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.os.Handler;
+
 
 public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
@@ -78,7 +82,6 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private View whereToGoView;
     private View startedTripButton;
     private View finishedTripButton;
-
 
 
     private Integer THRESHOLD = 2;
@@ -100,6 +103,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     private String tripId;
     public FloatingActionButton fab;
     private String driverToken;
+    private Runnable runnableCode;
+    private Handler handler;
 
     /**
      * creation of main activity
@@ -130,18 +135,18 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         setUpGeoAutocompleteToView();
         this.loadingView = this.findViewById(R.id.loadingPanel);
         this.client = (Client) getIntent().getSerializableExtra("client");
-        this.fab = (FloatingActionButton)findViewById(R.id.fab);
+        this.fab = (FloatingActionButton) findViewById(R.id.fab);
         this.fab.setVisibility(View.INVISIBLE);
         configFabButtonPressed();
 
     }
 
-    private void setLoadingViewInvisible(){
+    private void setLoadingViewInvisible() {
         this.loadingView.setVisibility(View.INVISIBLE);
         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    private void setLoadingViewVisible(){
+    private void setLoadingViewVisible() {
         this.loadingView.setVisibility(View.VISIBLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -319,12 +324,12 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     public void onAvailableDriverSuccess(List<AvailableDriver> availableDrivers) {
 
         this.availableDrivers = availableDrivers;
-        for (int i = 0; i < availableDrivers.size(); i++){
+        for (int i = 0; i < availableDrivers.size(); i++) {
             Driver driver = availableDrivers.get(i).info;
             LLELocation location = availableDrivers.get(i).location;
 
             mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(location.lat,location.Long))
+                    .position(new LatLng(location.lat, location.Long))
                     .title(driver.name)
                     .snippet(driver.surname)); //TODO: mostrar info sobre autos
         }
@@ -354,7 +359,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     /**
      * update the views to initial states
      */
-    private void updateInitialValues(){
+    private void updateInitialValues() {
         this.whereToGoButton.setVisibility(View.VISIBLE);
         this.whereToGoView.setVisibility(View.INVISIBLE);
         this.setLoadingViewInvisible();
@@ -368,7 +373,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
      */
     public void startTripButtonPressed(View view) {
 
-        if(addressTo == null || addressFrom == null || addressFrom.equals("") || addressTo.equals("")){
+        if (addressTo == null || addressFrom == null || addressFrom.equals("") || addressTo.equals("")) {
             Toast.makeText(getApplicationContext(), R.string.complete_fields_error, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -379,7 +384,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         LLEAddress lleaddressStart = new LLEAddress();
         lleaddressStart.street = addressFrom.getAddressLine(0);
 
-        TripLocation starttripLocation= new TripLocation();
+        TripLocation starttripLocation = new TripLocation();
         starttripLocation.lat = addressFrom.getLatitude();
         starttripLocation.lon = addressFrom.getLongitude();
         lleaddressStart.location = starttripLocation;
@@ -391,7 +396,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         LLEAddress lleaddressEnd = new LLEAddress();
         lleaddressEnd.street = addressTo.getAddressLine(0);
 
-        TripLocation endripLocation= new TripLocation();
+        TripLocation endripLocation = new TripLocation();
         endripLocation.lat = addressTo.getLatitude();
         endripLocation.lon = addressTo.getLongitude();
         lleaddressEnd.location = endripLocation;
@@ -411,7 +416,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
     }
 
-    public void clearPolylinesIfShould(){
+    public void clearPolylinesIfShould() {
         mMap.clear();
 
     }
@@ -419,6 +424,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
     /**
      * Renders the way on the map
+     *
      * @param steps all the steps returned from google api
      */
     public void onGetWaySuccess(ArrayList<Step> steps) {
@@ -426,11 +432,11 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         updateInitialValues();
         clearPolylinesIfShould();
 
-        for (int i = 0; i < steps.size(); i++){
+        for (int i = 0; i < steps.size(); i++) {
 
             Step step = steps.get(i);
-            LatLng latLng1 = new LatLng(step.start_location.lat,step.start_location.lng);
-            LatLng latLng2 = new LatLng(step.end_location.lat,step.end_location.lng);
+            LatLng latLng1 = new LatLng(step.start_location.lat, step.start_location.lng);
+            LatLng latLng2 = new LatLng(step.end_location.lat, step.end_location.lng);
 
             PolylineOptions polyline = new PolylineOptions()
                     .add(latLng1, latLng2)
@@ -452,24 +458,25 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
     /**
      * selects a driver to start a trip
      */
-    private void selectDriver(){
-        if(availableDrivers.size() <= 0){
+    private void selectDriver() {
+        if (availableDrivers.size() <= 0) {
             Toast.makeText(getApplicationContext(), R.string.no_drivers_available, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int position=0;
+        int position = 0;
         this.selectedDriver = availableDrivers.get(position).info;
         LLEFirebaseTokenRequest tokenRequest = new LLEFirebaseTokenRequest();
-        tokenRequest.getFirebaseToken(this,this.selectedDriver.id);
+        tokenRequest.getFirebaseToken(this, this.selectedDriver.id);
     }
 
     /**
      * This method will comunicate the driver there is a new trip
+     *
      * @param driverComunicationToken the driver comunication token to send push notification
      */
     public void onGetFirebaseComunicationTokenSuccess(String driverComunicationToken) {
-        Log.v(TAG,"Sending push notification.....");
+        Log.v(TAG, "Sending push notification.....");
         Notification notification = new Notification();
         notification.title = "Pasajero solicita nuevo viaje";
         notification.body = "";
@@ -496,7 +503,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         this.driverToken = driverComunicationToken;
 
         PushNotificationSenderRequest pushNotificationRequest = new PushNotificationSenderRequest();
-        pushNotificationRequest.sendPushNotification(this,pushNotification);
+        pushNotificationRequest.sendPushNotification(this, pushNotification);
 
         Toast.makeText(getApplicationContext(), R.string.notification_sent, Toast.LENGTH_SHORT).show();
 
@@ -522,19 +529,19 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
             String driverComunicationToken = intent.getExtras().getString("comunicationToken");
             String tripState = intent.getExtras().getString("tripState"); //accepted or rejected
 
-            if(tripState.equals("accepted")){
+            if (tripState.equals("accepted")) {
                 String alertString = "Viaje aceptado, solicitamos nos indique cuando el comienza el viaje, apretando botón de comenzar viaje";
                 showAlertDialog(alertString);
-            }else if(tripState.equals("rejected")){
+            } else if (tripState.equals("rejected")) {
                 //TODO: VIAJE RECHAZADO
-            }else if(tripState.equals("chat-message")){
+            } else if (tripState.equals("chat-message")) {
                 Toast.makeText(getApplicationContext(), R.string.message_recived, Toast.LENGTH_SHORT).show();
             }
 
         }
     };
 
-    private void showAlertDialog(String alertString){
+    private void showAlertDialog(String alertString) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
@@ -553,7 +560,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
                 .show();
     }
 
-    private void sendTrip(){
+    private void sendTrip() {
 
         TripData tripData = new TripData();
 
@@ -568,24 +575,24 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
         // Restore preferences
         SharedPreferences settings = getSharedPreferences(PAYMENT_SETTINGS, 0);
-        String paymethodSaved = settings.getString("paymethod","");
+        String paymethodSaved = settings.getString("paymethod", "");
 
         Paymethod paymethod = new Paymethod();
 
-        if(paymethodSaved.equals("cash")){
+        if (paymethodSaved.equals("cash")) {
             paymethod.paymethod = "cash";
             PaymethodCashParameters payCash = new PaymethodCashParameters();
-            payCash.type = settings.getString("paymentCashCurrency","USD");
-            paymethod.currency = settings.getString("paymentCashCurrency","USD");
+            payCash.type = settings.getString("paymentCashCurrency", "USD");
+            paymethod.currency = settings.getString("paymentCashCurrency", "USD");
             paymethod.parameters = payCash;
-        }else{
+        } else {
             paymethod.paymethod = "card";
             PaymethodCardParameters payCardParameters = new PaymethodCardParameters();
-            payCardParameters.type = settings.getString("cardType","visa");
-            payCardParameters.ccvv = settings.getString("ccvv","");
-            payCardParameters.expiration_month = settings.getString("expiration_month","");
-            payCardParameters.expiration_year = settings.getString("expiration_year","");
-            payCardParameters.number = settings.getString("cardNumber","");
+            payCardParameters.type = settings.getString("cardType", "visa");
+            payCardParameters.ccvv = settings.getString("ccvv", "");
+            payCardParameters.expiration_month = settings.getString("expiration_month", "");
+            payCardParameters.expiration_year = settings.getString("expiration_year", "");
+            payCardParameters.number = settings.getString("cardNumber", "");
             paymethod.parameters = payCardParameters;
         }
 
@@ -595,36 +602,99 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         tripData.paymethod = paymethod;
 
         TripRequest tripRequest = new TripRequest(this.client.id);
-        tripRequest.postTrip(this,tripData);
+        tripRequest.postTrip(this, tripData);
     }
 
+    /**
+     * the trip has post successfully
+     * @param tripId the tripId
+     */
     public void onTripRequestSuccess(String tripId) {
         this.tripId = tripId;
         sendAcceptTrip(tripId);
     }
 
-    private void sendAcceptTrip(String tripId){
-        StateTripRequest stateTripRequest = new StateTripRequest("accept",this.selectedDriver.id,tripId);
+    /**
+     * accept the post notification
+     *
+     * @param tripId the tripId
+     */
+    private void sendAcceptTrip(String tripId) {
+        StateTripRequest stateTripRequest = new StateTripRequest("accept", this.selectedDriver.id, tripId);
         stateTripRequest.sendStateTripRequest(this);
         this.startedTripButton.setVisibility(View.VISIBLE);
         this.whereToGoView.setVisibility(View.INVISIBLE);
         this.fab.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * the client indicates tha the trip has started
+     */
     public void startedTripButtonPressed(View view) {
-        StateTripRequest stateTripRequest = new StateTripRequest("start",this.client.id,tripId);
+        postLocation(true,false);
+    }
+
+    /**
+     * the client indicates tha the trip has finished
+     */
+    public void finishedTripButtonPressed(View view) {
+        postLocation(false,true);
+    }
+
+    /**
+     * this method is called when the trip has started and fails the post location
+     */
+    public void onPostLocationTripHasStartedFailed() {
+        postLocation(true,false);
+    }
+
+    /**
+     * this method is called when the trip has finished and fails the post location
+     */
+    public void onPostLocationtripHasFinishedFailed() {
+        postLocation(false,true);
+    }
+
+    /**
+     * this method is called when the trip has started and success the post location
+     */
+    public void onPostLocationTripHasStartedSuccess() {
+
+        StateTripRequest stateTripRequest = new StateTripRequest("start", this.client.id, tripId);
         stateTripRequest.sendStateTripRequest(this);
         this.finishedTripButton.setVisibility(View.VISIBLE);
         this.startedTripButton.setVisibility(View.INVISIBLE);
+
+        startSendingLocationPeriodically();
+
     }
 
-    public void finishedTripButtonPressed(View view) {
-        StateTripRequest stateTripRequest = new StateTripRequest("end",this.client.id,tripId);
+    public void startSendingLocationPeriodically() {
+        // Create the Handler object (on the main thread by default)
+        this.handler = new Handler();
+        // Define the code block to be executed
+        this.runnableCode = new Runnable() {
+            @Override
+            public void run() {
+                postLocation(false,false);
+                handler.postDelayed(this, 10000);
+            }
+        };
+        // Start the initial runnable task by posting through the handler
+        handler.post(runnableCode);
+    }
+
+
+        /**
+         * this method is called when the trip has finished and success the post location
+         */
+    public void onPostLocationtripHasFinishedSuccess() {
+        handler.removeCallbacks(runnableCode);
+        StateTripRequest stateTripRequest = new StateTripRequest("end", this.client.id, tripId);
         stateTripRequest.sendStateTripRequest(this);
         this.whereToGoButton.setVisibility(View.VISIBLE);
         this.finishedTripButton.setVisibility(View.INVISIBLE);
         this.fab.setVisibility(View.INVISIBLE);
-
     }
 
     public void configFabButtonPressed() {
@@ -636,12 +706,27 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
         });
     }
 
-    public void showChat(){
-        Log.v(TAG,"go to chat");
+    public void showChat() {
+        Log.v(TAG, "go to chat");
         FactoryActivities factoryActivities = new FactoryActivities();
-        factoryActivities.goToChatActivity(this,client.username,this.selectedDriver.username,driverToken);
+        factoryActivities.goToChatActivity(this, client.username, this.selectedDriver.username, driverToken);
     }
 
+
+    private void postLocation(boolean tripHasStarted, boolean tripHasFinished) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            Location location = this.getLastKnownLocation();
+            if (location != null) {
+                LastLocationRequest lastLoactionRequest = new LastLocationRequest(location, this.client.id);
+                lastLoactionRequest.postLastLocation(this, tripHasFinished, tripHasStarted);
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.permisson_denied_error, Toast.LENGTH_SHORT).show();
+        }
+    }
 }
 
 
