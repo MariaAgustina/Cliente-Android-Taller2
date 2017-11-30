@@ -150,4 +150,18 @@ public class BaseAtivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * to override
+     */
+    public void onEstimateTripRequestSuccess() {
+
+    }
+
+    /**
+     * to override
+     */
+    public void onEstimateTripRequestError() {
+
+    }
 }

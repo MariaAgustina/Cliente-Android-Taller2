@@ -92,6 +92,7 @@
     <string name="complete_fields_error">Por favor, ingrese las ubicaciones correctamente</string>
     <string name="no_drivers_available">En este momento no se encuentran choferes disponibles, por favor intentelo más tarde</string>
     <string name="no_location_error">Por favor, encienda el GPS</string>
+    <string name="no_money_available">En este momento no cuenta con el suficiente dinero para hacer el viaje</string>
     <string name="title_location_permission">Permisos de ubicacion</string>
     <string name="text_location_permission">Llevame solicita acceder a su ubicación para poder comenzar a viajar</string>
     <string name="text_location_confirm">Confirmar</string>

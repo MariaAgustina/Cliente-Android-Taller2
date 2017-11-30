@@ -59,6 +59,7 @@ import com.taller2.llevame.Models.TripRequestData;
 import com.taller2.llevame.Views.DelayAutoCompleteTextView;
 import com.taller2.llevame.Views.GeoAutoCompleteAdapter;
 import com.taller2.llevame.serviceLayerModel.AvailableDriversRequest;
+import com.taller2.llevame.serviceLayerModel.EstimateTripRequest;
 import com.taller2.llevame.serviceLayerModel.LLEFirebaseTokenRequest;
 import com.taller2.llevame.serviceLayerModel.LastLocationRequest;
 import com.taller2.llevame.serviceLayerModel.PushNotificationSenderRequest;
@@ -466,8 +467,8 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
         int position = 0;
         this.selectedDriver = availableDrivers.get(position).info;
-        LLEFirebaseTokenRequest tokenRequest = new LLEFirebaseTokenRequest();
-        tokenRequest.getFirebaseToken(this, this.selectedDriver.id);
+        estimateTrip();
+
     }
 
     /**
@@ -553,6 +554,7 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         sendTrip();
+
                     }
                 })
 
@@ -560,10 +562,28 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
                 .show();
     }
 
-    private void sendTrip() {
+    public void estimateTrip(){
+        EstimateTripRequest estimateTripRequest = new EstimateTripRequest();
+        estimateTripRequest.estimateTrip(this,getTrip());
+    }
 
-        TripData tripData = new TripData();
+    /**
+     * estimates trip return success
+     */
+    public void onEstimateTripRequestSuccess() {
+        LLEFirebaseTokenRequest tokenRequest = new LLEFirebaseTokenRequest();
+        tokenRequest.getFirebaseToken(this, this.selectedDriver.id);
+    }
 
+    /**
+     * estimates trip has failed
+     */
+    public void onEstimateTripRequestError() {
+        Toast.makeText(getApplicationContext(), R.string.no_money_available, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private Trip getTrip(){
         Trip trip = new Trip();
         trip.driver = this.selectedDriver.id;
         trip.passenger = this.client.id;
@@ -571,7 +591,13 @@ public class MapsActivity extends BaseAtivity implements OnMapReadyCallback {
 
         trip.start = this.startPoint;
         trip.end = this.endPoint;
+        return trip;
+    }
 
+    private void sendTrip() {
+
+        TripData tripData = new TripData();
+        Trip trip = getTrip();
 
         // Restore preferences
         SharedPreferences settings = getSharedPreferences(PAYMENT_SETTINGS, 0);
