@@ -111,6 +111,8 @@ public class DriverMapsActivity extends MapsActivity {
 
     public void acceptTripButtonPressed(View view) {
         this.fab.setVisibility(View.VISIBLE);
+        this.acceptTripButton.setVisibility(View.INVISIBLE);
+        this.cancelTripButton.setVisibility(View.INVISIBLE);
         tripAccepted();
     }
 

@@ -92,6 +92,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a19f5f37138eedec59f79660b93069cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af65ce98a0047e2cb6fa4412cbf86178f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_client_request.html#af65ce98a0047e2cb6fa4412cbf86178f">modifyProfile</a> (final <a class="el" href="classcom_1_1taller2_1_1llevame_1_1_base_ativity.html">BaseAtivity</a> delegate, <a class="el" href="classcom_1_1taller2_1_1llevame_1_1_models_1_1_client_data.html">ClientData</a> newClient)</td></tr>
 <tr class="separator:af65ce98a0047e2cb6fa4412cbf86178f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05859942dd3e15ef4655df5461d53ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_client_request.html#a05859942dd3e15ef4655df5461d53ddb">deleteProfile</a> (final <a class="el" href="classcom_1_1taller2_1_1llevame_1_1_base_ativity.html">BaseAtivity</a> delegate, <a class="el" href="classcom_1_1taller2_1_1llevame_1_1_models_1_1_client_data.html">ClientData</a> newClient)</td></tr>
+<tr class="separator:a05859942dd3e15ef4655df5461d53ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_h_t_t_p_request"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_h_t_t_p_request')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_h_t_t_p_request.html">com.taller2.llevame.serviceLayerModel.HTTPRequest</a></td></tr>
 <tr class="memitem:af738215d3fa2cd32d15e89171c1d3605 inherit pub_methods_classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_h_t_t_p_request"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_h_t_t_p_request.html#af738215d3fa2cd32d15e89171c1d3605">HTTPRequest</a> ()</td></tr>
 <tr class="separator:af738215d3fa2cd32d15e89171c1d3605 inherit pub_methods_classcom_1_1taller2_1_1llevame_1_1service_layer_model_1_1_h_t_t_p_request"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +144,49 @@ String&#160;</td><td class="memItemRight" valign="bottom"><b>url</b></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a05859942dd3e15ef4655df5461d53ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05859942dd3e15ef4655df5461d53ddb">&#9670;&nbsp;</a></span>deleteProfile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void com.taller2.llevame.serviceLayerModel.ClientRequest.deleteProfile </td>
+          <td>(</td>
+          <td class="paramtype">final <a class="el" href="classcom_1_1taller2_1_1llevame_1_1_base_ativity.html">BaseAtivity</a>&#160;</td>
+          <td class="paramname"><em>delegate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcom_1_1taller2_1_1llevame_1_1_models_1_1_client_data.html">ClientData</a>&#160;</td>
+          <td class="paramname"><em>newClient</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delegate</td><td>the delegate that will be notified when the async request has success or error </td></tr>
+    <tr><td class="paramname">newClient</td><td>the client that will be removed from the server </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a19f5f37138eedec59f79660b93069cff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19f5f37138eedec59f79660b93069cff">&#9670;&nbsp;</a></span>getClient()</h2>
 
@@ -210,7 +255,7 @@ String&#160;</td><td class="memItemRight" valign="bottom"><b>url</b></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">delegate</td><td>the delegate that will be notified when the async request has success or error </td></tr>
-    <tr><td class="paramname">newClient</td><td></td></tr>
+    <tr><td class="paramname">newClient</td><td>the client who's profile will be modified </td></tr>
   </table>
   </dd>
 </dl>
